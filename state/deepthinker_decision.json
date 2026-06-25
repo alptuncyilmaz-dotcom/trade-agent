@@ -28,6 +28,6 @@
     "llm": "in-session deep-thinker (manuel tetik)",
     "snapshot_ts": "2026-06-25T18:18:27.494640+00:00",
     "regime": "bear",
-    "note": "Taze analiz; eski karar dosyası kullanılmadı. Otonom path için run_deepthinker.py auth bekliyor."
+    "note": "Taze analiz; eski karar dosyası kullanılmadı. Otonom path için run_deepthinker.py geçerli setup-token bekliyor (CLAUDE_CODE_OAUTH_TOKEN)."
   }
 }

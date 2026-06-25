@@ -60,6 +60,26 @@ Demir kurallar (ihlal = otomatik WAIT'e düşürülür):
 Trade açılmayan varlık "waits"e, açılan "decisions"a girer. Her varlık ya decisions ya waits'te olmalı."""
 
 
+def cli_env():
+    """Headless `claude -p` için temiz env: host-enjekte nested oturum değişkenlerini
+    soyar (bunlar CLI'yi host-auth bekler hale getirip 'Not logged in' yapar) ve
+    setup-token'ı ~/.claude/.credentials.json'dan CLAUDE_CODE_OAUTH_TOKEN olarak geçirir."""
+    env = dict(os.environ)
+    for k in ("CLAUDECODE", "CLAUDE_CODE_CHILD_SESSION", "CLAUDE_CODE_ENTRYPOINT",
+              "CLAUDE_CODE_EXECPATH", "CLAUDE_CODE_SESSION_ID", "CLAUDE_AGENT_SDK_VERSION",
+              "CLAUDE_CODE_SDK_HAS_OAUTH_REFRESH", "CLAUDE_CODE_SDK_HAS_HOST_AUTH_REFRESH"):
+        env.pop(k, None)
+    if not env.get("CLAUDE_CODE_OAUTH_TOKEN"):
+        creds = os.path.expanduser("~/.claude/.credentials.json")
+        try:
+            tok = json.load(open(creds)).get("oauth_token")
+            if tok:
+                env["CLAUDE_CODE_OAUTH_TOKEN"] = tok
+        except (OSError, ValueError):
+            pass
+    return env
+
+
 def call_llm(prompt):
     """(text, error) döndürür. Önce ANTHROPIC_API_KEY/SDK, yoksa headless claude CLI."""
     if os.environ.get("ANTHROPIC_API_KEY"):
@@ -79,13 +99,15 @@ def call_llm(prompt):
     if os.environ.get("DT_MODEL"):
         cmd += ["--model", os.environ["DT_MODEL"]]
     try:
-        r = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=300, env=cli_env())
     except FileNotFoundError:
         return None, "claude CLI bulunamadı"
     except subprocess.TimeoutExpired:
         return None, "claude CLI timeout"
     out = (r.stdout or "").strip()
-    if r.returncode != 0 or out.lower().startswith("not logged in") or not out:
+    low = out.lower()
+    auth_fail = any(s in low for s in ("not logged in", "invalid bearer", "failed to authenticate", "401"))
+    if r.returncode != 0 or auth_fail or not out:
         return None, f"claude CLI başarısız: {(r.stderr or out or 'boş çıktı').strip()[:200]}"
     return out, None
 
