@@ -1,22 +1,22 @@
 """
 apply_deepthinker.py — deep-thinker kararlarını uygular.
 Ne yapar: deepthinker_decision.json'u okur, sizing hesaplar, pozisyonları açar/kapatır.
-Neden: deep-thinker LLM karar üretir, bu script kararı deterministic sizing ile uygular.
+Neden: deep-thinker LLM karar üretir, bu script kararı deterministic ile AYNI sizing+maliyet
+       modeliyle uygular. check_path/kapanış/sizing tek kaynaktan (execution/*) gelir → A/B'nin iki
+       kolu tam simetrik (CLAUDE.md: aynı snapshot, aynı sizing). Duplikasyon yok.
 Çıktı: state/positions_deepthinker.json + runs_deepthinker.jsonl
 """
 
 import json
 from datetime import datetime, timezone
 
-RISK_PCT = 0.015
-MAX_POS_PCT = 0.30
-TAKER_FEE = 0.00035
+from execution import leverage, simulator
 
 def load_json(path, default=None):
     try:
         with open(path) as f:
             return json.load(f)
-    except:
+    except FileNotFoundError:
         return default
 
 def save_json(path, data):
@@ -26,33 +26,6 @@ def save_json(path, data):
 def append_jsonl(path, record):
     with open(path, "a") as f:
         f.write(json.dumps(record) + "\n")
-
-def compute_sizing(balance, entry, stop):
-    stop_dist = abs(entry - stop) / entry
-    if stop_dist == 0:
-        return 0, 0
-    risk_usd = balance * RISK_PCT
-    notional = risk_usd / stop_dist
-    notional = min(notional, balance * MAX_POS_PCT)
-    leverage = min(round(notional / balance, 2), 5.0)
-    return round(notional, 2), leverage
-
-def check_path(position, asset):
-    price = asset["price"]
-    side = position["side"]
-    stop = position["stop"]
-    target = position["target"]
-    if side == "buy":
-        if price <= stop:
-            return "stop_hit"
-        if price >= target:
-            return "target_hit"
-    else:
-        if price >= stop:
-            return "stop_hit"
-        if price <= target:
-            return "target_hit"
-    return "open"
 
 def main():
     snapshot = load_json("state/snapshot_latest.json")
@@ -74,18 +47,17 @@ def main():
         asset = snapshot["assets"].get(coin)
         if not asset:
             continue
-        status = check_path(pos, asset)
+        price = asset["price"]
+        status = simulator.check_path(pos, price)
         if status in ("stop_hit", "target_hit"):
-            price = asset["price"]
-            entry = pos["entry"]
-            side = pos["side"]
-            pnl_pct = ((price - entry) / entry) if side == "buy" else ((entry - price) / entry)
-            fee = pos["notional"] * TAKER_FEE * 2
-            net_pnl = pos["notional"] * pnl_pct - fee
-            balance = round(balance + net_pnl, 2)
+            # Faz-1 maliyet modeli = fee-only (slippage/funding kapalı) — deterministic kolla SİMETRİK.
+            res = simulator.simulate_trade(pos["side"], pos["entry"], price, pos["notional"],
+                                           funding_rate=0.0, funding_periods=0, slippage_bps=0.0)
+            balance = round(balance + res.net_pnl, 2)
+            pnl_pct = (res.gross_pnl / pos["notional"] * 100) if pos["notional"] else 0.0
             to_close.append(coin)
-            log.append({"coin": coin, "action": status, "net_pnl": round(net_pnl, 2), "price": price})
-            print(f"  KAPANDI {coin} {status}: {round(pnl_pct*100,2)}% net ${round(net_pnl,2)}")
+            log.append({"coin": coin, "action": status, "net_pnl": round(res.net_pnl, 2), "price": price})
+            print(f"  KAPANDI {coin} {status}: {round(pnl_pct,2)}% net ${round(res.net_pnl,2)}")
 
     for coin in to_close:
         del positions[coin]
@@ -97,15 +69,17 @@ def main():
             continue
         entry = params["entry"]
         stop = params["stop"]
-        notional, leverage = compute_sizing(balance, entry, stop)
-        if notional > 0:
+        # Sizing tek kaynak: leverage.compute_sizing. atr=None, confidence=high → deterministic kolla
+        # AYNI sizing (CLAUDE.md "aynı sizing"). deep-thinker confidence'ı yalnız metadata olarak saklanır.
+        sz = leverage.compute_sizing(balance, entry, stop, atr=None, confidence="high")
+        if sz.notional > 0:
             positions[coin] = {
                 "side": params["side"],
                 "entry": entry,
                 "stop": stop,
                 "target": params["target"],
-                "notional": notional,
-                "leverage": leverage,
+                "notional": sz.notional,
+                "leverage": sz.leverage,
                 "confidence": params.get("confidence"),
                 "thesis": params.get("thesis"),
                 "decided_at": timestamp,
