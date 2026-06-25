@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>trade-agent · A/B dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0E1A;
+  --surface:#111827;
+  --surface2:#1a2235;
+  --border:#1e2d45;
+  --text:#e2e8f0;
+  --muted:#64748b;
+  --dim:#334155;
+  --up:#22c55e;
+  --dn:#ef4444;
+  --wait:#f59e0b;
+  --info:#3b82f6;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Inter',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh;padding:2rem 1.5rem}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.header-left h1{font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:.05em;color:var(--text)}
+.header-left p{font-size:12px;color:var(--muted);margin-top:2px}
+.regime-badge{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface)}
+.regime-dot{width:8px;height:8px;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.regime-mixed .regime-dot{background:var(--wait)}
+.regime-bull .regime-dot{background:var(--up)}
+.regime-bear .regime-dot{background:var(--dn)}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.5rem}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:1.5rem}
+.metric{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.metric-label{font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.metric-val{font-size:24px;font-weight:500;font-family:var(--mono);color:var(--text)}
+.metric-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.up{color:var(--up)}
+.dn{color:var(--dn)}
+.wait{color:var(--wait)}
+.section-title{font-size:11px;font-family:var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.ab-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem}
+.ab-card.det{border-top:2px solid var(--up)}
+.ab-card.deep{border-top:2px solid var(--info)}
+.ab-title{font-family:var(--mono);font-size:13px;font-weight:700;margin-bottom:12px}
+.ab-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;font-family:var(--mono)}
+.ab-row:last-child{border-bottom:none}
+.ab-row-label{color:var(--muted)}
+.asset-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+.asset-table th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding:0 8px 10px 0;text-align:left;border-bottom:1px solid var(--border)}
+.asset-table td{padding:8px 8px 8px 0;border-bottom:1px solid var(--border);color:var(--muted)}
+.asset-table td:first-child{color:var(--text);font-weight:500}
+.asset-table tr:last-child td{border-bottom:none}
+.rsi-bar{display:inline-block;width:48px;height:3px;background:var(--dim);border-radius:2px;vertical-align:middle;margin-left:6px;position:relative}
+.rsi-fill{height:3px;border-radius:2px;position:absolute;left:0;top:0}
+.badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;font-family:var(--mono);font-weight:500}
+.badge-up{background:rgba(34,197,94,.1);color:var(--up);border:1px solid rgba(34,197,94,.2)}
+.badge-dn{background:rgba(239,68,68,.1);color:var(--dn);border:1px solid rgba(239,68,68,.2)}
+.badge-rng{background:rgba(100,116,139,.1);color:var(--muted);border:1px solid var(--border)}
+.badge-wait{background:rgba(245,158,11,.1);color:var(--wait);border:1px solid rgba(245,158,11,.2)}
+.log-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.8;max-height:160px;overflow-y:auto;margin-bottom:1.5rem}
+.log-ok{color:var(--up)}
+.log-warn{color:var(--wait)}
+.log-info{color:var(--info)}
+.snapshot-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1.5rem}
+.footer{font-size:11px;color:var(--dim);font-family:var(--mono);text-align:center;margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>TRADE-AGENT · A/B</h1>
+    <p id="last-update">yükleniyor...</p>
+  </div>
+  <div class="regime-badge regime-mixed" id="regime-badge">
+    <div class="regime-dot"></div>
+    <span id="regime-text">MIXED</span>
+  </div>
+</div>
+
+<div class="grid4">
+  <div class="metric">
+    <div class="metric-label">det. bakiye</div>
+    <div class="metric-val" id="det-balance">$4,000</div>
+    <div class="metric-sub" id="det-pnl">P&L: $0.00</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">deep bakiye</div>
+    <div class="metric-val" id="deep-balance">$4,000</div>
+    <div class="metric-sub" id="deep-pnl">P&L: $0.00</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">açık poz</div>
+    <div class="metric-val" id="open-pos">0 / 0</div>
+    <div class="metric-sub">det / deep</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">toplam tur</div>
+    <div class="metric-val" id="turn-count">—</div>
+    <div class="metric-sub">faz 1 · hedef ~30 trade</div>
+  </div>
+</div>
+
+<div class="section-title">son snapshot</div>
+<div class="snapshot-card">
+  <table class="asset-table">
+    <thead>
+      <tr>
+        <th>varlık</th>
+        <th>fiyat</th>
+        <th>rsi</th>
+        <th>macd-h</th>
+        <th>1d trend</th>
+        <th>trigger</th>
+      </tr>
+    </thead>
+    <tbody id="asset-tbody">
+      <tr><td colspan="6" style="color:var(--dim);text-align:center;padding:1rem">veri yükleniyor...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-title">A/B karşılaştırma</div>
+<div class="grid2">
+  <div class="ab-card det">
+    <div class="ab-title up">deterministic-trader (A)</div>
+    <div class="ab-row"><span class="ab-row-label">bakiye</span><span id="d-bal">$4,000.00</span></div>
+    <div class="ab-row"><span class="ab-row-label">gerçekleşen p&l</span><span id="d-pnl">$0.00</span></div>
+    <div class="ab-row"><span class="ab-row-label">açık poz</span><span id="d-pos">—</span></div>
+    <div class="ab-row"><span class="ab-row-label">karar</span><span style="color:var(--muted)">RSI/MACD/trend</span></div>
+  </div>
+  <div class="ab-card deep">
+    <div class="ab-title" style="color:var(--info)">deep-thinker (B)</div>
+    <div class="ab-row"><span class="ab-row-label">bakiye</span><span id="t-bal">$4,000.00</span></div>
+    <div class="ab-row"><span class="ab-row-label">gerçekleşen p&l</span><span id="t-pnl">$0.00</span></div>
+    <div class="ab-row"><span class="ab-row-label">açık poz</span><span id="t-pos">—</span></div>
+    <div class="ab-row"><span class="ab-row-label">karar</span><span style="color:var(--muted)">LLM analyst+challenger</span></div>
+  </div>
+</div>
+
+<div class="section-title">son tur logu</div>
+<div class="log-box" id="log-box">
+  <span class="log-info">sistem hazır</span>
+</div>
+
+<div class="footer">
+  TESTNET / PAPER ONLY · GERÇEK PARA YOK · FAZ 1
+</div>
+
+<script>
+async function loadData() {
+  try {
+    const snap = await fetch('../state/snapshot_latest.json').then(r=>r.json());
+    const detState = await fetch('../state/positions_deterministic.json').then(r=>r.json());
+    const deepState = await fetch('../state/positions_deepthinker.json').then(r=>r.json());
+
+    document.getElementById('last-update').textContent = 'güncellendi: ' + new Date(snap.timestamp).toLocaleString('tr-TR');
+
+    const regime = snap.regime || 'mixed';
+    const badge = document.getElementById('regime-badge');
+    badge.className = 'regime-badge regime-' + regime;
+    document.getElementById('regime-text').textContent = regime.toUpperCase();
+
+    const detBal = detState.balance || 4000;
+    const deepBal = deepState.balance || 4000;
+    const detPnl = detBal - 4000;
+    const deepPnl = deepBal - 4000;
+
+    document.getElementById('det-balance').textContent = '$' + detBal.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2});
+    document.getElementById('deep-balance').textContent = '$' + deepBal.toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2});
+    document.getElementById('det-pnl').textContent = 'P&L: ' + (detPnl >= 0 ? '+' : '') + '$' + detPnl.toFixed(2);
+    document.getElementById('deep-pnl').textContent = 'P&L: ' + (deepPnl >= 0 ? '+' : '') + '$' + deepPnl.toFixed(2);
+
+    document.getElementById('d-bal').textContent = '$' + detBal.toFixed(2);
+    document.getElementById('t-bal').textContent = '$' + deepBal.toFixed(2);
+    document.getElementById('d-pnl').innerHTML = '<span class="' + (detPnl>=0?'up':'dn') + '">' + (detPnl>=0?'+':'') + '$' + detPnl.toFixed(2) + '</span>';
+    document.getElementById('t-pnl').innerHTML = '<span class="' + (deepPnl>=0?'up':'dn') + '">' + (deepPnl>=0?'+':'') + '$' + deepPnl.toFixed(2) + '</span>';
+
+    const detPos = Object.keys(detState.positions||{});
+    const deepPos = Object.keys(deepState.positions||{});
+    document.getElementById('open-pos').textContent = detPos.length + ' / ' + deepPos.length;
+    document.getElementById('d-pos').textContent = detPos.length ? detPos.join(', ') : '—';
+    document.getElementById('t-pos').textContent = deepPos.length ? deepPos.join(', ') : '—';
+
+    const tbody = document.getElementById('asset-tbody');
+    tbody.innerHTML = '';
+    for (const [coin, a] of Object.entries(snap.assets)) {
+      const trend = a.trends['1d'];
+      const trendBadge = trend === 'up' ? 'badge-up' : trend === 'down' ? 'badge-dn' : 'badge-rng';
+      const rsiPct = Math.min(100, a.rsi);
+      const rsiColor = a.rsi > 70 ? '#ef4444' : a.rsi < 30 ? '#22c55e' : '#64748b';
+      const triggerStr = a.trigger ? '<span class="badge badge-wait">⚡ YES</span>' : '<span style="color:var(--dim)">—</span>';
+      tbody.innerHTML += `<tr>
+        <td>${coin}</td>
+        <td>$${a.price.toLocaleString()}</td>
+        <td>${a.rsi.toFixed(1)}<span class="rsi-bar"><span class="rsi-fill" style="width:${rsiPct}%;background:${rsiColor}"></span></span></td>
+        <td style="color:${a.macd_hist>0?'var(--up)':'var(--dn)'}">${a.macd_hist > 0 ? '+' : ''}${a.macd_hist.toFixed(3)}</td>
+        <td><span class="badge ${trendBadge}">${trend}</span></td>
+        <td>${triggerStr}</td>
+      </tr>`;
+    }
+
+  } catch(e) {
+    document.getElementById('log-box').innerHTML = '<span class="log-warn">veri yüklenemedi: ' + e.message + ' — doğrudan dosya sistemi üzerinden aç</span>';
+  }
+}
+
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>
