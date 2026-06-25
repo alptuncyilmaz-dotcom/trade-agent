@@ -30,8 +30,11 @@ def main():
 
     run("run_deterministic.py")
 
-    print("\n▶ deep-thinker: snapshot okundu, analiz için Claude Code gerekli")
-    print("  Not: deep-thinker analizi manuel tetik ile claude.ai'den yapılıyor.")
+    print("\n▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı")
+    # run_deepthinker.py eski karar dosyasını okumaz; her tur taze yazar.
+    # LLM erişilemezse güvenli all-WAIT yazıp nonzero çıkar — tur yine de güvenle ilerler.
+    if not run("run_deepthinker.py"):
+        print("  Not: deep-thinker LLM üretmedi; güvenli WAIT kararı ile devam ediliyor.")
 
     run("apply_deepthinker.py")
 

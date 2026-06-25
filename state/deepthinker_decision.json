@@ -1,9 +1,33 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "trigger yok, MACD-line negatif, dot-plot sahin ton risk-off",
-    "ETH": "trigger yok, MACD-line negatif, range",
-    "XRP": "trigger yok, RSI 45.9 (30 bekle), tam bear alignment - short adayi izleniyor",
-    "HYPE": "trigger yok, MACD-hist 0.214->0.041 momentum kaybi, 4h down HTF catismasi"
+    "BTC": "1d/1h/4h down — counter-trend long YASAK. Pro-trend short var ama trigger yok (RSI 34.9 ekstrem değil, MACD-hist +52.5 pozitife döndü = kısa-vade momentum yukarı). Edge yok → WAIT.",
+    "ETH": "BTC ile aynı yapı: 1d/1h/4h down, counter-trend long yasak. MACD-hist +3.44 zayıf pozitif, short trigger yok. WAIT.",
+    "XRP": "Tam bear alignment (15m range, 1h/4h/1d down). MACD-line<signal hafif bearish cross ama RSI 35.5 (≤30 değil) — trigger yok. Funding negatif, short adayı izleniyor; RSI<30 + net trigger bekle. WAIT.",
+    "HYPE": "1d range + 4h down vs 1h up = HTF çatışması → range-HTF kuralı WAIT. RSI 56 nötr, MACD-hist -0.86 momentum kaybı, macd_line<signal. Yön yok. WAIT."
+  },
+  "analysis": {
+    "BTC": {
+      "analyst": "Fiyat 59459, RSI 34.9 oversold-yakını. MACD-hist +52.5 ile histogram pozitife döndü — kısa vadede dip-bounce tezi cazip. Long düşünülür AMA 1d/1h/4h hepsi down; counter-trend long demir kuralı yasak. Pro-trend short için RSI ekstrem değil ve momentum yukarı dönmüş, geçerli short trigger yok.",
+      "challenger": "MACD-hist'in tek bar pozitife dönüşü güvenilmez: macd_line hâlâ -2243 ile derin negatif, trend gücü aşağı. Funding ~0 (nötr), shortlara/longlara yapısal edge yok. Dip-bounce iddiası kanıtsız; veri eksik (hacim teyidi yok). Karar yok → analyst'in WAIT eğilimi sağlam."
+    },
+    "ETH": {
+      "analyst": "1565.9, RSI 38.6. BTC ile beta-korelasyonlu, aynı bear yapı (1d/1h/4h down). MACD-hist +3.44 çok zayıf pozitif. Counter-trend long yasak; short için trigger yok.",
+      "challenger": "ETH'nin bağımsız bir katalizörü yok, BTC'ye sürükleniyor. macd_line derin negatif bölgede; zayıf histogram dönüşü sinyal sayılmaz. Tez sağlam, ciddi karşı-argüman yok — WAIT."
+    },
+    "XRP": {
+      "analyst": "1.0396, RSI 35.5. En temiz bear-alignment'lı varlık (15m range, 1h/4h/1d down). MACD-line -0.047 < signal -0.043 = hafif bearish cross. Pro-trend short adayı ama RSI ≤30 değil, trigger eşiği aşılmadı. Funding negatif → shortlar prim ödüyor (hafif aleyhte).",
+      "challenger": "Short tezi pro-trend olduğu için meşru, ancak giriş zamanlaması orta-bölge (RSI 35.5), stop mesafesi ATR 0.0516 ile geniş, R:R zayıf. Negatif funding short'u eritir. RSI<30 + net MACD trigger beklemek doğru → WAIT."
+    },
+    "HYPE": {
+      "analyst": "63.13, RSI 56 nötr. 1d range, 4h down, 1h up — yön net değil. MACD-hist -0.86 momentum kaybı, macd_line 1.70 < signal 2.56 bearish. Net bir long/short tezi kurulamıyor.",
+      "challenger": "HTF çatışması (1d range vs 4h down vs 1h up) tam da range-HTF kuralının WAIT dediği durum. Herhangi bir yöne giriş gürültüye bahis olur; over-trading fee'si (L-03) yer. WAIT zorunlu."
+    }
+  },
+  "_meta": {
+    "llm": "in-session deep-thinker (manuel tetik)",
+    "snapshot_ts": "2026-06-25T18:18:27.494640+00:00",
+    "regime": "bear",
+    "note": "Taze analiz; eski karar dosyası kullanılmadı. Otonom path için run_deepthinker.py auth bekliyor."
   }
 }
