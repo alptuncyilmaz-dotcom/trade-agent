@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-06-22T18:47:06.532489+00:00",
+  "regime": "mixed",
+  "assets": {
+    "BTC": {
+      "coin": "BTC",
+      "price": 64384.0,
+      "rsi": 54.97,
+      "macd_hist": 487.6026,
+      "macd_line": -1971.5145,
+      "signal_line": -2459.1171,
+      "atr": 1940.9286,
+      "funding": 1.25e-05,
+      "openInterest": 31106.49154,
+      "markPx": 64383.0,
+      "oraclePx": 64402.0,
+      "trends": {
+        "15m": "range",
+        "1h": "up",
+        "4h": "range",
+        "1d": "range"
+      },
+      "trigger": false,
+      "is_counter_trend_long": false,
+      "is_counter_trend_short": false
+    },
+    "ETH": {
+      "coin": "ETH",
+      "price": 1734.2,
+      "rsi": 55.24,
+      "macd_hist": 20.678,
+      "macd_line": -64.6502,
+      "signal_line": -85.3282,
+      "atr": 69.5429,
+      "funding": 2.1692e-06,
+      "openInterest": 817883.7442000001,
+      "markPx": 1733.7,
+      "oraclePx": 1734.8,
+      "trends": {
+        "15m": "down",
+        "1h": "range",
+        "4h": "range",
+        "1d": "range"
+      },
+      "trigger": false,
+      "is_counter_trend_long": false,
+      "is_counter_trend_short": false
+    },
+    "XRP": {
+      "coin": "XRP",
+      "price": 1.136,
+      "rsi": 45.91,
+      "macd_hist": 0.0046,
+      "macd_line": -0.0377,
+      "signal_line": -0.0423,
+      "atr": 0.0496,
+      "funding": 7.0802e-06,
+      "openInterest": 86280746.0,
+      "markPx": 1.1359,
+      "oraclePx": 1.1364,
+      "trends": {
+        "15m": "down",
+        "1h": "down",
+        "4h": "down",
+        "1d": "down"
+      },
+      "trigger": false,
+      "is_counter_trend_long": true,
+      "is_counter_trend_short": false
+    },
+    "HYPE": {
+      "coin": "HYPE",
+      "price": 68.481,
+      "rsi": 55.29,
+      "macd_hist": 0.041,
+      "macd_line": 3.1736,
+      "signal_line": 3.1326,
+      "atr": 5.7897,
+      "funding": 1.25e-05,
+      "openInterest": 20218696.15999999,
+      "markPx": 68.489,
+      "oraclePx": 68.504,
+      "trends": {
+        "15m": "up",
+        "1h": "range",
+        "4h": "down",
+        "1d": "up"
+      },
+      "trigger": false,
+      "is_counter_trend_long": false,
+      "is_counter_trend_short": true
+    }
+  }
+}

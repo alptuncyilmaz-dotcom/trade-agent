@@ -1,0 +1,9 @@
+{
+  "decisions": {},
+  "waits": {
+    "BTC": "trigger yok, MACD-line negatif, dot-plot sahin ton risk-off",
+    "ETH": "trigger yok, MACD-line negatif, range",
+    "XRP": "trigger yok, RSI 45.9 (30 bekle), tam bear alignment - short adayi izleniyor",
+    "HYPE": "trigger yok, MACD-hist 0.214->0.041 momentum kaybi, 4h down HTF catismasi"
+  }
+}

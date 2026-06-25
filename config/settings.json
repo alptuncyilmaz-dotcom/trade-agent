@@ -1,0 +1,9 @@
+{
+  "exchange": "binance",
+  "pairs": ["BTC/USDT", "ETH/USDT"],
+  "interval": "1h",
+  "dry_run": true,
+  "max_position_pct": 0.1,
+  "api_key": "",
+  "api_secret": ""
+}
