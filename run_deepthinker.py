@@ -13,6 +13,8 @@ import re
 import subprocess
 import sys
 
+from execution import autonomous, decision
+
 AGENT_DT = ".claude/agents/deep-thinker.md"
 AGENT_CH = ".claude/agents/challenger.md"
 SNAPSHOT = "state/snapshot_latest.json"
@@ -25,7 +27,7 @@ def read_text(path):
         return f.read()
 
 
-def build_prompt(dt_rules, ch_rules, snapshot):
+def build_prompt(dt_rules, ch_rules, context):
     return f"""Sen deep-thinker'sın: kripto perp OTONOM trader (TESTNET/PAPER — gerçek para YOK).
 Aşağıdaki anayasaya HARFİYEN uy. Turlar arası ÖĞRENME yok; sadece bu snapshot'a bak.
 
@@ -35,8 +37,10 @@ Aşağıdaki anayasaya HARFİYEN uy. Turlar arası ÖĞRENME yok; sadece bu snap
 === challenger.md ===
 {ch_rules}
 
-=== GÜNCEL SNAPSHOT (state/snapshot_latest.json) ===
-{json.dumps(snapshot, indent=2)}
+=== KARAR BAĞLAMI (güncel snapshot + kural-bazlı ön-değerlendirme) ===
+# 'gate': triggers/rules ön-elemesi (opportunity=True ise fırsat adayı). 'reference_levels':
+# 1.5×/3.0× ATR referans stop/target. Demir-kural ihlalleri zaten apply öncesi WAIT'e düşürülür.
+{json.dumps(context, indent=2)}
 
 Görev: {", ".join(COINS)} varlıklarının HER BİRİ için sırayla:
 1. ANALYST: tez + side/entry/stop/target/confidence.
@@ -123,40 +127,6 @@ def extract_json(text):
     return json.loads(candidate[start:end + 1])
 
 
-def guard(decisions, waits, snapshot):
-    """Demir-kural güvenlik ağı: ihlal eden kararları WAIT'e düşürür."""
-    safe_dec, safe_wait = {}, dict(waits or {})
-    for coin, p in (decisions or {}).items():
-        asset = snapshot["assets"].get(coin)
-        if not asset:
-            continue
-
-        def demote(reason):
-            safe_wait[coin] = f"guard: {reason}"
-
-        side = p.get("side")
-        if side not in ("buy", "sell"):
-            demote(f"geçersiz side '{side}'"); continue
-        try:
-            entry, stop, target = float(p["entry"]), float(p["stop"]), float(p["target"])
-        except (KeyError, TypeError, ValueError):
-            demote("entry/stop/target eksik veya sayısal değil"); continue
-        if min(entry, stop, target) <= 0:
-            demote("seviye <= 0"); continue
-        if asset["trends"]["1d"] == "range":
-            demote("range-HTF (1d range) → WAIT"); continue
-        if side == "buy" and asset["is_counter_trend_long"]:
-            demote("counter-trend long (1d down)"); continue
-        if side == "sell" and asset["is_counter_trend_short"]:
-            demote("counter-trend short (1d up)"); continue
-        if side == "buy" and not (stop < entry < target):
-            demote("buy sıralama bozuk (stop<entry<target değil)"); continue
-        if side == "sell" and not (target < entry < stop):
-            demote("short sıralama bozuk (target<entry<stop değil)"); continue
-        safe_dec[coin] = p
-    return safe_dec, safe_wait
-
-
 def write_decision(decisions, waits, analysis=None, meta=None):
     payload = {"decisions": decisions, "waits": waits}
     if analysis:
@@ -175,7 +145,9 @@ def main():
     snapshot = json.load(open(SNAPSHOT))
     print(f"  deep-thinker: snapshot {snapshot['timestamp']} (rejim: {snapshot['regime']}) okundu")
 
-    prompt = build_prompt(read_text(AGENT_DT), read_text(AGENT_CH), snapshot)
+    # LLM'e ham snapshot yerine kural-bazlı ön-değerlendirmeli bağlam ver (tek kaynak: autonomous).
+    context = autonomous.build_decision_context(snapshot)
+    prompt = build_prompt(read_text(AGENT_DT), read_text(AGENT_CH), context)
     text, err = call_llm(prompt)
 
     if err:
@@ -204,7 +176,8 @@ def main():
             print(f"    ANALYST: {a.get('analyst', '')}")
             print(f"    CHALLENGER: {a.get('challenger', '')}")
 
-    decisions, waits = guard(parsed.get("decisions", {}), parsed.get("waits", {}), snapshot)
+    # Demir-kural güvenlik ağı — tek kaynak: execution/decision.validate_decision
+    decisions, waits = decision.validate_decision(parsed, snapshot)
     write_decision(decisions, waits, analysis=analysis,
                    meta={"llm": "ok", "snapshot_ts": snapshot["timestamp"]})
 

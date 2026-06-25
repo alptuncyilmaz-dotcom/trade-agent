@@ -8,8 +8,10 @@ Neden: deep-thinker ve deterministic-trader için ortak point-in-time veri üret
 import json
 import time
 import requests
-import numpy as np
 from datetime import datetime, timezone
+
+from features import indicators
+from triggers import rules
 
 COINS = ["BTC", "ETH", "XRP", "HYPE"]
 BASE_URL = "https://api.hyperliquid.xyz/info"
@@ -43,84 +45,29 @@ def fetch_funding(coin):
             }
     return {"funding": 0, "openInterest": 0, "markPx": 0, "oraclePx": 0}
 
-def compute_rsi(closes, period=14):
-    closes = np.array(closes, dtype=float)
-    deltas = np.diff(closes)
-    gains = np.where(deltas > 0, deltas, 0)
-    losses = np.where(deltas < 0, -deltas, 0)
-    avg_gain = np.mean(gains[-period:])
-    avg_loss = np.mean(losses[-period:])
-    if avg_loss == 0:
-        return 100.0
-    rs = avg_gain / avg_loss
-    return round(100 - (100 / (1 + rs)), 2)
-
-def compute_macd(closes, fast=12, slow=26, signal=9):
-    closes = np.array(closes, dtype=float)
-    def ema(arr, n):
-        result = np.zeros_like(arr)
-        result[0] = arr[0]
-        k = 2 / (n + 1)
-        for i in range(1, len(arr)):
-            result[i] = arr[i] * k + result[i-1] * (1 - k)
-        return result
-    ema_fast = ema(closes, fast)
-    ema_slow = ema(closes, slow)
-    macd_line = ema_fast - ema_slow
-    signal_line = ema(macd_line, signal)
-    hist = macd_line - signal_line
-    return round(float(hist[-1]), 4), round(float(macd_line[-1]), 4), round(float(signal_line[-1]), 4)
-
-def compute_atr(highs, lows, closes, period=14):
-    trs = []
-    for i in range(1, len(closes)):
-        tr = max(highs[i] - lows[i], abs(highs[i] - closes[i-1]), abs(lows[i] - closes[i-1]))
-        trs.append(tr)
-    return round(float(np.mean(trs[-period:])), 4)
-
-def compute_trend(closes):
-    if len(closes) < 20:
-        return "range"
-    sma20 = np.mean(closes[-20:])
-    sma50 = np.mean(closes[-50:]) if len(closes) >= 50 else sma20
-    price = closes[-1]
-    if price > sma20 and sma20 > sma50:
-        return "up"
-    elif price < sma20 and sma20 < sma50:
-        return "down"
-    return "range"
-
-def compute_trigger(rsi, macd_hist, macd_line, signal_line):
-    rsi_ob = rsi >= 70
-    rsi_os = rsi <= 30
-    macd_cross_up = macd_hist > 0 and macd_line > signal_line
-    macd_cross_dn = macd_hist < 0 and macd_line < signal_line
-    if (rsi_ob or rsi_os) and (macd_cross_up or macd_cross_dn):
-        return True
-    return False
-
 def build_coin_snapshot(coin):
+    # Gösterge hesapları tek kaynaktan: features/indicators. Tetik bool'u: triggers/rules.core_trigger.
     print(f"  {coin} çekiliyor...")
     candles_1d = fetch_candles(coin, "1d", 100)
     closes_1d = [float(c["c"]) for c in candles_1d]
     highs_1d = [float(c["h"]) for c in candles_1d]
     lows_1d = [float(c["l"]) for c in candles_1d]
 
-    rsi = compute_rsi(closes_1d)
-    macd_hist, macd_line, signal_line = compute_macd(closes_1d)
-    atr = compute_atr(highs_1d, lows_1d, closes_1d)
+    rsi = indicators.compute_rsi(closes_1d)
+    macd_hist, macd_line, signal_line = indicators.compute_macd(closes_1d)
+    atr = indicators.compute_atr(highs_1d, lows_1d, closes_1d)
 
     trends = {}
     for interval in INTERVALS:
         c = fetch_candles(coin, interval, 60)
         cl = [float(x["c"]) for x in c]
-        trends[interval] = compute_trend(cl)
+        trends[interval] = indicators.compute_trend(cl)
         time.sleep(0.2)
 
     funding_data = fetch_funding(coin)
     price = closes_1d[-1]
 
-    trigger = compute_trigger(rsi, macd_hist, macd_line, signal_line)
+    trigger = rules.core_trigger(rsi, macd_hist, macd_line, signal_line)
 
     trend_1d = trends["1d"]
     is_counter_trend_long = trend_1d == "down"

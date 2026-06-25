@@ -46,6 +46,25 @@ class TradeResult:
         }
 
 
+def check_path(position, price):
+    """Açık pozisyon güncel fiyatta stop/target'a değdi mi? Döner: 'stop_hit'|'target_hit'|'open'.
+    Tek kaynak: deterministic ve deep-thinker kolları aynı yol-çözümünü kullansın diye burada."""
+    side = position["side"]
+    stop = position["stop"]
+    target = position["target"]
+    if side == "buy":
+        if price <= stop:
+            return "stop_hit"
+        if price >= target:
+            return "target_hit"
+    else:
+        if price >= stop:
+            return "stop_hit"
+        if price <= target:
+            return "target_hit"
+    return "open"
+
+
 def simulate_fill(side, price, slippage_bps=DEFAULT_SLIPPAGE_BPS):
     """Slippage'i fiyata uygular. Kayma DAİMA aleyhe: alışta yukarı, satışta aşağı dolgu.
     Neden aleyhe: paper sonuçların iyimser kaymaması için muhafazakâr varsayım."""

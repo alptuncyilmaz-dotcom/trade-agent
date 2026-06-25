@@ -14,6 +14,20 @@ Neden:
 
 from triggers import rules
 
+# ATR çarpanları — stop/target referansı (run_deterministic ile aynı: 1.5× / 3.0×).
+STOP_ATR_MULT = 1.5
+TARGET_ATR_MULT = 3.0
+
+
+def reference_levels(price, atr, side):
+    """Yöne göre referans stop/target (1.5×/3.0× ATR). Tek kaynak: hem deterministic kol hem
+    deep-thinker bağlamı buradan üretir. side None ise (None, None)."""
+    if side == "buy":
+        return round(price - STOP_ATR_MULT * atr, 4), round(price + TARGET_ATR_MULT * atr, 4)
+    if side == "sell":
+        return round(price + STOP_ATR_MULT * atr, 4), round(price - TARGET_ATR_MULT * atr, 4)
+    return None, None
+
 
 def opportunity_gate(asset):
     """Ön-eleme: bu varlıkta meşru bir giriş fırsatı OLABİLİR mi?
@@ -59,13 +73,8 @@ def build_decision_context(snapshot):
         passes, side, reason = opportunity_gate(a)
         atr = a["atr"]
         price = a["price"]
-        # Referans seviyeler (run_deterministic ile aynı 1.5×/3.0× ATR mantığı)
-        if side == "buy":
-            ref_stop, ref_target = round(price - 1.5 * atr, 4), round(price + 3.0 * atr, 4)
-        elif side == "sell":
-            ref_stop, ref_target = round(price + 1.5 * atr, 4), round(price - 3.0 * atr, 4)
-        else:
-            ref_stop = ref_target = None
+        # Referans seviyeler — tek kaynak: reference_levels (1.5×/3.0× ATR)
+        ref_stop, ref_target = reference_levels(price, atr, side)
         ctx["assets"][coin] = {
             "price": price, "rsi": a["rsi"], "macd_hist": a["macd_hist"],
             "macd_line": a["macd_line"], "signal_line": a["signal_line"], "atr": atr,

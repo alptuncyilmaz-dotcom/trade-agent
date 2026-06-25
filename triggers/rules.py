@@ -39,6 +39,16 @@ class TriggerResult:
         }
 
 
+def core_trigger(rsi, macd_hist, macd_line, signal_line):
+    """Ham değerlerden çekirdek tetik bool'u: (RSI ekstrem) ∧ (MACD cross teyitli).
+    capture_snapshot.py (snapshot bool'u) ile evaluate() aynı tetik tanımını paylaşsın diye tek kaynak."""
+    ext = rsi <= RSI_OVERSOLD or rsi >= RSI_OVERBOUGHT
+    cross_up = macd_hist > 0 and macd_line > signal_line
+    cross_dn = macd_hist < 0 and macd_line < signal_line
+    # bool() şart: rsi/macd np.float64 olabilir → np.bool_ JSON serileştirilemez (snapshot'a yazılır).
+    return bool(ext and (cross_up or cross_dn))
+
+
 def classify_funding(funding):
     """Funding oranını sözel sınıfa çevirir (mutlak büyüklük). deep_scan.py ile aynı eşikler."""
     f = abs(funding)

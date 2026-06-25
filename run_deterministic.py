@@ -1,93 +1,61 @@
 """
 run_deterministic.py — Kural bazlı A/B kolu (deterministic-trader).
-Ne yapar: snapshot'tan RSI/MACD/trend kurallarıyla karar verir, pozisyon açar/kapatır.
-Neden: LLM olmadan saf kural performansını ölçmek (A/B testi A kolu).
-Çıktı: state/positions_deterministic.json + runs_deterministic.jsonl
+Ne yapar: snapshot'tan triggers/rules ile karar verir (autonomous.opportunity_gate), leverage ile
+          boyutlandırır, simulator ile paper-fill kapatır, metrics ile kümülatif performans raporlar.
+Neden:   LLM olmadan saf kural performansını ölçmek (A/B testi A kolu). Tüm mantık tek kaynaktan
+         (triggers/execution/evaluation) gelir — sizing/trigger/fill/pnl artık burada DUPLİKE DEĞİL.
+Çıktı:   state/positions_deterministic.json + runs_deterministic.jsonl
 """
 
 import json
-import time
 from datetime import datetime, timezone
 
-RISK_PCT = 0.015       # trade başına maks kayıp %1.5
-MAX_POS_PCT = 0.30     # tek pozisyon maks %30
-TAKER_FEE = 0.00035    # %0.035 taker fee
+from execution import autonomous, leverage, simulator
+from evaluation import metrics
+
 
 def load_json(path, default=None):
     try:
         with open(path) as f:
             return json.load(f)
-    except:
+    except FileNotFoundError:
         return default
+
 
 def save_json(path, data):
     with open(path, "w") as f:
         json.dump(data, f, indent=2)
 
+
 def append_jsonl(path, record):
     with open(path, "a") as f:
         f.write(json.dumps(record) + "\n")
 
-def compute_sizing(balance, entry, stop):
-    stop_dist = abs(entry - stop) / entry
-    if stop_dist == 0:
-        return 0, 0
-    risk_usd = balance * RISK_PCT
-    notional = risk_usd / stop_dist
-    notional = min(notional, balance * MAX_POS_PCT)
-    leverage = min(round(notional / balance, 2), 5.0)
-    return round(notional, 2), leverage
 
 def decide(asset):
-    rsi = asset["rsi"]
-    macd_hist = asset["macd_hist"]
-    trend_1d = asset["trends"]["1d"]
-    trigger = asset["trigger"]
+    """Kural-bazlı karar — tek kaynak triggers/rules (autonomous.opportunity_gate üzerinden).
+    Döner: (action, params|None, reason). Gate geçerse open + ATR referans seviyeleri, yoksa wait."""
+    passes, side, reason = autonomous.opportunity_gate(asset)
+    if not passes:
+        return "wait", None, autonomous.wait_diagnosis(asset)
+    stop, target = autonomous.reference_levels(asset["price"], asset["atr"], side)
+    return "open", {"side": side, "entry": asset["price"], "stop": stop, "target": target}, reason
 
-    if not trigger:
-        return "wait", None, "trigger yok"
 
-    if trend_1d == "range":
-        return "wait", None, "range-HTF, edge yok"
+def load_closed_pnls(path):
+    """Geçmiş + bu turdaki kapanmış trade'lerin net K/Z listesi (kümülatif metrik için)."""
+    pnls = []
+    try:
+        with open(path) as f:
+            for line in f:
+                rec = json.loads(line)
+                for d in rec.get("decisions", []):
+                    if d.get("action") in ("stop_hit", "target_hit"):
+                        pnls.append(d.get("net_pnl", 0.0))
+    except FileNotFoundError:
+        pass
+    return pnls
 
-    if trend_1d == "up":
-        if asset["is_counter_trend_long"] == False:
-            side = "buy"
-            entry = asset["price"]
-            atr = asset["atr"]
-            stop = round(entry - 1.5 * atr, 4)
-            target = round(entry + 3.0 * atr, 4)
-            return "open", {"side": side, "entry": entry, "stop": stop, "target": target}, "HTF up + trigger"
-        else:
-            return "wait", None, "counter-trend long yasak"
-
-    if trend_1d == "down":
-        side = "sell"
-        entry = asset["price"]
-        atr = asset["atr"]
-        stop = round(entry + 1.5 * atr, 4)
-        target = round(entry - 3.0 * atr, 4)
-        return "open", {"side": side, "entry": entry, "stop": stop, "target": target}, "HTF down + trigger"
-
-    return "wait", None, "karar yok"
-
-def check_path(position, asset):
-    price = asset["price"]
-    side = position["side"]
-    stop = position["stop"]
-    target = position["target"]
-
-    if side == "buy":
-        if price <= stop:
-            return "stop_hit"
-        if price >= target:
-            return "target_hit"
-    else:
-        if price >= stop:
-            return "stop_hit"
-        if price <= target:
-            return "target_hit"
-    return "open"
 
 def main():
     snapshot = load_json("state/snapshot_latest.json")
@@ -102,53 +70,52 @@ def main():
     timestamp = datetime.now(timezone.utc).isoformat()
     decisions = []
 
-    # Açık pozisyonları kontrol et
+    # --- Açık pozisyonları kontrol et / kapat (tek kaynak: simulator) ---
     to_close = []
     for coin, pos in positions.items():
         asset = snapshot["assets"].get(coin)
         if not asset:
             continue
-        status = check_path(pos, asset)
+        status = simulator.check_path(pos, asset["price"])
         if status in ("stop_hit", "target_hit"):
-            entry = pos["entry"]
-            price = asset["price"]
-            side = pos["side"]
-            pnl_pct = ((price - entry) / entry) if side == "buy" else ((entry - price) / entry)
-            fee = pos["notional"] * TAKER_FEE * 2
-            net_pnl = pos["notional"] * pnl_pct - fee
-            balance = round(balance + net_pnl, 2)
+            # Faz-1 maliyet modeli = fee-only (slippage/funding kapalı → mevcut A/B bazını korur).
+            res = simulator.simulate_trade(pos["side"], pos["entry"], asset["price"], pos["notional"],
+                                           funding_rate=0.0, funding_periods=0, slippage_bps=0.0)
+            balance = round(balance + res.net_pnl, 2)
             to_close.append(coin)
-            decisions.append({"coin": coin, "action": status, "net_pnl": round(net_pnl, 2), "price": price})
-            print(f"  KAPANDI {coin} {status}: {round(pnl_pct*100,2)}% net ${round(net_pnl,2)}")
+            decisions.append({"coin": coin, "action": status, "net_pnl": round(res.net_pnl, 2), "price": asset["price"]})
+            print(f"  KAPANDI {coin} {status}: net ${round(res.net_pnl, 2)}")
 
     for coin in to_close:
         del positions[coin]
 
-    # Yeni pozisyon kararları
+    # --- Yeni pozisyon kararları ---
     for coin, asset in snapshot["assets"].items():
         if coin in positions:
             price = asset["price"]
             pos = positions[coin]
             pnl_pct = ((price - pos["entry"]) / pos["entry"]) if pos["side"] == "buy" else ((pos["entry"] - price) / pos["entry"])
             print(f"  AÇIK {coin}: ${price} K/Z {round(pnl_pct*100,2)}%")
-            decisions.append({"coin": coin, "action": "open", "price": price, "pnl_pct": round(pnl_pct*100,2)})
+            decisions.append({"coin": coin, "action": "open", "price": price, "pnl_pct": round(pnl_pct*100, 2)})
             continue
 
         action, params, reason = decide(asset)
         if action == "open":
-            notional, leverage = compute_sizing(balance, params["entry"], params["stop"])
-            if notional > 0:
+            # Kural-bazlı kol: güven/vol ölçeği YOK (confidence=high → ×1.0, atr=None → vol-ölçek kapalı)
+            # → Faz-1 sizing (risk + %30 tavan + 5x) birebir korunur.
+            sz = leverage.compute_sizing(balance, params["entry"], params["stop"], atr=None, confidence="high")
+            if sz.notional > 0:
                 positions[coin] = {
                     "side": params["side"],
                     "entry": params["entry"],
                     "stop": params["stop"],
                     "target": params["target"],
-                    "notional": notional,
-                    "leverage": leverage,
+                    "notional": sz.notional,
+                    "leverage": sz.leverage,
                     "decided_at": timestamp,
                 }
                 decisions.append({"coin": coin, "action": "open_new", "side": params["side"], "entry": params["entry"], "reason": reason})
-                print(f"  AÇILDI {coin} {params['side']}: ${params['entry']} stop:${params['stop']} target:${params['target']}")
+                print(f"  AÇILDI {coin} {params['side']}: ${params['entry']} stop:${params['stop']} target:${params['target']} (lev {sz.leverage})")
         else:
             print(f"  WAIT {coin}: {reason}")
             decisions.append({"coin": coin, "action": "wait", "reason": reason})
@@ -165,7 +132,17 @@ def main():
         "decisions": decisions,
     }
     append_jsonl("runs_deterministic.jsonl", run_record)
+
     print(f"\nTamamlandı. Bakiye: ${balance} | Açık pozisyon: {len(positions)}")
+
+    # --- Kümülatif performans (tek kaynak: evaluation/metrics) ---
+    all_pnls = load_closed_pnls("runs_deterministic.jsonl")
+    if all_pnls:
+        m = metrics.summarize(all_pnls)
+        print(f"  Kümülatif: {m['n_trades']} trade | expectancy ${m['expectancy']} | "
+              f"PF {m['profit_factor']} | win {m['win_rate']} | Sharpe {m['sharpe']}"
+              + (" | ⚠ leakage şüphesi" if m['leakage_suspect'] else ""))
+
 
 if __name__ == "__main__":
     main()
