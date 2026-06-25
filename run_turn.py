@@ -37,5 +37,13 @@ def main():
 
     print(f"\n=== TUR TAMAMLANDI — {datetime.now(timezone.utc).isoformat()} ===")
 
+    git_push()
+
+def git_push():
+    subprocess.run(["git", "add", "-A"], cwd=".")
+    subprocess.run(["git", "commit", "-m", f"tur: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M')}"], cwd=".")
+    subprocess.run(["git", "push"], cwd=".")
+    print("Git push tamamlandi.")
+
 if __name__ == "__main__":
     main()
