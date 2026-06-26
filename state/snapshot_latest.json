@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-06-26T17:18:50.064428+00:00",
+  "timestamp": "2026-06-26T17:38:42.786542+00:00",
   "regime": "bear",
   "assets": {
     "BTC": {
       "coin": "BTC",
-      "price": 60048.0,
-      "rsi": 37.2,
-      "macd_hist": 1.2254,
-      "macd_line": -2287.927,
-      "signal_line": -2289.1524,
+      "price": 59949.0,
+      "rsi": 36.74,
+      "macd_hist": -5.0925,
+      "macd_line": -2295.8244,
+      "signal_line": -2290.7319,
       "atr": 2220.1429,
-      "funding": -4.5318e-06,
-      "openInterest": 34030.14416,
-      "markPx": 60054.0,
-      "oraclePx": 60090.0,
+      "funding": -3.3994e-06,
+      "openInterest": 34049.14248,
+      "markPx": 59961.0,
+      "oraclePx": 59992.0,
       "trends": {
         "15m": "range",
         "1h": "range",
@@ -22,20 +22,28 @@
       },
       "trigger": false,
       "is_counter_trend_long": true,
-      "is_counter_trend_short": false
+      "is_counter_trend_short": false,
+      "onchain": {
+        "open_interest": 34049.14248,
+        "funding_sign": "short-agirlikli",
+        "exchange_flows": "\u00fccretsiz-kaynak-yok",
+        "whale_transfers": "\u00fccretsiz-kaynak-yok",
+        "liquidation_clusters": "\u00fccretsiz-kaynak-yok",
+        "note": "PROXY: yaln\u0131z OI+funding. Ger\u00e7ek on-chain i\u00e7in paid-sources.md."
+      }
     },
     "ETH": {
       "coin": "ETH",
-      "price": 1583.5,
-      "rsi": 41.4,
-      "macd_hist": 0.7717,
-      "macd_line": -77.0741,
-      "signal_line": -77.8458,
+      "price": 1579.7,
+      "rsi": 40.93,
+      "macd_hist": 0.5291,
+      "macd_line": -77.3772,
+      "signal_line": -77.9064,
       "atr": 82.9571,
-      "funding": -8.2815e-06,
-      "openInterest": 702168.4590000001,
-      "markPx": 1583.6,
-      "oraclePx": 1584.6,
+      "funding": -7.6707e-06,
+      "openInterest": 700938.8754000003,
+      "markPx": 1580.0,
+      "oraclePx": 1580.9,
       "trends": {
         "15m": "up",
         "1h": "range",
@@ -44,20 +52,28 @@
       },
       "trigger": false,
       "is_counter_trend_long": true,
-      "is_counter_trend_short": false
+      "is_counter_trend_short": false,
+      "onchain": {
+        "open_interest": 700938.8754000003,
+        "funding_sign": "short-agirlikli",
+        "exchange_flows": "\u00fccretsiz-kaynak-yok",
+        "whale_transfers": "\u00fccretsiz-kaynak-yok",
+        "liquidation_clusters": "\u00fccretsiz-kaynak-yok",
+        "note": "PROXY: yaln\u0131z OI+funding. Ger\u00e7ek on-chain i\u00e7in paid-sources.md."
+      }
     },
     "XRP": {
       "coin": "XRP",
-      "price": 1.0469,
-      "rsi": 37.64,
-      "macd_hist": -0.0053,
-      "macd_line": -0.0495,
-      "signal_line": -0.0442,
+      "price": 1.0458,
+      "rsi": 37.44,
+      "macd_hist": -0.0054,
+      "macd_line": -0.0496,
+      "signal_line": -0.0443,
       "atr": 0.0525,
-      "funding": -1.84644e-05,
-      "openInterest": 69735614.0,
-      "markPx": 1.047,
-      "oraclePx": 1.0477,
+      "funding": -2.07742e-05,
+      "openInterest": 69708166.0,
+      "markPx": 1.0458,
+      "oraclePx": 1.0466,
       "trends": {
         "15m": "up",
         "1h": "range",
@@ -66,20 +82,28 @@
       },
       "trigger": false,
       "is_counter_trend_long": true,
-      "is_counter_trend_short": false
+      "is_counter_trend_short": false,
+      "onchain": {
+        "open_interest": 69708166.0,
+        "funding_sign": "short-agirlikli",
+        "exchange_flows": "\u00fccretsiz-kaynak-yok",
+        "whale_transfers": "\u00fccretsiz-kaynak-yok",
+        "liquidation_clusters": "\u00fccretsiz-kaynak-yok",
+        "note": "PROXY: yaln\u0131z OI+funding. Ger\u00e7ek on-chain i\u00e7in paid-sources.md."
+      }
     },
     "HYPE": {
       "coin": "HYPE",
-      "price": 64.951,
-      "rsi": 58.53,
-      "macd_hist": -0.7786,
-      "macd_line": 1.6024,
-      "signal_line": 2.381,
+      "price": 64.716,
+      "rsi": 58.23,
+      "macd_hist": -0.7936,
+      "macd_line": 1.5837,
+      "signal_line": 2.3773,
       "atr": 5.6205,
       "funding": 1.25e-05,
-      "openInterest": 20437939.76,
-      "markPx": 64.943,
-      "oraclePx": 64.956,
+      "openInterest": 20448410.600000005,
+      "markPx": 64.698,
+      "oraclePx": 64.71,
       "trends": {
         "15m": "up",
         "1h": "up",
@@ -88,7 +112,15 @@
       },
       "trigger": false,
       "is_counter_trend_long": false,
-      "is_counter_trend_short": true
+      "is_counter_trend_short": true,
+      "onchain": {
+        "open_interest": 20448410.600000005,
+        "funding_sign": "long-agirlikli",
+        "exchange_flows": "\u00fccretsiz-kaynak-yok",
+        "whale_transfers": "\u00fccretsiz-kaynak-yok",
+        "liquidation_clusters": "\u00fccretsiz-kaynak-yok",
+        "note": "PROXY: yaln\u0131z OI+funding. Ger\u00e7ek on-chain i\u00e7in paid-sources.md."
+      }
     }
   }
 }
