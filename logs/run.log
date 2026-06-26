@@ -66,3 +66,73 @@ Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
 
 === TUR TAMAMLANDI — 2026-06-26T16:52:08.592274+00:00 ===
 Git push tamamlandi.
+[main 7f8eb3e] tur: 2026-06-26T19:36
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 19 files changed, 562 insertions(+), 238 deletions(-)
+ create mode 100644 ROUTINE.md
+ create mode 100644 journal/_template.md
+ create mode 100644 logs/onchain-research.md
+ create mode 100644 strategy/vizyon-uzun-vade.md
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   a31e03b..7f8eb3e  main -> main
+=== A/B TUR BAŞLADI — 2026-06-26T19:35:48.054243+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-26T19:35:48.471594+00:00
+  BTC çekiliyor...
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: bear
+  BTC: $59961.0 | RSI 36.8 | MACDh -4.3267 | 1d:down | ❌
+  ETH: $1579.1 | RSI 40.86 | MACDh 0.4909 | 1d:down | ❌
+  XRP: $1.0458 | RSI 37.44 | MACDh -0.0054 | 1d:down | ❌
+  HYPE: $64.867 | RSI 58.42 | MACDh -0.7839 | 1d:up | ❌
+
+
+▶ run_deterministic.py
+  WAIT BTC: RSI 36.8 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:down/1d:down | RSI 36.8, MACDh -4.3267
+  WAIT ETH: RSI 40.86 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:range/4h:down/1d:down | RSI 40.86, MACDh 0.4909
+  WAIT XRP: RSI 37.44 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:range/4h:down/1d:down | RSI 37.44, MACDh -0.0054
+  WAIT HYPE: RSI 58.42 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:up | RSI 58.42, MACDh -0.7839
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı
+
+▶ run_deepthinker.py
+  deep-thinker: snapshot 2026-06-26T19:36:03.123100+00:00 (rejim: bear) okundu
+  ⚠ LLM erişilemedi: SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}
+  → Güvenli all-WAIT yazıldı (stale karar kullanılmadı).
+    WAIT BTC: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+    WAIT ETH: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+    WAIT XRP: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+    WAIT HYPE: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+
+HATA: 
+  Not: deep-thinker LLM üretmedi; güvenli WAIT kararı ile devam ediliyor.
+
+▶ apply_deepthinker.py
+  WAIT BTC: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+  WAIT ETH: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+  WAIT XRP: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+  WAIT HYPE: LLM erişilemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) — güvenli WAIT
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+=== TUR TAMAMLANDI — 2026-06-26T19:36:04.440936+00:00 ===
+Git push tamamlandi.
