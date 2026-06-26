@@ -1,6 +1,6 @@
 """
-run_turn.py — A/B tur orkestratörü.
-Ne yapar: capture_snapshot → run_deterministic → deep-thinker analizi → apply_deepthinker → log
+run_turn.py — A/B/C tur orkestratörü.
+Ne yapar: capture_snapshot → run_deterministic (A) → run_aggressive (C) → deep-thinker (B) → apply_deepthinker → log
 Neden: tek komutla tam turu çalıştırır, saatlik scheduled task bunu çağırır.
 """
 
@@ -22,13 +22,14 @@ def run(script):
     return True
 
 def main():
-    print(f"=== A/B TUR BAŞLADI — {datetime.now(timezone.utc).isoformat()} ===")
+    print(f"=== A/B/C TUR BAŞLADI — {datetime.now(timezone.utc).isoformat()} ===")
 
     if not run("capture_snapshot.py"):
         print("Snapshot başarısız — tur durdu.")
         return
 
-    run("run_deterministic.py")
+    run("run_deterministic.py")   # A kolu (kural, %1.5 risk / 5x)
+    run("run_aggressive.py")      # C kolu (kural, %5 risk / 20x) — TAM İZOLE
 
     print("\n▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı")
     # run_deepthinker.py eski karar dosyasını okumaz; her tur taze yazar.

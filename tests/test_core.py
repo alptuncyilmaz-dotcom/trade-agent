@@ -79,6 +79,26 @@ def test_sizing_and_leverage():
     assert lev_low.leverage <= 1.0
 
 
+# 6b) AGGRESSIVE (C kolu) — yüksek risk/kaldıraç, default'lar KORUNUR
+def test_aggressive_profile():
+    # default (det) ile aggressive aynı entry/stop → aggressive notional DAHA BÜYÜK (%5 vs %1.5)
+    det = sizing.compute_sizing(4000, 100, 95)  # %5 stop
+    agg = sizing.compute_sizing(4000, 100, 95, risk_pct=sizing.RISK_PCT_AGGRESSIVE,
+                                max_pos_pct=sizing.MAX_POS_PCT_AGGRESSIVE)
+    assert agg.notional > det.notional
+    assert round(agg.notional / det.notional, 1) == round(0.05 / 0.015, 1)  # ~3.33×
+    # default max_leverage=5 davranışı DEĞİŞMEDİ (Faz-1 koruması). Dar stop (99) → likidasyon kapısı
+    # geniş (80x), düşük vol → kaldıraç max_leverage tavanına dayanır.
+    lev5 = leverage.suggest_leverage(100, 99, "buy", atr=1.0, price=100, confidence="high")
+    assert lev5.leverage == 5.0
+    # aggressive 20x tavanı: aynı kurulumda 5x'ten yüksek (kaldıraç farkı görünür)
+    lev20 = leverage.suggest_leverage(100, 99, "buy", atr=1.0, price=100, confidence="high", max_leverage=20)
+    assert lev20.leverage > 5.0 and lev20.leverage <= 20.0
+    # confidence cap orantısı: max_lev=5'te high=5 (default korunur)
+    assert leverage._confidence_cap("high", 5.0) == 5.0
+    assert leverage._confidence_cap("medium", 5.0) == 2.0
+
+
 # 7) TREND + ANCHOR — counter-trend simetri + anchor temizliği
 def test_trend_and_anchor():
     assert trend.is_counter_trend("buy", "down") is True

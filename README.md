@@ -6,12 +6,13 @@ Kripto perp (BTC · ETH · XRP · HYPE) **A/B araştırma + forward-test** siste
 > Dürüst beklenti: LLM-güdümlü trader'ın fee+funding sonrası piyasayı yenmesi düşük ihtimal (L-01).
 > Değer: kendi strateji dokümanını üreten + ileri-test eden, **kuralı LLM'e karşı ölçen** öğretici sistem.
 
-## A/B mimarisi
-İki kol, **aynı snapshot + aynı sizing**, ayrı $4000 bakiye, ayrı state/runs:
-- **A — deterministic-trader** (`run_deterministic.py`): saf kural (RSI/MACD/trend/rejim, LLM YOK).
-- **B — deep-thinker** (`run_deepthinker.py` → `apply_deepthinker.py`): LLM analyst → challenger → otonom karar.
+## A/B/C mimarisi
+Üç kol, **aynı snapshot**, ayrı $4000 bakiye, ayrı state/runs, TAM İZOLE:
+- **A — deterministic-trader** (`run_deterministic.py`): saf kural (RSI/MACD/trend/rejim, LLM YOK). %1.5 risk / ≤5x.
+- **B — deep-thinker** (`run_deepthinker.py` → `apply_deepthinker.py`): LLM analyst → challenger → otonom karar. A ile AYNI sizing.
+- **C — aggressive-trader** (`run_aggressive.py`): A ile aynı kural, yüksek-risk profili (%5 risk / ≤20x + likidasyon kapısı).
 
-Soru: LLM+challenger akıl yürütmesi saf kuralları yenebilir mi? ~30+ trade sonra VERİYLE karşılaştır.
+Soru: LLM kuralları yenebilir mi? Yüksek risk/kaldıraç işe yarar mı? ~30+ trade sonra VERİYLE karşılaştır.
 
 ## 7 katman (determinism kodda, judgment LLM'de)
 | # | Katman | Dizin | Ne |

@@ -9,15 +9,20 @@ Neden:   CLAUDE.md kural 1: kaldıraç SERBEST değil, KODDAN. Ajan yalnız bu s
 
 from dataclasses import dataclass
 
-MAX_LEVERAGE = 5.0          # SERT TAVAN (ajan aşamaz, kod reddeder)
+MAX_LEVERAGE = 5.0          # SERT TAVAN — deterministic/deep-thinker (Faz-1). aggressive 20x geçer.
+MAX_LEVERAGE_AGGRESSIVE = 20.0  # C kolu (aggressive-trader) tavanı
 LIQ_SAFETY = 0.80           # likidasyon mesafesi stop mesafesinin en az 1/0.80=1.25 katı olmalı
-
-# Güven tavanları (CLAUDE.md): low→~1x, medium→≤2x, high→≤5x (ama vol+likidasyon+challenger şartlı)
-CONFIDENCE_CAP = {"low": 1.0, "medium": 2.0, "high": MAX_LEVERAGE, None: 2.0}
 
 # Vol-ölçek: ATR/price oranı yükseldikçe kaldıraç düşer.
 VOL_LOW = 0.02              # <= %2 ATR/price → tam izinli
 VOL_HIGH = 0.06             # >= %6 ATR/price → düşük
+
+
+def _confidence_cap(confidence, max_leverage):
+    """Güven tavanı, max_leverage'a ORANTILI: low→0.2×, medium→0.4×, high→1.0×.
+    max_leverage=5 için {low:1, medium:2, high:5} (Faz-1 davranışı birebir korunur)."""
+    frac = {"low": 0.2, "medium": 0.4, "high": 1.0, None: 0.4}.get(confidence, 0.4)
+    return round(max_leverage * frac, 2)
 
 
 @dataclass
@@ -30,17 +35,17 @@ class LeverageSuggestion:
         return {"leverage": self.leverage, "caps": self.caps, "notes": self.notes}
 
 
-def _vol_cap(atr, price):
-    """ATR/price → izinli üst kaldıraç (VOL_LOW'da MAX, VOL_HIGH'da ~1x)."""
+def _vol_cap(atr, price, max_leverage):
+    """ATR/price → izinli üst kaldıraç (VOL_LOW'da max_leverage, VOL_HIGH'da ~1x)."""
     if price <= 0:
-        return MAX_LEVERAGE
+        return max_leverage
     vol = atr / price
     if vol <= VOL_LOW:
-        return MAX_LEVERAGE
+        return max_leverage
     if vol >= VOL_HIGH:
         return 1.0
     frac = (vol - VOL_LOW) / (VOL_HIGH - VOL_LOW)
-    return round(MAX_LEVERAGE - frac * (MAX_LEVERAGE - 1.0), 2)
+    return round(max_leverage - frac * (max_leverage - 1.0), 2)
 
 
 def _liq_cap(entry, stop, side):
@@ -62,23 +67,25 @@ def liquidation_price(entry, side, leverage):
     return round(entry * (1 + 1 / leverage), 4)
 
 
-def suggest_leverage(entry, stop, side, atr, price, confidence="medium", challenger_clean=True):
-    """Kod-türetilmiş kaldıraç önerisi. Tüm kapıların MİNİMUMU, 5x tavanına kırpılır.
-    high güven ANCAK düşük-vol + temiz challenger ile tam açılır; low daima ~1x."""
+def suggest_leverage(entry, stop, side, atr, price, confidence="medium", challenger_clean=True,
+                     max_leverage=MAX_LEVERAGE):
+    """Kod-türetilmiş kaldıraç önerisi. Tüm kapıların MİNİMUMU, max_leverage tavanına kırpılır.
+    max_leverage=5 (det/deep, default) ya da 20 (aggressive). high ANCAK düşük-vol + temiz challenger
+    ile tam açılır; low daima ~max_leverage*0.2."""
     notes = []
-    conf_cap = CONFIDENCE_CAP.get(confidence, 2.0)
-    vol_cap = _vol_cap(atr, price)
+    conf_cap = _confidence_cap(confidence, max_leverage)
+    vol_cap = _vol_cap(atr, price, max_leverage)
     liq_cap = _liq_cap(entry, stop, side)
 
-    lev = min(conf_cap, vol_cap, liq_cap, MAX_LEVERAGE)
+    lev = min(conf_cap, vol_cap, liq_cap, max_leverage)
 
     # high güven temiz-challenger değilse medium gibi davranır (gürültüye yüksek kaldıraç verme)
     if confidence == "high" and not challenger_clean:
-        lev = min(lev, CONFIDENCE_CAP["medium"])
+        lev = min(lev, _confidence_cap("medium", max_leverage))
         notes.append("high ama challenger temiz değil → medium tavanı")
 
     lev = max(1.0, round(lev, 2))
-    caps = {"confidence": conf_cap, "vol": vol_cap, "liquidation": liq_cap, "hard": MAX_LEVERAGE}
+    caps = {"confidence": conf_cap, "vol": vol_cap, "liquidation": liq_cap, "hard": max_leverage}
     if lev == liq_cap:
         notes.append("likidasyon kapısı bağladı (liq mesafesi > stop)")
     if lev == vol_cap and vol_cap < conf_cap:

@@ -10,9 +10,12 @@ Neden:   CLAUDE.md A/B kuralı — iki kol da AYNI sizing kullanır (tek fark ka
 from dataclasses import dataclass
 
 # --- Demir sizing tavanları (CLAUDE.md — Faz-1 sabit) ---
-RISK_PCT = 0.015        # trade başına maks kayıp: bakiyenin %1.5'i
-MAX_POS_PCT = 0.30      # tek pozisyon notional tavanı: bakiyenin %30'u
+RISK_PCT = 0.015        # deterministic/deep-thinker: trade başına maks kayıp %1.5
+MAX_POS_PCT = 0.30      # deterministic/deep-thinker: tek pozisyon notional tavanı %30
 COLLATERAL_GUARD = 1.00 # %100 teminat-guard: kullanılan marj <= bakiye
+# C kolu (aggressive-trader) profili — daha yüksek risk/maruziyet:
+RISK_PCT_AGGRESSIVE = 0.05      # %5 risk
+MAX_POS_PCT_AGGRESSIVE = 1.00   # tek poz tavanı %100 (kaldıraç likidasyon kapısıyla sınırlı)
 
 
 @dataclass
@@ -29,22 +32,22 @@ class Sizing:
                 "notes": self.notes}
 
 
-def compute_sizing(balance, entry, stop):
-    """Risk-bazlı notional. notional = (bakiye*%1.5) / stop_mesafe_oranı, %30'a kırpılır.
-    Stop mesafesi 0 ise pozisyon açılamaz (notional 0). İKİ KOL DA AYNEN bunu kullanır."""
+def compute_sizing(balance, entry, stop, risk_pct=RISK_PCT, max_pos_pct=MAX_POS_PCT):
+    """Risk-bazlı notional. notional = (bakiye*risk_pct) / stop_mesafe_oranı, max_pos_pct'e kırpılır.
+    Default = deterministic/deep-thinker (%1.5 / %30 — ORTAK sizing). aggressive: %5 / %100."""
     notes = []
     if not entry:
-        return Sizing(0.0, balance * RISK_PCT, 0.0, 0.0, ["geçersiz entry"])
+        return Sizing(0.0, balance * risk_pct, 0.0, 0.0, ["geçersiz entry"])
     stop_dist = abs(entry - stop) / entry
     if stop_dist == 0:
-        return Sizing(0.0, balance * RISK_PCT, 0.0, 0.0, ["geçersiz stop mesafesi (0)"])
+        return Sizing(0.0, balance * risk_pct, 0.0, 0.0, ["geçersiz stop mesafesi (0)"])
 
-    risk_usd = balance * RISK_PCT
+    risk_usd = balance * risk_pct
     notional = risk_usd / stop_dist
 
-    cap = balance * MAX_POS_PCT
+    cap = balance * max_pos_pct
     if notional > cap:
-        notes.append(f"poz tavanı %{int(MAX_POS_PCT*100)} kırpıldı")
+        notes.append(f"poz tavanı %{int(max_pos_pct*100)} kırpıldı")
         notional = cap
 
     used_margin = min(notional, balance * COLLATERAL_GUARD)

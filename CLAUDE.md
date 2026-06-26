@@ -38,10 +38,11 @@
 
 ---
 
-## 🅰️🅱️ A/B mimarisi (KURAL vs LLM — hangisi daha iyi VERİYLE)
-İki agent paralel, **aynı snapshot**, **ayrı $4000 bakiye**, **ayrı state/runs**, **AYNI sizing**. ~30+ trade sonra karşılaştır.
-- **A — deterministic-trader** (`run_deterministic.py`): kural-bazlı (RSI/MACD/trend/rejim, LLM YOK).
-- **B — deep-thinker** (`.claude/agents/deep-thinker.md` + `run_deepthinker.py` + `apply_deepthinker.py`): LLM-in-the-loop (analyst→challenger→karar), **otonom**, **turlar arası ÖĞRENMEZ**.
+## 🅰️🅱️🅲️ A/B/C mimarisi (KURAL vs LLM vs AGGRESSIVE — hangisi daha iyi VERİYLE)
+Üç agent paralel, **aynı snapshot**, **ayrı $4000 bakiye**, **ayrı state/runs**, **TAM İZOLE**. ~30+ trade sonra karşılaştır.
+- **A — deterministic-trader** (`run_deterministic.py`): kural-bazlı (RSI/MACD/trend/rejim, LLM YOK). Sizing %1.5 risk / %30 poz / ≤5x.
+- **B — deep-thinker** (`.claude/agents/deep-thinker.md` + `run_deepthinker.py` + `apply_deepthinker.py`): LLM-in-the-loop (analyst→challenger→karar), **otonom**, **turlar arası ÖĞRENMEZ**. A ile AYNI sizing (tek fark karar mekanizması).
+- **C — aggressive-trader** (`run_aggressive.py`): A ile AYNI kural mantığı AMA yüksek-risk profili (%5 risk / %100 poz / ≤20x + likidasyon kapısı). Soru: yüksek risk/kaldıraç conservative kolları yener mi? A/B'nin sizing-fairness'ını bozmaz (C ayrı deney).
 - **Motor ORTAK** (`run_turn.py`): snapshot, path-check kapatma, **risk-bazlı sizing** (`execution/sizing.py`), kaldıraç (`execution/leverage.py`), P&L, log. TEK fark = açma kararı.
 - **SİZİNG (ikisi de AYNEN):** trade başına maks kayıp **%1.5×bakiye** (notional = risk$/stop_mesafe); tek poz ≤ **%30** bakiye; **%100 teminat-guard**; gerçekleşen bakiye üzerinden. Kaldıraç serbest seçilmez (koddan).
 - **🔁 SİMETRİ — long + short:** İkisi de AYNI aksiyon uzayı. **deterministic yön = HTF trend** (`is_counter_trend` simetrik). **range-HTF → WAIT**. deep-thinker long+short serbest (counter-trend açmaz; short sıralama `target<entry<stop`).

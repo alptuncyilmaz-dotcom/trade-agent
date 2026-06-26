@@ -1,10 +1,10 @@
 """
-run_deterministic.py — Kural bazlı A/B kolu (deterministic-trader).
-Ne yapar: snapshot'tan triggers/rules ile karar verir (autonomous.opportunity_gate), leverage ile
-          boyutlandırır, simulator ile paper-fill kapatır, metrics ile kümülatif performans raporlar.
-Neden:   LLM olmadan saf kural performansını ölçmek (A/B testi A kolu). Tüm mantık tek kaynaktan
-         (triggers/execution/evaluation) gelir — sizing/trigger/fill/pnl artık burada DUPLİKE DEĞİL.
-Çıktı:   state/positions_deterministic.json + runs_deterministic.jsonl
+run_aggressive.py — Kural bazlı C kolu (aggressive-trader). A/B/C'nin 3. kolu.
+Ne yapar: deterministic ile AYNI trigger/karar mantığı AMA daha yüksek risk profili:
+          %5 risk (vs %1.5), poz tavanı %100 (vs %30), kaldıraç tavanı 20x (vs 5x).
+Neden:   A/B/C — yüksek-risk/kaldıraç kural-bazlı kol, conservative kolları VERİYLE yenebilir mi?
+         TAM İZOLE: ayrı state/runs/bakiye. Karar mekanizması det ile aynı (kural), TEK fark sizing/leverage.
+Çıktı:   state/positions_aggressive.json + runs_aggressive.jsonl
 """
 
 import json
@@ -12,6 +12,10 @@ from datetime import datetime, timezone
 
 from execution import autonomous, sizing, leverage, simulator
 from evaluation import metrics
+
+RISK_PCT = sizing.RISK_PCT_AGGRESSIVE          # %5
+MAX_POS_PCT = sizing.MAX_POS_PCT_AGGRESSIVE    # %100
+MAX_LEVERAGE = leverage.MAX_LEVERAGE_AGGRESSIVE  # 20x
 
 
 def load_json(path, default=None):
@@ -33,8 +37,7 @@ def append_jsonl(path, record):
 
 
 def decide(asset):
-    """Kural-bazlı karar — tek kaynak triggers/rules (autonomous.opportunity_gate üzerinden).
-    Döner: (action, params|None, reason). Gate geçerse open + ATR referans seviyeleri, yoksa wait."""
+    """Kural-bazlı karar — deterministic ile AYNI (tek kaynak triggers/rules)."""
     passes, side, reason = autonomous.opportunity_gate(asset)
     if not passes:
         return "wait", None, autonomous.wait_diagnosis(asset)
@@ -43,7 +46,6 @@ def decide(asset):
 
 
 def load_closed_pnls(path):
-    """Geçmiş + bu turdaki kapanmış trade'lerin net K/Z listesi (kümülatif metrik için)."""
     pnls = []
     try:
         with open(path) as f:
@@ -59,7 +61,7 @@ def load_closed_pnls(path):
 
 def main():
     snapshot = load_json("state/snapshot_latest.json")
-    state = load_json("state/positions_deterministic.json", {"phase": "faz1", "balance": 4000, "positions": {}})
+    state = load_json("state/positions_aggressive.json", {"phase": "faz1", "balance": 4000, "positions": {}})
 
     if not snapshot:
         print("Snapshot yok — önce capture_snapshot.py çalıştır.")
@@ -78,7 +80,6 @@ def main():
             continue
         status = simulator.check_path(pos, asset["price"])
         if status in ("stop_hit", "target_hit"):
-            # Faz-1 maliyet modeli = fee-only (slippage/funding kapalı → mevcut A/B bazını korur).
             res = simulator.simulate_trade(pos["side"], pos["entry"], asset["price"], pos["notional"],
                                            funding_rate=0.0, funding_periods=0, slippage_bps=0.0)
             balance = round(balance + res.net_pnl, 2)
@@ -89,7 +90,7 @@ def main():
     for coin in to_close:
         del positions[coin]
 
-    # --- Yeni pozisyon kararları ---
+    # --- Yeni pozisyon kararları (AGGRESSIVE sizing/leverage) ---
     for coin, asset in snapshot["assets"].items():
         if coin in positions:
             price = asset["price"]
@@ -101,11 +102,12 @@ def main():
 
         action, params, reason = decide(asset)
         if action == "open":
-            # Sizing (notional) = risk-bazlı, İKİ KOL DA AYNEN (PnL bundan gelir → A/B adil).
-            sz = sizing.compute_sizing(balance, params["entry"], params["stop"])
-            # Kaldıraç AYRI ve kod-türetilmiş; deterministic = medium güven (≤2x). PnL'i değiştirmez.
+            # AGGRESSIVE: %5 risk, %100 poz tavanı, 20x kaldıraç tavanı (high güven).
+            sz = sizing.compute_sizing(balance, params["entry"], params["stop"],
+                                       risk_pct=RISK_PCT, max_pos_pct=MAX_POS_PCT)
             lev = leverage.suggest_leverage(params["entry"], params["stop"], params["side"],
-                                            asset["atr"], params["entry"], confidence="medium")
+                                            asset["atr"], params["entry"], confidence="high",
+                                            max_leverage=MAX_LEVERAGE)
             if sz.notional > 0:
                 positions[coin] = {
                     "side": params["side"],
@@ -117,28 +119,27 @@ def main():
                     "decided_at": timestamp,
                 }
                 decisions.append({"coin": coin, "action": "open_new", "side": params["side"], "entry": params["entry"], "reason": reason})
-                print(f"  AÇILDI {coin} {params['side']}: ${params['entry']} stop:${params['stop']} target:${params['target']} (lev {lev.leverage})")
+                print(f"  AÇILDI {coin} {params['side']}: ${params['entry']} stop:${params['stop']} target:${params['target']} (notional ${sz.notional} lev {lev.leverage})")
         else:
             print(f"  WAIT {coin}: {reason}")
             decisions.append({"coin": coin, "action": "wait", "reason": reason})
 
     state["balance"] = balance
     state["positions"] = positions
-    save_json("state/positions_deterministic.json", state)
+    save_json("state/positions_aggressive.json", state)
 
     run_record = {
         "timestamp": timestamp,
-        "agent": "deterministic",
+        "agent": "aggressive",
         "balance": balance,
         "regime": snapshot.get("regime"),
         "decisions": decisions,
     }
-    append_jsonl("runs_deterministic.jsonl", run_record)
+    append_jsonl("runs_aggressive.jsonl", run_record)
 
     print(f"\nTamamlandı. Bakiye: ${balance} | Açık pozisyon: {len(positions)}")
 
-    # --- Kümülatif performans (tek kaynak: evaluation/metrics) ---
-    all_pnls = load_closed_pnls("runs_deterministic.jsonl")
+    all_pnls = load_closed_pnls("runs_aggressive.jsonl")
     if all_pnls:
         m = metrics.summarize(all_pnls)
         print(f"  Kümülatif: {m['n_trades']} trade | expectancy ${m['expectancy']} | "
