@@ -1,0 +1,3 @@
+anthropic==0.112.0
+numpy==2.0.2
+requests==2.32.5

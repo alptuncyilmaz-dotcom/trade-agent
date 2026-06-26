@@ -1,33 +1,14 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "1d/1h/4h down, 15m range — counter-trend long YASAK. MACD-hist +58.8 pozitif (kısa-vade momentum yukarı) → short tetiği de yok, RSI 35.2 ekstrem değil. Edge yok → WAIT.",
-    "ETH": "TAM bear (15m/1h/4h/1d hepsi down). Counter-trend long yasak; MACD-hist +3.28 zayıf pozitif, short trigger yok. WAIT.",
-    "XRP": "TAM bear alignment, MACD-line -0.0476 < signal -0.0431 hafif bearish cross. RSI 34.9 — 30'a yaklaşıyor ama tetik eşiği aşılmadı. Negatif funding (-5.07e-05) short'u eritir. Pro-trend short adayı; RSI<30 + net MACD trigger bekleniyor → WAIT.",
-    "HYPE": "1d range + 4h down vs 1h/15m up = HTF çatışması → range-HTF kuralı WAIT. RSI 56 nötr, MACD-hist -0.86 momentum kaybı, macd_line<signal. Yön net değil. WAIT."
-  },
-  "analysis": {
-    "BTC": {
-      "analyst": "59558, RSI 35.2. MACD-hist +58.8 ile histogram pozitif ve genişliyor — kısa vadede dip-bounce iması. Long cazip görünür AMA 1d/1h/4h down; counter-trend long yasak. Short için ne RSI ekstremi (≤30) ne bearish MACD cross var (hist pozitif). Tetik yok.",
-      "challenger": "Histogram pozitifliği macd_line -2236 derin negatifken zayıf sinyal; trend gücü hâlâ aşağı. Funding ~0 nötr, edge yok. WAIT eğilimi sağlam — bounce'a counter-trend girmek L-03 (over-trading) tuzağı."
-    },
-    "ETH": {
-      "analyst": "1563.4, RSI 38.4, artık 15m dahil TAM bear. BTC-beta. Counter-trend long yasak, short trigger yok (RSI orta, hist hafif pozitif).",
-      "challenger": "ETH bağımsız katalizörsüz, BTC'yi izliyor. Zayıf pozitif histogram dip teyidi değil. Tez sağlam, ciddi karşı-argüman yok — WAIT."
-    },
-    "XRP": {
-      "analyst": "1.034, RSI 34.92 (30'a en yakın varlık). Tüm TF'ler down — en temiz pro-trend short adayı. MACD-line<signal hafif bearish cross mevcut. Ancak RSI ≤30 tetik eşiği henüz aşılmadı; erken short orta-bölge girişi olur.",
-      "challenger": "Short pro-trend olduğu için meşru ama zamanlama zayıf: RSI 34.9'dan short R:R düşük, ATR 0.0516 ile stop geniş, negatif funding short'u eritir. RSI<30 + net trigger beklemek doğru. Aceleci giriş gerekçesiz."
-    },
-    "HYPE": {
-      "analyst": "63.15, RSI 56 nötr. 1d range, 4h down ama 1h/15m up — kısa vade yukarı, HTF aşağı/yatay çatışması. MACD bearish (line<signal, hist -0.86). Net yön yok.",
-      "challenger": "Tam da range-HTF kuralının WAIT dediği çatışma. Kısa-vade up'a kanıp long açmak HTF'ye karşı counter-trend riski; short'a HTF range engel. Herhangi bir giriş gürültüye bahis — WAIT zorunlu."
-    }
+    "BTC": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "ETH": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "XRP": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "HYPE": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT"
   },
   "_meta": {
-    "llm": "in-session deep-thinker (manuel tetik — otonom path geçerli setup-token bekliyor)",
-    "snapshot_ts": "2026-06-25T21:11:58.299353+00:00",
-    "regime": "bear",
-    "note": "Taze analiz; eski karar dosyası kullanılmadı."
+    "llm": "unavailable",
+    "error": "claude CLI bulunamad\u0131",
+    "snapshot_ts": "2026-06-26T16:52:08.388942+00:00"
   }
 }

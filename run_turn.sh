@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/Documents/trade-agent
+cd ~/trade-agent
 # Gizli anahtarları .env'den yükle (gitignore'lu — repo'ya GİRMEZ). ANTHROPIC_API_KEY burada.
 set -a
 [ -f .env ] && . ./.env
