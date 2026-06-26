@@ -1,33 +1,14 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "1d/4h down — counter-trend long YASAK. MACD AYIYA döndü (hist -10.3, line -2302 < signal -2292) → pro-trend SHORT gelişiyor AMA RSI 36.4 henüz ≤30 değil, trigger eşiği aşılmadı. İlk short adayı; RSI<30 teyidi bekleniyor → WAIT.",
-    "ETH": "1d/4h down, counter-trend long yasak. MACD-hist +0.22 düz (line≈signal), RSI 40 nötr, trigger yok. BTC'yi izliyor → WAIT.",
-    "XRP": "1d/4h down, 1h/15m range. Counter-trend long yasak; MACD-line<signal hafif bearish ama RSI 37 (≤30 değil) — net short trigger yok. Negatif funding short'u eritir → WAIT.",
-    "HYPE": "1d range'e GERİ döndü (geçen tur up'tı) + 4h range, 1h up = HTF yönsüz → range-HTF kuralı WAIT. RSI 57 nötr, MACD bearish (line 1.52 < signal 2.36). Yön yok → WAIT."
-  },
-  "analysis": {
-    "BTC": {
-      "analyst": "59868, RSI 36.4. Önemli: MACD-hist -10.3'e döndü ve line signal'in ALTINA geçti (bearish cross) — düşüş trendinde pro-trend short tezi olgunlaşıyor. 1d/4h down ile uyumlu (counter-trend değil). Tek eksik: RSI ekstremi (≤30). 15m up küçük bir nefes, HTF aşağıyı bozmuyor.",
-      "challenger": "Short yönü meşru (pro-trend) ama tetik tamamlanmadı: RSI 36'dan short erken — orta-bölge girişi, stop ATR 2220 ile geniş, R:R zayıf. macd_line -2302 zaten derin negatif; cross 'taze' değil olabilir. RSI<30 + net momentum teyidi beklemek doğru. Aceleci short gerekçesiz."
-    },
-    "ETH": {
-      "analyst": "1574.8, RSI 40.3. MACD düz (hist +0.22, line≈signal). 1d/4h down. Counter-trend long yasak; short için ne RSI ekstremi ne net cross var. BTC-beta, bağımsız katalizör yok.",
-      "challenger": "Yönsüz MACD = sinyal yok. BTC short'a dönerse ETH izler ama şu an öncü değil. Tez sağlam, WAIT."
-    },
-    "XRP": {
-      "analyst": "1.0438, RSI 37.1. 1d/4h down ama 1h/15m range — kısa vade yatay. MACD-line<signal hafif bearish (hist -0.0055 marjinal). Pro-trend short adayı ama RSI 37 tetik eşiğinde değil.",
-      "challenger": "Marjinal bearish histogram + range kısa-vade = zayıf kurulum. Negatif funding (-1.7e-05) short'u eritir. BTC'den daha zayıf short adayı; beklemek doğru. WAIT."
-    },
-    "HYPE": {
-      "analyst": "63.884, RSI 57. Geçen tur 1d up'tı, şimdi 1d RANGE'e döndü — trend iddiası geri çekildi. 4h range, 1h up. MACD bearish (line<signal, hist -0.85). Net yön yok.",
-      "challenger": "1d up→range geçişi tam da rejim belirsizliği; range-HTF kuralı WAIT diyor. Long'a kanıp (1h up) HTF range'e karşı açmak gürültü; short'a HTF range engel. WAIT zorunlu."
-    }
+    "BTC": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcShRkLMmN4nfGQDiBrGg'}) \u2014 g\u00fcvenli WAIT",
+    "ETH": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcShRkLMmN4nfGQDiBrGg'}) \u2014 g\u00fcvenli WAIT",
+    "XRP": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcShRkLMmN4nfGQDiBrGg'}) \u2014 g\u00fcvenli WAIT",
+    "HYPE": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcShRkLMmN4nfGQDiBrGg'}) \u2014 g\u00fcvenli WAIT"
   },
   "_meta": {
-    "llm": "in-session deep-thinker (manuel tetik — .env'de placeholder anahtar, otonom SDK 401)",
-    "snapshot_ts": "2026-06-26T21:31:14.487114+00:00",
-    "regime": "bear",
-    "note": "Taze analiz; eski karar dosyası kullanılmadı. BTC MACD ayıya döndü (ilk short adayı), HYPE 1d range'e geri döndü."
+    "llm": "unavailable",
+    "error": "SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcShRkLMmN4nfGQDiBrGg'}",
+    "snapshot_ts": "2026-06-26T22:57:01.113467+00:00"
   }
 }
