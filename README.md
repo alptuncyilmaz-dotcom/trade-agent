@@ -1,46 +1,51 @@
 # trade-agent
 
-Kripto perp (BTC · ETH · XRP · HYPE) üzerinde **A/B araştırma + forward-test** sistemi.
-**TESTNET / PAPER ONLY — gerçek para YOK.** Tam anayasa: [CLAUDE.md](CLAUDE.md).
+Kripto perp (BTC · ETH · XRP · HYPE) **A/B araştırma + forward-test** sistemi. Hyperliquid
+**testnet/paper ONLY — gerçek para YOK.** Tam anayasa: [CLAUDE.md](CLAUDE.md).
+
+> Dürüst beklenti: LLM-güdümlü trader'ın fee+funding sonrası piyasayı yenmesi düşük ihtimal (L-01).
+> Değer: kendi strateji dokümanını üreten + ileri-test eden, **kuralı LLM'e karşı ölçen** öğretici sistem.
 
 ## A/B mimarisi
-İki kol, **aynı snapshot + aynı sizing**, ayrı $4000 bakiye:
-- **A — deterministic-trader** (`run_deterministic.py`): saf kural (RSI/MACD/trend/rejim).
-- **B — deep-thinker** (`run_deepthinker.py`): LLM analyst → challenger → otonom karar.
+İki kol, **aynı snapshot + aynı sizing**, ayrı $4000 bakiye, ayrı state/runs:
+- **A — deterministic-trader** (`run_deterministic.py`): saf kural (RSI/MACD/trend/rejim, LLM YOK).
+- **B — deep-thinker** (`run_deepthinker.py` → `apply_deepthinker.py`): LLM analyst → challenger → otonom karar.
 
-## Veri akışı (saatlik tur)
-```
-capture_snapshot.py        # data/snapshot.py → ohlcv+funding+onchain + indicators + rules
-   → run_deterministic.py  # A kolu
-   → run_deepthinker.py    # B kolu (LLM; SDK ANTHROPIC_API_KEY ile)
-   → apply_deepthinker.py  # B kararını simülatörle uygula
-   → git push
-```
-Tek komut: `run_turn.py` (saatlik launchd → `run_turn.sh`).
+Soru: LLM+challenger akıl yürütmesi saf kuralları yenebilir mi? ~30+ trade sonra VERİYLE karşılaştır.
 
-## Katmanlar (tek-kaynak)
-| Katman | Sorumluluk |
-|--------|-----------|
-| `data/` | Hyperliquid ham veri: ohlcv, funding, onchain(proxy), snapshot kurucu |
-| `features/indicators.py` | RSI/MACD/ATR/SMA/EMA/trend — saf hesap |
-| `triggers/rules.py` | Tetik + demir-kural değerlendirme (counter-trend, range-HTF, H-03) |
-| `execution/` | decision (şema+guard), leverage (sizing), simulator (fill+fee+funding+slippage), autonomous (gate/wait/context) |
-| `evaluation/metrics.py` | expectancy, profit factor, max DD, Sharpe (+leakage bayrağı) |
-| `strategy/` | _strategy, lessons, candidate-factors, paid-sources |
-| `.claude/agents/` | deep-thinker, challenger, trader-deep, trader-refresh, trader-scan |
+## 7 katman (determinism kodda, judgment LLM'de)
+| # | Katman | Dizin | Ne |
+|---|---|---|---|
+| 1 | Veri (point-in-time) | `data/` | OHLCV (`ohlcv.py`) + funding (`funding.py`) + on-chain proxy (`onchain.py`) + `snapshot.py` |
+| 2 | Feature | `features/` | RSI/MACD/ATR/SMA/EMA (`indicators.py`) + çok-TF trend/rejim (`trend.py`) — KOD hesaplar |
+| 3 | Decision | A: `run_deterministic.py` · B: `.claude/agents/deep-thinker.md` | snapshot → JSON tez/entry/stop/target |
+| 4 | Execution sim | `execution/` | sizing + leverage + fee/funding/slippage'li `simulator.py` |
+| 5 | Evaluation | `evaluation/metrics.py` | expectancy / PF / maxDD / Sharpe + `baselines` (B&H + RSI) |
+| 6 | Reflection | `.claude/agents/trader-refresh.md` | sonuç → neden + aday öğrenim |
+| 7 | Strateji doc | `strategy/` | yavaş evrilen, insan-okunur |
 
-## Demir disiplinler (özet)
-1. Testnet/paper — gerçek para yok. 2. Oku mainnet, emir testnet. 3. Counter-trend açma yasak.
-4. Range-HTF → WAIT. 5. Sizing: %1.5 risk / %30 poz / %100 teminat-guard / maks 5x.
-6. Uydurma yok, kaynak zorunlu. 7. Faz-1 config sabit. 8. SUCCESSFUL/FAILED etiketi yasak.
-9. Turlar arası öğrenme yok. 10. Karar dosyada yaşar.
+Ek: `triggers/rules.py` (LLM ne zaman çalışır), `execution/decision.py` (JSON şema+guard), `execution/autonomous.py` (gate/path-check/anchor), `journal/` (tez/sonuç/neden ayrı).
+
+## Veri akışı (özet)
+`ohlcv.fetch_candles` + `funding.fetch_funding` → `indicators` + `trend` → `snapshot.build_snapshot` →
+(trigger ateşlerse) decision → `simulator.simulate_trade` → `metrics.summarize` + `baselines.compare` → reflection + `strategy/`.
 
 ## Kurulum
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env   # ANTHROPIC_API_KEY=... (deep-thinker SDK için; .env gitignore'lu)
+cp .env.example .env        # ANTHROPIC_API_KEY=... (deep-thinker SDK; .env gitignore'lu)
 .venv/bin/python run_turn.py
 ```
+Saatlik otomatik tetik: lokal launchd `com.trade-agent.turn` → `run_turn.sh` (akış: [ROUTINE.md](ROUTINE.md)).
 
-## Faz durumu
-**FAZ 1** — temel ölçüm, config sabit, ~30 trade hedef. Faktör eklemek: `strategy/candidate-factors.md`.
+## Test
+```bash
+.venv/bin/python -m pytest tests -v
+```
+
+## Güvenlik sınırları (DEĞİŞMEZ — bkz CLAUDE.md)
+Testnet-only EMİR · win-rate hedefi yok · point-in-time (leakage yok) · tez≠fiyat · fee+funding+slippage · trigger-only · anchor asimetrik · uydurma yok. **Hiçbir cutoff-öncesi sonuç performans kanıtı değildir.**
+
+## Veri durumu
+- ✅ OHLCV + funding + OI: Hyperliquid `/info` (ücretsiz, anahtarsız read).
+- ⚠️ On-chain exchange flow: **güvenilir ücretsiz kaynak yok** (bkz `logs/onchain-research.md`) → `data/onchain.py` proxy, sinyal uydurmaz. Gerçek kaynaklar: `strategy/paid-sources.md`.

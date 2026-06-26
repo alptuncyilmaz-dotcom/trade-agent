@@ -1,33 +1,14 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "1d/4h down, 1h/15m range — counter-trend long YASAK. MACD-line ≈ signal (-2288 vs -2289) düz, hist +1.2 nötr; short tetiği de yok, RSI 37.2 ekstrem değil. Yön/edge yok → WAIT.",
-    "ETH": "1d/4h down, 15m up/1h range — counter-trend long yasak. MACD-line>signal hafif boğa ama derin negatif bölgede, RSI 41.4 nötr, trigger yok. WAIT.",
-    "XRP": "1d/4h down ama 15m up — short kurulumu zayıflıyor: RSI geçen tur 34.9 → şimdi 37.6 (30'dan uzaklaşıyor). Counter-trend long yasak; net short trigger yok. Bekle → WAIT.",
-    "HYPE": "1d UP'a döndü (artık counter-trend SHORT yasak). Ama long tetiği yok: RSI 58.5 (oversold değil), MACD-hist -0.78 + line 1.60 < signal 2.38 = momentum bearish. Trend yukarı, momentum aşağı çatışması → WAIT. İzle: geri çekilmede RSI düşüp MACD cross-up olursa pro-trend long adayı."
-  },
-  "analysis": {
-    "BTC": {
-      "analyst": "60048, RSI 37.2. MACD-line (-2288) signal'e (-2289) yapışmış, hist +1.2 — momentum nötr, yön sinyali yok. 1d/4h down; counter-trend long yasak, short için ne RSI ekstremi ne net bearish cross var.",
-      "challenger": "Düz MACD + nötr RSI = piyasa kararsız. Herhangi bir yöne girmek coin-flip; spread+fee yer. Tez sağlam, WAIT net."
-    },
-    "ETH": {
-      "analyst": "1583.5, RSI 41.4. 15m up sekme ama HTF (4h/1d) down. MACD-line signal'in hafif üstünde ama -77 derin negatif. Counter-trend long yasak, short trigger yok.",
-      "challenger": "15m yukarı bir nefes; BTC kararsızken ETH bağımsız yön üretmez. Zayıf boğa cross dip teyidi değil. WAIT."
-    },
-    "XRP": {
-      "analyst": "1.0469, RSI 37.64. Geçen turdaki en yakın short adayıydı (RSI 34.9); şimdi RSI 37.6'ya yükseldi ve 15m up — short momentumu zayıflıyor. 1d/4h hâlâ down ama 1h range. MACD-line<signal bearish ama hist -0.005 marjinal.",
-      "challenger": "Short tezi soğuyor: RSI 30'dan uzaklaştı, 15m yukarı döndü, negatif funding short'u eritir. Erken short artık daha da gerekçesiz. WAIT doğru — kurulum bozuldu."
-    },
-    "HYPE": {
-      "analyst": "64.951, RSI 58.5. Dikkat: 1d artık UP (range'den döndü), 15m/1h up — fiyat trendi boğa. AMA MACD-hist -0.78 ve line 1.60 < signal 2.38 = momentum bearish, 4h range. Pro-trend long düşünülür ama tetik yok (RSI oversold değil, MACD cross-up değil). Short ise artık counter-trend (1d up) → yasak.",
-      "challenger": "Trend-up ama momentum-down ayrışması erken long için tuzak: RSI 58'den long, geç-giriş + MACD teyitsiz. H-03 ruhu: aşırı-uzamışa girme. Doğru bekleyiş — geri çekilmede RSI 30-40 + MACD cross-up gelirse gir. Şimdi WAIT."
-    }
+    "BTC": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) \u2014 g\u00fcvenli WAIT",
+    "ETH": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) \u2014 g\u00fcvenli WAIT",
+    "XRP": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) \u2014 g\u00fcvenli WAIT",
+    "HYPE": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}) \u2014 g\u00fcvenli WAIT"
   },
   "_meta": {
-    "llm": "in-session deep-thinker (manuel tetik — .env'de placeholder anahtar, otonom SDK 401 verir)",
-    "snapshot_ts": "2026-06-26T17:18:50.064428+00:00",
-    "regime": "bear",
-    "note": "Taze analiz; eski karar dosyası kullanılmadı. HYPE 1d-up'a döndü, XRP short kurulumu zayıfladı."
+    "llm": "unavailable",
+    "error": "SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcSS6toZpoUHUP7H9kZEn'}",
+    "snapshot_ts": "2026-06-26T19:36:03.123100+00:00"
   }
 }
