@@ -1,115 +1,86 @@
 """
-execution/leverage.py — Kaldıraç + pozisyon boyutu hesabı (maks 5x, vol-ölçek, güvene bağlı).
-Ne yapar: Risk-bazlı notional'ı hesaplar, ardından volatilite ve güven (confidence) ile ölçekler,
-          tüm demir tavanlara kırpar.
-Neden:   run_deterministic/apply_deepthinker'daki düz compute_sizing yalnız risk+poz tavanı
-         uyguluyordu. CLAUDE.md kural 4 (%1.5 risk / %30 poz tavan / %100 teminat-guard / maks 5x)
-         tam burada toplanır; deep-thinker'ın 'confidence'ı ve yüksek volatilite kaldıracı KÜÇÜLTÜR.
-Çıktı:   Sizing (dataclass) — saf hesap, I/O yok.
+execution/leverage.py — Kaldıraç ÖNERİSİ (kod-sınırlı, L-04). Boyuttan (sizing.py) AYRI.
+Ne yapar: suggest_leverage — vol-ölçek (ATR ters) + güvene bağlı + likidasyon kapısı + 5x sert tavan.
+Neden:   CLAUDE.md kural 1: kaldıraç SERBEST değil, KODDAN. Ajan yalnız bu sınır içinde seçer.
+         Kaldıraç notional'ı (PnL'i) değiştirmez — marj kilidini ve likidasyon mesafesini belirler.
+         Likidasyon kapısı: seçilen kaldıraçta likidasyon fiyatı stop'tan UZAKTA olmalı (yoksa stop anlamsız).
+Çıktı:   LeverageSuggestion (dataclass) — saf hesap, I/O yok.
 """
 
 from dataclasses import dataclass
 
-# --- Demir tavanlar (CLAUDE.md kural 4 — Faz-1 sabit) ---
-RISK_PCT = 0.015        # trade başına maks kayıp: bakiyenin %1.5'i
-MAX_POS_PCT = 0.30      # tek pozisyon notional tavanı: bakiyenin %30'u
-MAX_LEVERAGE = 5.0      # kaldıraç tavanı
-COLLATERAL_GUARD = 1.00 # %100 teminat-guard: kullanılan marj <= bakiye
+MAX_LEVERAGE = 5.0          # SERT TAVAN (ajan aşamaz, kod reddeder)
+LIQ_SAFETY = 0.80           # likidasyon mesafesi stop mesafesinin en az 1/0.80=1.25 katı olmalı
 
-# Güven çarpanları — düşük güven daha küçük poz açar (over-trading/yanlış-tez maliyetini sınırlar)
-CONFIDENCE_MULT = {"low": 0.5, "medium": 0.75, "high": 1.0, None: 0.75}
+# Güven tavanları (CLAUDE.md): low→~1x, medium→≤2x, high→≤5x (ama vol+likidasyon+challenger şartlı)
+CONFIDENCE_CAP = {"low": 1.0, "medium": 2.0, "high": MAX_LEVERAGE, None: 2.0}
 
-# Volatilite ölçeği: ATR/fiyat oranı yükseldikçe kaldıraç düşürülür.
-# Eşikler oransal ATR'ye göre (örn. %3 ATR = orta-yüksek vol).
-VOL_LOW = 0.02          # <= %2 ATR/price → tam ölçek
-VOL_HIGH = 0.06         # >= %6 ATR/price → en düşük ölçek
+# Vol-ölçek: ATR/price oranı yükseldikçe kaldıraç düşer.
+VOL_LOW = 0.02              # <= %2 ATR/price → tam izinli
+VOL_HIGH = 0.06             # >= %6 ATR/price → düşük
 
 
 @dataclass
-class Sizing:
-    notional: float      # USD pozisyon büyüklüğü
-    leverage: float      # notional / bakiye, tavanlara kırpılmış
-    risk_usd: float      # niyetlenen dolar risk (bakiye * RISK_PCT)
-    used_margin: float   # notional / leverage (teminat-guard kontrolü)
+class LeverageSuggestion:
+    leverage: float
+    caps: dict               # her kapının verdiği üst sınır (şeffaflık)
     notes: list
 
     def as_dict(self):
-        return {
-            "notional": self.notional, "leverage": self.leverage,
-            "risk_usd": round(self.risk_usd, 2), "used_margin": round(self.used_margin, 2),
-            "notes": self.notes,
-        }
+        return {"leverage": self.leverage, "caps": self.caps, "notes": self.notes}
 
 
-def _vol_scale(atr, entry):
-    """ATR/price oranını [VOL_HIGH..VOL_LOW] aralığında lineer 1.0→0.4 ölçeğe çevirir.
-    Neden: yüksek volatilitede aynı dolar-risk daha büyük fiyat salınımı demek; kaldıracı kısarak
-    teminat-guard ihlalini ve gap-stop riskini azaltırız."""
-    if entry <= 0:
-        return 1.0
-    vol = atr / entry
+def _vol_cap(atr, price):
+    """ATR/price → izinli üst kaldıraç (VOL_LOW'da MAX, VOL_HIGH'da ~1x)."""
+    if price <= 0:
+        return MAX_LEVERAGE
+    vol = atr / price
     if vol <= VOL_LOW:
-        return 1.0
+        return MAX_LEVERAGE
     if vol >= VOL_HIGH:
-        return 0.4
-    # lineer interpolasyon: VOL_LOW→1.0, VOL_HIGH→0.4
+        return 1.0
     frac = (vol - VOL_LOW) / (VOL_HIGH - VOL_LOW)
-    return round(1.0 - frac * 0.6, 3)
+    return round(MAX_LEVERAGE - frac * (MAX_LEVERAGE - 1.0), 2)
 
 
-def compute_sizing(balance, entry, stop, atr=None, confidence="medium"):
-    """Risk-bazlı pozisyon boyutu + kaldıraç.
-
-    Adımlar:
-      1. risk_usd = balance * RISK_PCT
-      2. stop_dist = |entry - stop| / entry  → notional = risk_usd / stop_dist  (risk kuralı)
-      3. confidence ve vol-ölçeği uygula (küçültür, asla büyütmez)
-      4. MAX_POS_PCT, MAX_LEVERAGE ve %100 teminat-guard ile kırp
-    Döner: Sizing. notional 0 ise pozisyon açılamaz (geçersiz stop)."""
-    notes = []
-    stop_dist = abs(entry - stop) / entry if entry else 0
+def _liq_cap(entry, stop, side):
+    """Likidasyon kapısı: lev arttıkça likidasyon entry'ye yaklaşır (liq_dist≈entry/lev).
+    Likidasyon mesafesi stop mesafesinden büyük olmalı → lev < entry/stop_dist (güvenlik payıyla)."""
+    stop_dist = abs(entry - stop)
     if stop_dist == 0:
-        return Sizing(0.0, 0.0, balance * RISK_PCT, 0.0, ["geçersiz stop mesafesi (0) → açılamaz"])
+        return 1.0
+    raw = entry / stop_dist          # liq_dist > stop_dist ⇒ lev < entry/stop_dist
+    return max(1.0, round(raw * LIQ_SAFETY, 2))
 
-    risk_usd = balance * RISK_PCT
-    notional = risk_usd / stop_dist
 
-    # Güven ölçeği
-    cmult = CONFIDENCE_MULT.get(confidence, 0.75)
-    if cmult != 1.0:
-        notes.append(f"confidence={confidence} × {cmult}")
-    notional *= cmult
+def liquidation_price(entry, side, leverage):
+    """Yaklaşık izole-marj likidasyon fiyatı (bakım marjı/fee ihmal — muhafazakâr proxy)."""
+    if leverage <= 0:
+        return None
+    if side == "buy":
+        return round(entry * (1 - 1 / leverage), 4)
+    return round(entry * (1 + 1 / leverage), 4)
 
-    # Volatilite ölçeği
-    if atr is not None:
-        vscale = _vol_scale(atr, entry)
-        if vscale < 1.0:
-            notes.append(f"vol-ölçek × {vscale} (ATR/price={round(atr/entry,4)})")
-        notional *= vscale
 
-    # Poz tavanı
-    cap = balance * MAX_POS_PCT
-    if notional > cap:
-        notes.append(f"poz tavanı %{int(MAX_POS_PCT*100)} kırpıldı")
-        notional = cap
+def suggest_leverage(entry, stop, side, atr, price, confidence="medium", challenger_clean=True):
+    """Kod-türetilmiş kaldıraç önerisi. Tüm kapıların MİNİMUMU, 5x tavanına kırpılır.
+    high güven ANCAK düşük-vol + temiz challenger ile tam açılır; low daima ~1x."""
+    notes = []
+    conf_cap = CONFIDENCE_CAP.get(confidence, 2.0)
+    vol_cap = _vol_cap(atr, price)
+    liq_cap = _liq_cap(entry, stop, side)
 
-    # leverage = maruziyet oranı (notional/balance) — run_deterministic ile aynı konvansiyon.
-    # <1 olabilir (kaldıraçsız, notional bakiyenin altında); MAX_LEVERAGE'a kırpılır.
-    leverage = notional / balance if balance else 0
-    if leverage > MAX_LEVERAGE:
-        notes.append(f"kaldıraç {MAX_LEVERAGE}x tavanına kırpıldı")
-        leverage = MAX_LEVERAGE
-        notional = balance * MAX_LEVERAGE
+    lev = min(conf_cap, vol_cap, liq_cap, MAX_LEVERAGE)
 
-    # Kullanılan marj: kaldıraçsızken (notional<=bakiye) notional kadar; kaldıraçlıyken bakiyeyi
-    # aşamaz. Efektif kaldıraç max(1, oran) → marj = notional/efektif = min(notional, balance).
-    # %100 teminat-guard (CLAUDE.md kural 4) bu yapıyla daima sağlanır.
-    used_margin = min(notional, balance * COLLATERAL_GUARD)
+    # high güven temiz-challenger değilse medium gibi davranır (gürültüye yüksek kaldıraç verme)
+    if confidence == "high" and not challenger_clean:
+        lev = min(lev, CONFIDENCE_CAP["medium"])
+        notes.append("high ama challenger temiz değil → medium tavanı")
 
-    return Sizing(
-        notional=round(notional, 2),
-        leverage=round(leverage, 2),
-        risk_usd=risk_usd,
-        used_margin=round(used_margin, 2),
-        notes=notes,
-    )
+    lev = max(1.0, round(lev, 2))
+    caps = {"confidence": conf_cap, "vol": vol_cap, "liquidation": liq_cap, "hard": MAX_LEVERAGE}
+    if lev == liq_cap:
+        notes.append("likidasyon kapısı bağladı (liq mesafesi > stop)")
+    if lev == vol_cap and vol_cap < conf_cap:
+        notes.append(f"vol-ölçek bağladı (ATR/price={round(atr/price,4) if price else 0})")
+    return LeverageSuggestion(lev, caps, notes)

@@ -10,7 +10,7 @@ Neden:   LLM olmadan saf kural performansını ölçmek (A/B testi A kolu). Tüm
 import json
 from datetime import datetime, timezone
 
-from execution import autonomous, leverage, simulator
+from execution import autonomous, sizing, leverage, simulator
 from evaluation import metrics
 
 
@@ -101,9 +101,11 @@ def main():
 
         action, params, reason = decide(asset)
         if action == "open":
-            # Kural-bazlı kol: güven/vol ölçeği YOK (confidence=high → ×1.0, atr=None → vol-ölçek kapalı)
-            # → Faz-1 sizing (risk + %30 tavan + 5x) birebir korunur.
-            sz = leverage.compute_sizing(balance, params["entry"], params["stop"], atr=None, confidence="high")
+            # Sizing (notional) = risk-bazlı, İKİ KOL DA AYNEN (PnL bundan gelir → A/B adil).
+            sz = sizing.compute_sizing(balance, params["entry"], params["stop"])
+            # Kaldıraç AYRI ve kod-türetilmiş; deterministic = medium güven (≤2x). PnL'i değiştirmez.
+            lev = leverage.suggest_leverage(params["entry"], params["stop"], params["side"],
+                                            asset["atr"], params["entry"], confidence="medium")
             if sz.notional > 0:
                 positions[coin] = {
                     "side": params["side"],
@@ -111,7 +113,7 @@ def main():
                     "stop": params["stop"],
                     "target": params["target"],
                     "notional": sz.notional,
-                    "leverage": sz.leverage,
+                    "leverage": lev.leverage,
                     "decided_at": timestamp,
                 }
                 decisions.append({"coin": coin, "action": "open_new", "side": params["side"], "entry": params["entry"], "reason": reason})

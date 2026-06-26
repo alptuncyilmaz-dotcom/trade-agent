@@ -5,8 +5,10 @@ Ne yapar: deep-thinker/deterministic'in ürettiği kararları şema ve demir kur
 Neden:   apply_deepthinker.py PARA HAREKET ETTİREN kod (paper de olsa kayıt tutar). LLM ya da
          kural hatası buraya kadar gelmesin diye TEK doğrulama kapısı. run_deepthinker.py'deki
          inline guard burada formelleşti ve tek otorite oldu (CLAUDE.md demir disiplinler).
-Çıktı:   Saf doğrulama — I/O yok. (clean_decisions, clean_waits) döndürür.
+Çıktı:   Saf doğrulama + karar damgalama/formatlama — I/O yok.
 """
+
+from datetime import datetime, timezone
 
 # Karar dosyası şeması (state/deepthinker_decision.json ile birebir):
 #   {
@@ -89,6 +91,42 @@ def validate_decision(decision, snapshot):
         clean[coin] = params
 
     return clean, waits
+
+
+def validate_leverage(leverage, max_leverage=5.0):
+    """Kaldıraç tavanını doğrular (kod-sınırlı, CLAUDE.md kural 1). Döner: (ok, hata|None)."""
+    try:
+        lev = float(leverage)
+    except (TypeError, ValueError):
+        return False, "leverage sayısal değil"
+    if lev <= 0:
+        return False, "leverage <= 0"
+    if lev > max_leverage:
+        return False, f"leverage {lev} > sert tavan {max_leverage}"
+    return True, None
+
+
+def stamp_decision(d, now_ms=None):
+    """Karara UTC `decided_at` ISO damgası ekler (geriye-dönük analiz — CLAUDE.md kural 1)."""
+    if now_ms is None:
+        ts = datetime.now(timezone.utc)
+    else:
+        ts = datetime.fromtimestamp(now_ms / 1000, tz=timezone.utc)
+    d = dict(d)
+    d["decided_at"] = ts.isoformat()
+    return d
+
+
+def format_journal_block(coin, params):
+    """Bir kararı journal'a yazılacak zaman-damgalı bloğa çevirir (insan-okunur, parse edilebilir)."""
+    lines = [f"### {coin} — {params.get('side','?')} @ {params.get('decided_at','-')}"]
+    lines.append(f"- entry {params.get('entry')} · stop {params.get('stop')} · target {params.get('target')}"
+                 f" · lev {params.get('leverage','-')} · conf {params.get('confidence','-')}")
+    if params.get("thesis"):
+        lines.append(f"- thesis: {params['thesis']}")
+    if params.get("detailed_rationale"):
+        lines.append(f"- detailed_rationale: {params['detailed_rationale']}")
+    return "\n".join(lines)
 
 
 def empty_decision():

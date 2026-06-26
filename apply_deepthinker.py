@@ -10,7 +10,7 @@ Neden: deep-thinker LLM karar üretir, bu script kararı deterministic ile AYNI 
 import json
 from datetime import datetime, timezone
 
-from execution import leverage, simulator
+from execution import sizing, leverage, simulator
 
 def load_json(path, default=None):
     try:
@@ -69,9 +69,13 @@ def main():
             continue
         entry = params["entry"]
         stop = params["stop"]
-        # Sizing tek kaynak: leverage.compute_sizing. atr=None, confidence=high → deterministic kolla
-        # AYNI sizing (CLAUDE.md "aynı sizing"). deep-thinker confidence'ı yalnız metadata olarak saklanır.
-        sz = leverage.compute_sizing(balance, entry, stop, atr=None, confidence="high")
+        # Sizing (notional) = risk-bazlı, deterministic kolla AYNEN (CLAUDE.md "aynı sizing").
+        sz = sizing.compute_sizing(balance, entry, stop)
+        # Kaldıraç AYRI + kod-türetilmiş; deep-thinker confidence'ı YALNIZ kaldıraç kapısında kullanılır
+        # (notional'ı = PnL'i değiştirmez → A/B adil kalır).
+        asset = snapshot["assets"].get(coin, {})
+        lev = leverage.suggest_leverage(entry, stop, params["side"], asset.get("atr", 0), entry,
+                                        confidence=params.get("confidence", "medium"))
         if sz.notional > 0:
             positions[coin] = {
                 "side": params["side"],
@@ -79,7 +83,7 @@ def main():
                 "stop": stop,
                 "target": params["target"],
                 "notional": sz.notional,
-                "leverage": sz.leverage,
+                "leverage": lev.leverage,
                 "confidence": params.get("confidence"),
                 "thesis": params.get("thesis"),
                 "decided_at": timestamp,
