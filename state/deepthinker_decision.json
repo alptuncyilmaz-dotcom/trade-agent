@@ -1,14 +1,28 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
-    "ETH": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
-    "XRP": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
-    "HYPE": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT"
+    "BTC": "Challenger kırdı: 1d:down olsa da 1h:UP + RSI 35.36 oversold + MACDh pozitif = yakın-vade sıçramaya short basmak; R:R ~1.3 ters-asimetrik (stop-olası/target-uzak); funding long-ağırlıklı fuel muhtemelen fiyatlanmış. HTF-uyumlu ama zamanlama kötü, pozitif beklenti yok.",
+    "ETH": "BTC ile aynı şekil (1d:down/1h:up) ama daha zayıf: MACDh +0.16 ≈ sıfır, momentum yok. Aynı bounce-riski + range. Edge yok, WAIT.",
+    "XRP": "Challenger kırdı: yön edge'i SADECE 1d:down'dan; 15m/1h/4h hepsi range → işlem ufkunda edge yok. Funding short-ağırlıklı = kalabalık short = squeeze yakıtı (kalabalığa katılma). MACD_line -0.05 momentum yok; momentumsuz + dar 1×ATR stop = range-tabanı bounce'unda erken-stoplanma. on-chain boş → likidasyon kümesi stop bölgesinde olabilir, göremiyoruz.",
+    "HYPE": "1d:range = HTF yönsüz, yön edge'i yok (deep-thinker kuralı: HTF range → düşük edge, açma). 4h:down momentum negatif ama RSI 53.5 nötr, 1d range bunu yön sinyaline çevirmiyor. WAIT."
   },
-  "_meta": {
-    "llm": "unavailable",
-    "error": "claude CLI bulunamad\u0131",
-    "snapshot_ts": "2026-06-27T18:33:18.783546+00:00"
-  }
+  "analysis": {
+    "BTC": {
+      "analyst": "Bear rejim + 1d:down short adayı (counter-trend değil). Entry 60523, stop ~63800, target ~56100. AMA 1h:up + RSI 35.36 + MACDh pozitif = sıçrama riski → zayıf aday, low confidence.",
+      "challenger": "4 kırılma: (1) tez-içi çelişki (kendi kabul ettiği bounce-riski girişi sıçramaya short'a çeviriyor); (2) trend tablosu net short değil (15m/4h range, 1h zıt UP); (3) R:R 1.3 ters-asimetrik, low-conf ile pozitif beklenti yok; (4) funding fuel fiyatlanmış, on-chain available:False."
+    },
+    "ETH": {
+      "analyst": "BTC ile aynı (1d:down/1h:up), RSI 40.83, MACDh +0.16 ≈ sıfır → momentum yok, BTC'den zayıf. WAIT eğilimi.",
+      "challenger": "Ayrı çağrılmadı; BTC kırılmaları birebir geçerli (aynı TF şekli + daha zayıf momentum). Edge yok."
+    },
+    "XRP": {
+      "analyst": "1d:down + diğer TF range (aktif karşı-sıçrama yok) → BTC/ETH'den temiz short adayı. Entry 1.0591, stop ~1.114, target ~0.927, R:R ~2.4, low confidence.",
+      "challenger": "Tez sağlam DEĞİL: (1) range-rejim short edge'ini yer (edge yalnız 1d:down'dan); (2) funding short-ağırlıklı = squeeze yakıtı, kalabalığa katılım; (3) R:R 2.4 yanıltıcı — momentumsuz + dar stop = erken-stoplanma; (4) on-chain boş, likidasyon kümesi stop bölgesinde olabilir."
+    },
+    "HYPE": {
+      "analyst": "1d:range yönsüz, 4h:down, RSI 53.5 nötr, MACDh -0.89. Yön edge'i yok → WAIT.",
+      "challenger": "Ayrı çağrılmadı; 1d:range zaten açma kriterini karşılamıyor (HTF yönsüz)."
+    }
+  },
+  "_meta": {"llm": "ok"}
 }

@@ -1,8 +1,5 @@
 {
   "decision": null,
-  "wait_reason": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
-  "_meta": {
-    "llm": "unavailable",
-    "error": "claude CLI bulunamad\u0131"
-  }
+  "wait_reason": "Maks 1 poz dolu: açık BTC long (entry 60453, fiyat 60523 = hafif kârda, stop 59244, target 63778). En taze momentum zaten BTC'de (MACDh +9.24 pozitif, 1h:up) — mevcut long bu fırsatı sürüyor, ekleme yok. ETH/XRP 1d:down + zayıf ivme, HYPE range; BTC long'u değiştirecek daha iyi tek-fırsat yok. Pozisyonu bırak, path-check yönetsin.",
+  "_meta": {"llm": "ok"}
 }
