@@ -855,3 +855,158 @@ Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
 
 === TUR TAMAMLANDI — 2026-06-27T15:52:42.473983+00:00 ===
 Git push tamamlandi.
+[main f25d48a] tur: 2026-06-27T15:59
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 117 files changed, 3415 insertions(+), 419 deletions(-)
+ create mode 100644 journal/2026-06-13-BTC-001.md
+ create mode 100644 journal/2026-06-14-1920-turn.md
+ create mode 100644 journal/2026-06-14-1922-turn.md
+ create mode 100644 journal/2026-06-14-1923-multiasset.md
+ create mode 100644 journal/2026-06-14-1935-multiasset.md
+ create mode 100644 journal/2026-06-14-1943-multiasset.md
+ create mode 100644 journal/2026-06-14-2159-multiasset.md
+ create mode 100644 journal/2026-06-14-2313-multiasset.md
+ create mode 100644 journal/2026-06-14-2336-multiasset.md
+ create mode 100644 journal/2026-06-14-2347-multiasset.md
+ create mode 100644 journal/2026-06-14-BTC-001.md
+ create mode 100644 journal/2026-06-14-multiasset-1825.md
+ create mode 100644 journal/2026-06-14-multiasset-regime.md
+ create mode 100644 journal/2026-06-15-0521-multiasset.md
+ create mode 100644 journal/2026-06-15-0612-multiasset.md
+ create mode 100644 journal/2026-06-15-0659-multiasset.md
+ create mode 100644 journal/2026-06-15-0803-multiasset.md
+ create mode 100644 journal/2026-06-15-0917-multiasset.md
+ create mode 100644 journal/2026-06-15-0935-multiasset.md
+ create mode 100644 journal/2026-06-15-1036-multiasset.md
+ create mode 100644 journal/2026-06-15-1047-multiasset.md
+ create mode 100644 journal/2026-06-15-1118-multiasset.md
+ create mode 100644 journal/2026-06-15-1224-multiasset.md
+ create mode 100644 journal/2026-06-15-1248-multiasset.md
+ create mode 100644 journal/2026-06-15-1307-multiasset.md
+ create mode 100644 journal/2026-06-15-1353-multiasset.md
+ create mode 100644 journal/2026-06-15-1453-multiasset.md
+ create mode 100644 journal/2026-06-15-1531-multiasset.md
+ create mode 100644 journal/2026-06-15-1554-multiasset.md
+ create mode 100644 journal/2026-06-15-1611-multiasset.md
+ create mode 100644 journal/2026-06-15-1810-multiasset.md
+ create mode 100644 journal/2026-06-15-1822-multiasset.md
+ create mode 100644 journal/2026-06-15-1827-multiasset.md
+ create mode 100644 journal/2026-06-15-1847-multiasset.md
+ create mode 100644 journal/2026-06-15-1900-multiasset.md
+ create mode 100644 journal/2026-06-15-1907-multiasset.md
+ create mode 100644 journal/2026-06-15-1926-multiasset.md
+ create mode 100644 journal/2026-06-15-1934-multiasset.md
+ create mode 100644 journal/2026-06-15-2001-multiasset.md
+ create mode 100644 journal/2026-06-15-2003-multiasset.md
+ create mode 100644 journal/2026-06-15-2026-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-15-2026-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-15-2035-multiasset.md
+ create mode 100644 journal/2026-06-15-2205-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-15-2205-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-15-2250-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-15-2250-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-15-2304-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-15-2304-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-15-2335-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-15-2335-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0009-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0105-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0105-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0309-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0309-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0405-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0405-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0504-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0504-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0553-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0553-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0604-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0604-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0704-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0704-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0804-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0804-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-0904-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-0904-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-1005-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-1005-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-1328-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-1328-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-1335-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-1335-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-1405-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-1405-deterministic-multiasset.md
+ create mode 100644 journal/2026-06-16-1505-deepthinker-multiasset.md
+ create mode 100644 journal/2026-06-16-1505-deterministic-multiasset.md
+ create mode 100644 journal/COLD-SCAN-20260615-trader-scan.md
+ create mode 100644 journal/MANUEL-DERIN-20260615T065744Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260615T230611Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260615T232133Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260615T233518Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T000955Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T010546Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T030922Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T040545Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T050447Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T055313Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T060510Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T070509Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T080508Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T090508Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T100510Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T132839Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T133531Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T140559Z.md
+ create mode 100644 journal/MANUEL-DERIN-20260616T150545Z.md
+ delete mode 100644 journal/MANUEL-DERIN-20260622T192252Z.md
+ delete mode 100644 journal/MANUEL-DERIN-20260622T192349Z.md
+ delete mode 100644 journal/MANUEL-DERIN-20260622T192534Z.md
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   a840e7d..f25d48a  main -> main
+=== A/C TUR BAŞLADI — 2026-06-27T15:58:49.211939+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-27T15:58:49.408461+00:00
+  BTC çekiliyor...
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: bear
+  BTC: $60789.0 | RSI 36.62 | MACDh 26.2207 | 1d:down | ❌
+  ETH: $1604.3 | RSI 42.15 | MACDh 0.8523 | 1d:down | ❌
+  XRP: $1.0744 | RSI 39.31 | MACDh -0.0036 | 1d:down | ❌
+  HYPE: $64.38 | RSI 55.87 | MACDh -0.8044 | 1d:range | ❌
+
+
+▶ run_deterministic.py
+  WAIT BTC: RSI 36.62 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 36.62, MACDh 26.2207
+  WAIT ETH: RSI 42.15 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 42.15, MACDh 0.8523
+  WAIT XRP: RSI 39.31 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 39.31, MACDh -0.0036
+  WAIT HYPE: RSI 55.87 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:range | RSI 55.87, MACDh -0.8044
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ run_aggressive.py
+  WAIT BTC: RSI 36.62 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 36.62, MACDh 26.2207
+  WAIT ETH: RSI 42.15 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 42.15, MACDh 0.8523
+  WAIT XRP: RSI 39.31 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 39.31, MACDh -0.0036
+  WAIT HYPE: RSI 55.87 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:range | RSI 55.87, MACDh -0.8044
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+=== TUR TAMAMLANDI — 2026-06-27T15:59:04.580030+00:00 ===
+Git push tamamlandi.
