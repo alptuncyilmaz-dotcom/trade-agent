@@ -4,7 +4,7 @@ Ne yapar: .claude/agents/deep-thinker.md + challenger.md kurallarını ve state/
           GÜNCEL veriyi okur; her varlık için analyst→challenger→karar yaptırır; demir-kural guard'larından
           geçirip kararı state/deepthinker_decision.json'a YENİDEN yazar.
 Neden:    Eski karar dosyası asla yeniden kullanılmaz — her tur taze analiz. apply_deepthinker.py bu dosyayı uygular.
-LLM:      Headless `claude -p` (veya ANTHROPIC_API_KEY varsa anthropic SDK). Erişilemezse güvenli all-WAIT yazar.
+LLM:      YALNIZ headless `claude -p` (Claude Code aboneliği). API/SDK yolu YOK. Erişilemezse güvenli all-WAIT yazar.
 """
 
 import json
@@ -85,20 +85,9 @@ def cli_env():
 
 
 def call_llm(prompt):
-    """(text, error) döndürür. Önce ANTHROPIC_API_KEY/SDK, yoksa headless claude CLI."""
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        try:
-            import anthropic
-            client = anthropic.Anthropic()
-            model = os.environ.get("DT_MODEL", "claude-opus-4-8")
-            msg = client.messages.create(
-                model=model, max_tokens=4000,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            return "".join(b.text for b in msg.content if getattr(b, "type", "") == "text"), None
-        except Exception as e:
-            return None, f"SDK hata: {e}"
-
+    """(text, error) döndürür. YALNIZ headless `claude -p` (Claude Code aboneliği/OAuth).
+    API/SDK yolu BİLEREK KALDIRILDI — ANTHROPIC_API_KEY set olsa BİLE API'ye gidilmez
+    (kullanıcı kuralı: sıfır API key)."""
     cmd = ["claude", "-p", prompt, "--output-format", "text"]
     if os.environ.get("DT_MODEL"):
         cmd += ["--model", os.environ["DT_MODEL"]]
