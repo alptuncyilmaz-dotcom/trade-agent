@@ -1,13 +1,28 @@
 {
   "decisions": {},
   "waits": {
-    "ETH": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
-    "XRP": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
-    "HYPE": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT"
+    "BTC": "1d:down ile short uyumlu ama 1h:up + MACDh +10.52 (güçlü yukarı momentum/oversold sıçrama) → 3 TF'den 2'si short'a karşı. Challenger: 1.5 ATR stop bu volatilitede (ATR %3.6) sıçramada kolay yenir, likidite-avı/sıkışma riski, oracle-mark farkı gürültü. Aşağı tetik yok → edge negatif. WAIT.",
+    "ETH": "1d:down ama MACDh +0.25 (~nötr, momentum yok) + 1h:up + 4h:range. Short için aşağı ivme yok, counter-trend long yasak. Yönsüz/zayıf edge → WAIT.",
+    "XRP": "1d:down aligned ama MACDh -0.0044 (~düz, momentum yok) + 1h:up + 4h:range. Challenger: negatif funding = short-kalabalık → sıkışma riski, MTF aşağı trendi desteklemiyor, on-chain teyit yok. Hedef momentumun gelmesini varsayıyor; tetik yok → WAIT.",
+    "HYPE": "Tüm TF range (1d:range dahil), MACDh -0.87 zayıf. is_counter_trend_long/short ikisi de false ama yönsüz rejim = edge yok (range-HTF → WAIT kuralı). WAIT."
   },
-  "_meta": {
-    "llm": "unavailable",
-    "error": "claude CLI bulunamad\u0131",
-    "snapshot_ts": "2026-06-27T17:12:31.566511+00:00"
-  }
+  "analysis": {
+    "BTC": {
+      "analyst": "Bear rejim + 1d:down → short HTF ile uyumlu (counter-trend değil). Entry 60543, stop 63843 (~+1.5 ATR), target 56143 (~-2 ATR). Ancak 1h:up + MACDh +10.52 + RSI 35 oversold = aktif sıçrama; timing zayıf.",
+      "challenger": "Momentum-rejim çatışması (2/3 TF short'u desteklemiyor); 1.5 ATR stop %5.4 = gürültüde tetiklenir, oversold-bounce + hafif long-funding ile yukarı stop-hunt klasik; oracle-mark farkı %0.03 = sinyal değil. Kabul edildi → WAIT."
+    },
+    "XRP": {
+      "analyst": "1d:down aligned short; entry 1.063, stop 1.142 (~+1.5 ATR), target 0.931 (~-2.5 ATR). MACDh ~0, momentum yok.",
+      "challenger": "Negatif funding = short kalabalık → sıkışma; MTF aşağı trend yok (1h:up); MACDh~0 = aşağı ivme yok, hedef momentumu varsayıyor; on-chain available:False kör nokta. Kabul edildi → WAIT."
+    },
+    "ETH": {
+      "analyst": "1d:down ama MACDh +0.25 nötr, 1h:up; short edge'i yok, counter-trend long yasak.",
+      "challenger": "Çağrılmadı — analyst zaten WAIT (aksiyona dönüşmeyen tez, edge yok)."
+    },
+    "HYPE": {
+      "analyst": "Tüm TF range, yönsüz; range-HTF → edge yok.",
+      "challenger": "Çağrılmadı — yönsüz rejim, açılacak tez yok."
+    }
+  },
+  "_meta": {"llm": "ok"}
 }

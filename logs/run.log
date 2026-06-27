@@ -1591,3 +1591,97 @@ Trade-agent: /Users/alpyilmaz/trade-agent
 === sync.sh tamam — site/index.html açılabilir ===
 
 Dashboard tazelendi.
+[main 9ef5b91] tur: 2026-06-27T17:12
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 7 files changed, 92 insertions(+), 89 deletions(-)
+ create mode 100644 journal/MANUEL-DERIN-20260627T171231Z.md
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   c063a27..9ef5b91  main -> main
+=== A/B/C TUR BAŞLADI — 2026-06-27T17:08:39.021312+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-27T17:08:39.259552+00:00
+  BTC çekiliyor...
+  BTC HATA: HTTPSConnectionPool(host='api.hyperliquid.xyz', port=443): Read timed out. (read timeout=10)
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: mixed
+  ETH: $1594.8 | RSI 40.99 | MACDh 0.2461 | 1d:down | ❌
+  XRP: $1.0637 | RSI 37.4 | MACDh -0.0043 | 1d:down | ❌
+  HYPE: $63.418 | RSI 54.22 | MACDh -0.8658 | 1d:range | ❌
+
+
+▶ run_deterministic.py
+  WAIT ETH: RSI 40.99 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 40.99, MACDh 0.2461
+  WAIT XRP: RSI 37.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 37.4, MACDh -0.0043
+  WAIT HYPE: RSI 54.22 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:range/1d:range | RSI 54.22, MACDh -0.8658
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ run_aggressive.py
+  WAIT ETH: RSI 40.99 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 40.99, MACDh 0.2461
+  WAIT XRP: RSI 37.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 37.4, MACDh -0.0043
+  WAIT HYPE: RSI 54.22 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:range/1d:range | RSI 54.22, MACDh -0.8658
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı
+
+▶ run_deepthinker.py
+  deep-thinker: snapshot 2026-06-27T17:12:31.566511+00:00 (rejim: mixed) okundu
+  ⚠ LLM erişilemedi: claude CLI bulunamadı
+  → Güvenli all-WAIT yazıldı (stale karar kullanılmadı).
+    WAIT ETH: LLM erişilemedi (claude CLI bulunamadı) — güvenli WAIT
+    WAIT XRP: LLM erişilemedi (claude CLI bulunamadı) — güvenli WAIT
+    WAIT HYPE: LLM erişilemedi (claude CLI bulunamadı) — güvenli WAIT
+
+HATA: 
+  Not: deep-thinker LLM üretmedi; güvenli WAIT kararı ile devam ediliyor.
+
+▶ apply_deepthinker.py
+  WAIT ETH: LLM erişilemedi (claude CLI bulunamadı) — güvenli WAIT
+  WAIT XRP: LLM erişilemedi (claude CLI bulunamadı) — güvenli WAIT
+  WAIT HYPE: LLM erişilemedi (claude CLI bulunamadı) — güvenli WAIT
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ deep_scan.py
+Tamamlandi: journal/MANUEL-DERIN-20260627T171231Z.md
+Rejim: mixed
+  ETH: $1594.8 | RSI 40.99 | funding normal | down
+  XRP: $1.0637 | RSI 37.4 | funding normal-yukari | down
+  HYPE: $63.418 | RSI 54.22 | funding normal-yukari | range
+
+
+=== TUR TAMAMLANDI — 2026-06-27T17:12:31.799563+00:00 ===
+Git push tamamlandi.
+
+▶ sync.sh — dashboard tazeleniyor
+=== sync.sh başlıyor ===
+Vault: /Users/alpyilmaz/Obsidian Vault
+Trade-agent: /Users/alpyilmaz/trade-agent
+→ trade-agent git pull...
+→ refresh_site_data.py çalışıyor...
+✅ site/data.js güncellendi — 2026-06-27 17:12 UTC
+   det  bal=4000  fwd=0
+   deep bal=4000  fwd=0
+   agg  bal=4000  fwd=0
+=== sync.sh tamam — site/index.html açılabilir ===
+
+Dashboard tazelendi.
