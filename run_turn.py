@@ -43,6 +43,12 @@ def main():
 
     run("apply_deepthinker.py")   # B kolu kararını ORTAK sizing ile uygula
 
+    print("\n▶ psikomanyak: aşırı-risk LLM kolu (D) — tek-en-iyi momentum fırsatı, 5-20x")
+    # D kolu TAM İZOLE (ayrı $4000/state); A/B/C ölçümüne KARIŞMAZ. LLM erişilemezse güvenli WAIT.
+    if not run("run_psikomanyak.py"):
+        print("  Not: psikomanyak LLM üretmedi; güvenli WAIT ile devam.")
+    run("apply_psikomanyak.py")   # D kolu kararını İZOLE sizing ile uygula (notional≤1× / 5-20x)
+
     run("deep_scan.py")           # 5. PARALEL GÖZLEM → journal/MANUEL-DERIN-*.md (karara GİRMEZ)
 
     print(f"\n=== TUR TAMAMLANDI — {datetime.now(timezone.utc).isoformat()} ===")

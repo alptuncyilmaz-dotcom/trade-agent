@@ -1,7 +1,7 @@
-trade-agent A/B/C otonom turunu çalıştır. Sen orkestratörsün; aşağıdaki 7 adımı SIRAYLA yürüt. Çalışma dizini: /Users/alpyilmaz/trade-agent. Python: .venv/bin/python. TESTNET/PAPER — GERÇEK PARA YOK.
+trade-agent A/B/C/D otonom turunu çalıştır. Sen orkestratörsün; aşağıdaki 8 adımı SIRAYLA yürüt. Çalışma dizini: /Users/alpyilmaz/trade-agent. Python: .venv/bin/python. TESTNET/PAPER — GERÇEK PARA YOK.
 
 KESİN SINIRLAR (ihlal = DUR):
-- Yalnız bu 7 adımı yap. Kod/config/strateji/agent dosyalarını DEĞİŞTİRME (faz disiplini: faz içinde config sabit).
+- Yalnız bu 8 adımı yap. Kod/config/strateji/agent dosyalarını DEĞİŞTİRME (faz disiplini: faz içinde config sabit).
 - Uydurma yok; point-in-time; kaynaksız iddia journal'a girmez. Gerçek-para emri ÜRETME (yalnız testnet/paper).
 - Bir adım hata verirse: kısaca logla ve sonraki adıma güvenle geç (snapshot adımı hariç — o başarısızsa turu durdur).
 
@@ -15,7 +15,12 @@ KESİN SINIRLAR (ihlal = DUR):
    d. Challenger'ı tek tek göz önünde bulundur: kabul edip tezi/seviyeleri güncelle VEYA gerekçeyle reddet. Challenger ciddi kırarsa → o varlık WAIT.
    e. Sonucu state/deepthinker_decision.json'a yaz: {"decisions":{COIN:{side,entry,stop,target,confidence,thesis,detailed_rationale}}, "waits":{COIN:"neden"}, "analysis":{COIN:{analyst,challenger}}, "_meta":{"llm":"ok"}}. Her varlık ya decisions ya waits'te olmalı. Şema: execution/decision.validate_decision.
 5. `.venv/bin/python apply_deepthinker.py`  → B kararını ORTAK sizing'le uygula.
+5b. D KOLU (psikomanyak) — .claude/agents/psikomanyak.md mandasına uy (AŞIRI RİSK; A/B/C'den AYRI, TAM İZOLE, logları yalnız gözlem):
+   a. state/snapshot_latest.json'u oku.
+   b. 4 varlıktan TEK-EN-İYİ yüksek-momentum fırsatını seç (maks 1 poz). Counter-trend/range SERBEST (psikomanyak kurallarla bağlı değil), ama entry/stop/target snapshot price/atr'den türemeli (uydurma yok). leverage 5-20 arası SEN seç.
+   c. state/psikomanyak_decision.json'a yaz: {"decision":{"coin","side","entry","stop","target","leverage","thesis","detailed_rationale"} VEYA null, "wait_reason":"...", "_meta":{"llm":"ok"}}. Fırsat yoksa decision=null.
+   d. `.venv/bin/python apply_psikomanyak.py`  → D kararını İZOLE sizing'le uygula (notional≤1× bakiye, kaldıraç [5,20], maks 1 poz).
 6. `.venv/bin/python deep_scan.py`  → journal/MANUEL-DERIN-*.md üretir (en yeni dosya). SONRA WebSearch ile güncel BTC/ETH/kripto haber + makro (funding/likidite/regülasyon) özetini bul; o journal dosyasının "## Haber / Makro" bölümünü kaynak+tarihle DOLDUR (Edit). Uydurma yok; karara GİRMEZ (yalnız Derin Mod bağlamı).
 7. `git add -A && git commit -m "tur: <UTC ISO>"` && `git push`  SONRA `bash "../Obsidian Vault/data/scripts/sync.sh"` (dashboard tazele).
 
-Bitince TEK paragraf özet: A (deterministic) / B (deep-thinker) / C (aggressive) üç kolun bakiye + açık-poz durumu. Demir kurallar: üçü de aynı sizing; deep-thinker otonom + turlar arası öğrenmez; gerçek para YOK.
+Bitince TEK paragraf özet: A (deterministic) / B (deep-thinker) / C (aggressive) / D (psikomanyak) dört kolun bakiye + açık-poz durumu. Demir kurallar: A/B/C aynı sizing; D AYRI/izole (aşırı risk, gözlem); deep-thinker + psikomanyak otonom + turlar arası öğrenmez; gerçek para YOK.
