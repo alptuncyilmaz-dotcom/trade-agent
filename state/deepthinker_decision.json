@@ -1,14 +1,31 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "LLM eri\u015filemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) \u2014 g\u00fcvenli WAIT",
-    "ETH": "LLM eri\u015filemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) \u2014 g\u00fcvenli WAIT",
-    "XRP": "LLM eri\u015filemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) \u2014 g\u00fcvenli WAIT",
-    "HYPE": "LLM eri\u015filemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) \u2014 g\u00fcvenli WAIT"
+    "BTC": "1d down + trigger yok; buy counter-trend yasak, short momentum (1h/15m up) ters. Edge yok.",
+    "ETH": "1d down + trigger yok, RSI n\u00f6tr; buy counter-trend, short momentum ters. WAIT.",
+    "XRP": "1d down + trigger yok, RSI n\u00f6tr; counter-trend yasak, edge yok. WAIT.",
+    "HYPE": "1d range \u2192 range-HTF demir-kural WAIT; trigger yok, MACD zay\u0131fl\u0131yor."
+  },
+  "analysis": {
+    "BTC": {
+      "analyst": "Rejim bear. 1d down, 4h range, 1h/15m up. RSI 36.1 ekstrem de\u011fil, trigger yok. MACD hist hafif pozitife d\u00f6nm\u00fc\u015f (19.07) ama line h\u00e2l\u00e2 negatif. 1d down oldu\u011fu i\u00e7in buy counter-trend olur; sell i\u00e7in ise k\u0131sa-vadeli momentum (1h/15m up) ters. Gate opportunity=False. Net edge yok.",
+      "challenger": "1d down'a yaslan\u0131p short d\u00fc\u015f\u00fcn\u00fclse bile 15m/1h up momentum k\u0131sa stop'u likidite-av\u0131yla yer; MACD hist pozitife d\u00f6n\u00fc\u015f\u00fc short tezini zay\u0131flat\u0131r. Buy ise 1d down counter-trend, demir-kural ihlali. Funding n\u00f6tr, ekstra edge yok. Tez yok zaten \u2014 kar\u015f\u0131 arg\u00fcman gereksiz; f\u0131rsat yok."
+    },
+    "ETH": {
+      "analyst": "1d down, 4h range, 1h/15m up. RSI 41.46 n\u00f6tr, trigger yok. MACD hist marjinal pozitif (0.49) \u2014 anlams\u0131z. Funding normal-yukari hafif. Buy counter-trend (1d down), sell momentum ters. Gate opportunity=False. Edge yok.",
+      "challenger": "Short d\u00fc\u015f\u00fcn\u00fcl\u00fcrse 1h/15m up + hafif pozitif MACD hist stop'u h\u0131zla tehdit eder; ETH'nin BTC ile y\u00fcksek korelasyonu nedeniyle BTC ile birlikte a\u00e7\u0131l\u0131rsa portf\u00f6y konsantrasyonu riski. Trigger ve ekstrem RSI yok \u2014 kan\u0131t zay\u0131f. A\u00e7acak tez yok."
+    },
+    "XRP": {
+      "analyst": "1d down, 4h range, 1h/15m up. RSI 38.72 n\u00f6tr. MACD hist hafif negatif (-0.0038), line negatif. Trigger yok, gate opportunity=False. Buy counter-trend yasak, sell i\u00e7in k\u0131sa-vade momentum up. Edge yok.",
+      "challenger": "XRP de BTC/ETH ile korelasyonlu; \u00fc\u00e7 maj\u00f6r ayn\u0131 y\u00f6nde a\u00e7\u0131lsa tek makro \u015fokta toplu stop riski. D\u00fc\u015f\u00fck fiyat/ATR oran\u0131nda stop g\u00fcr\u00fclt\u00fcye fazla hassas. Trigger yok \u2014 over-trading fee tuza\u011f\u0131 (L-03). Kar\u015f\u0131-arg\u00fcmana gerek yok, f\u0131rsat yok."
+    },
+    "HYPE": {
+      "analyst": "1d range \u2192 demir-kural gere\u011fi range-HTF WAIT. RSI 55.56 n\u00f6tr, trigger yok. MACD hist negatif (-0.82), line momentum zay\u0131fl\u0131yor. 15m/4h/1d range, sadece 1h up. Net edge yok, a\u00e7ma yasa\u011f\u0131.",
+      "challenger": "1d range zaten d\u00fc\u015f\u00fck-edge; momentum MACD hist negatife d\u00f6nm\u00fc\u015f, herhangi bir y\u00f6n \u00e7abuk ters d\u00f6ner. Trigger yok, ekstrem RSI yok. A\u00e7acak tez yok \u2014 kar\u015f\u0131 arg\u00fcman gereksiz."
+    }
   },
   "_meta": {
-    "llm": "unavailable",
-    "error": "SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}",
-    "snapshot_ts": "2026-06-27T14:59:46.739793+00:00"
+    "llm": "ok",
+    "snapshot_ts": "2026-06-27T15:09:27.286501+00:00"
   }
 }

@@ -586,3 +586,78 @@ Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
 
 === TUR TAMAMLANDI — 2026-06-27T14:52:18.556739+00:00 ===
 Git push tamamlandi.
+[main b16617a] tur: 2026-06-27T14:59
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 6 files changed, 122 insertions(+), 44 deletions(-)
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   b8f3756..b16617a  main -> main
+=== A/B/C TUR BAŞLADI — 2026-06-27T14:59:28.536056+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-27T14:59:28.825446+00:00
+  BTC çekiliyor...
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: bear
+  BTC: $60584.0 | RSI 35.65 | MACDh 13.1381 | 1d:down | ❌
+  ETH: $1593.5 | RSI 40.83 | MACDh 0.1631 | 1d:down | ❌
+  XRP: $1.0682 | RSI 38.22 | MACDh -0.004 | 1d:down | ❌
+  HYPE: $63.75 | RSI 54.79 | MACDh -0.8446 | 1d:range | ❌
+
+
+▶ run_deterministic.py
+  WAIT BTC: RSI 35.65 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 35.65, MACDh 13.1381
+  WAIT ETH: RSI 40.83 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 40.83, MACDh 0.1631
+  WAIT XRP: RSI 38.22 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 38.22, MACDh -0.004
+  WAIT HYPE: RSI 54.79 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:range | RSI 54.79, MACDh -0.8446
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ run_aggressive.py
+  WAIT BTC: RSI 35.65 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 35.65, MACDh 13.1381
+  WAIT ETH: RSI 40.83 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 40.83, MACDh 0.1631
+  WAIT XRP: RSI 38.22 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 38.22, MACDh -0.004
+  WAIT HYPE: RSI 54.79 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:range | RSI 54.79, MACDh -0.8446
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı
+
+▶ run_deepthinker.py
+  deep-thinker: snapshot 2026-06-27T14:59:46.739793+00:00 (rejim: bear) okundu
+  ⚠ LLM erişilemedi: SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}
+  → Güvenli all-WAIT yazıldı (stale karar kullanılmadı).
+    WAIT BTC: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+    WAIT ETH: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+    WAIT XRP: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+    WAIT HYPE: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+
+HATA: 
+  Not: deep-thinker LLM üretmedi; güvenli WAIT kararı ile devam ediliyor.
+
+▶ apply_deepthinker.py
+  WAIT BTC: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+  WAIT ETH: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+  WAIT XRP: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+  WAIT HYPE: LLM erişilemedi (SDK hata: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CcTxqu9MQsJkASBgvCwqP'}) — güvenli WAIT
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+=== TUR TAMAMLANDI — 2026-06-27T14:59:48.048664+00:00 ===
+Git push tamamlandi.
