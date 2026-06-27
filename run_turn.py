@@ -1,12 +1,10 @@
 """
-run_turn.py — A/B/C tur orkestratörü.
-Ne yapar: capture_snapshot → run_deterministic (A) → run_aggressive (C) → deep-thinker (B) → apply_deepthinker → log
-Neden: tek komutla tam turu çalıştırır, saatlik scheduled task bunu çağırır.
+run_turn.py — A/C tur orkestratörü.
+Ne yapar: capture_snapshot → run_deterministic (A) → run_aggressive (C) → git push
+B kolu (deep-thinker) Claude Code routine ile ayrıca çalışır — bu turda yok.
 """
 
 import subprocess
-import sys
-import json
 from datetime import datetime, timezone
 
 PYTHON = ".venv/bin/python"
@@ -22,7 +20,7 @@ def run(script):
     return True
 
 def main():
-    print(f"=== A/B/C TUR BAŞLADI — {datetime.now(timezone.utc).isoformat()} ===")
+    print(f"=== A/C TUR BAŞLADI — {datetime.now(timezone.utc).isoformat()} ===")
 
     if not run("capture_snapshot.py"):
         print("Snapshot başarısız — tur durdu.")
@@ -30,14 +28,6 @@ def main():
 
     run("run_deterministic.py")   # A kolu (kural, %1.5 risk / 5x)
     run("run_aggressive.py")      # C kolu (kural, %5 risk / 20x) — TAM İZOLE
-
-    print("\n▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı")
-    # run_deepthinker.py eski karar dosyasını okumaz; her tur taze yazar.
-    # LLM erişilemezse güvenli all-WAIT yazıp nonzero çıkar — tur yine de güvenle ilerler.
-    if not run("run_deepthinker.py"):
-        print("  Not: deep-thinker LLM üretmedi; güvenli WAIT kararı ile devam ediliyor.")
-
-    run("apply_deepthinker.py")
 
     print(f"\n=== TUR TAMAMLANDI — {datetime.now(timezone.utc).isoformat()} ===")
 
