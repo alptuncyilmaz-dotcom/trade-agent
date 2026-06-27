@@ -1,5 +1,16 @@
 {
   "phase": "faz1",
   "balance": 4000,
-  "positions": {}
+  "positions": {
+    "BTC": {
+      "side": "buy",
+      "entry": 60453.0,
+      "stop": 59244.0,
+      "target": 63778.0,
+      "notional": 4000.0,
+      "leverage": 15.0,
+      "thesis": "BTC oversold-bounce long: RSI 35 dipte + MACD histogram pozitife d\u00f6nd\u00fc (+4.78, momentum yukar\u0131 k\u0131r\u0131l\u0131m) + 1h trend up. 1d down counter-trend ama psikomanyak momentum kovalar \u2014 taze bo\u011fa ivmesi var.",
+      "decided_at": "2026-06-27T18:07:40.739461+00:00"
+    }
+  }
 }

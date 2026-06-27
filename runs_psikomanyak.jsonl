@@ -1,0 +1,2 @@
+{"timestamp": "2026-06-27T18:07:40.739461+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "BTC", "action": "open_new", "side": "buy", "entry": 60453.0, "notional": 4000.0, "leverage": 15.0}]}
+{"timestamp": "2026-06-27T18:12:23.784089+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "BTC", "action": "skip_max1", "reason": "a\u00e7\u0131k poz var"}]}

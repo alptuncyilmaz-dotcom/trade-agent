@@ -1,28 +1,31 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "1d:down → long counter-trend (yasak). Short ise RSI 35 (aşırı-satım yakını) + 1h:up + MACDh güçlü pozitif (+7.65) = aşağı-trende karşı taze bounce momentumu; short fitile girer. Edge yok.",
-    "ETH": "Short tezi challenger tarafından ciddi kırıldı: stop ~0.6×ATR (tek bar yer) + 1640 likidite kümesi/av bölgesi, negatif funding=kalabalık short→squeeze riski, 15m/4h range chop, MACD_line-signal farkı -0.04=kesişime çok yakın (anlamlı negatif momentum değil).",
-    "XRP": "Short tezi challenger tarafından ciddi kırıldı: stop ~0.76×ATR (gürültüye açık), trigger:false + 2 range/1 up/1 down=yön değil chop, RSI 36=aşırı-satım yakını geç-giriş (H-03), MACDh -0.0045=gürültü (sıfırdan ayırt edilemez), funding magnitüdü çok küçük.",
-    "HYPE": "1d:range → HTF yönsüz, yönlü edge yok (kural: range-HTF düşük-edge, açma). 4h:down + MACDh -0.89 erken short iması ama HTF range + RSI 53 nötr → kurulum yetersiz."
+    "BTC": "1d DOWN buy yasak; trigger yok; 1h up + MACDh pozitif bounce \u2192 short fitile girer \u2192 WAIT",
+    "ETH": "1d DOWN buy yasak; momentum notr; trigger yok \u2192 WAIT",
+    "XRP": "1d DOWN buy yasak; tum dusuk-TF range; trigger yok; H-03 \u2192 WAIT",
+    "HYPE": "1d RANGE \u2192 range-HTF kurali \u2192 WAIT"
   },
   "analysis": {
     "BTC": {
-      "analyst": "1d:down long'u counter-trend yapar (yasak). Short adayı RSI 35 + 1h:up + MACDh +7.65 = down-trende karşı bounce momentumu → short geç/riskli. WAIT.",
-      "challenger": "Değerlendirilmedi (analyst zaten WAIT — short fitile girme riski net)."
+      "analyst": "1d DOWN \u2192 buy counter-trend yasak; trigger yok, RSI 35.29 extreme degil, 1h up + MACDh pozitif = bounce \u2192 short fitile girer",
+      "challenger": "ralli short'u likidite-avi stop'una surukler; bear-rejimde kalabalik short \u2192 squeeze; trigger yok \u2192 L-03 fee bleed"
     },
     "ETH": {
-      "analyst": "Short adayı: 1d:down trend-yönünde + 4h:range + MACDh hafif negatif + bear rejim. Entry ~1590 / stop ~1640 / target ~1500.",
-      "challenger": "Ciddi kırdı: stop 0.6×ATR tek bar yer; 1640 likidite-av kümesi; negatif funding=kalabalık short→squeeze; çoklu range+RSI40=chop; MACD kesişime çok yakın, momentum zayıf. → tez düşürüldü (WAIT)."
+      "analyst": "1d DOWN \u2192 buy yasak; MACDh ~0 momentum duz, RSI 40.61 notr, 4h range chop, trigger yok",
+      "challenger": "MACDh sifira yapisik yon belirsiz; negatif funding \u2192 kalabalik short squeeze; trigger yok"
     },
     "XRP": {
-      "analyst": "Short adayı: 1d:down + RSI 36 + MACDh negatif + bear rejim. Entry ~1.06 / stop ~1.10 / target ~0.98.",
-      "challenger": "Ciddi kırdı: stop 0.76×ATR gürültüye açık; trigger:false+chop'lu trend; RSI 36 geç-giriş H-03; MACDh gürültü; funding küçük magnitüd tek-uçlu yorum. → tez düşürüldü (WAIT)."
+      "analyst": "1d DOWN \u2192 buy yasak; 15m/1h/4h hepsi RANGE yonsuz, trigger yok, RSI 36.49 gec-giris H-03",
+      "challenger": "tum TF range + 1d down sikisma, yon belirsiz; MACDh gurultu; whipsaw riski"
     },
     "HYPE": {
-      "analyst": "1d:range → yönsüz HTF, edge zayıf. 4h:down + MACDh negatif erken short iması ama RSI 53 nötr. WAIT.",
-      "challenger": "Değerlendirilmedi (analyst zaten WAIT — range-HTF kuralı)."
+      "analyst": "1d RANGE \u2192 range-HTF demir kurali WAIT; trigger yok, RSI 53.7 notr",
+      "challenger": "1d range zaten WAIT zorunlu; HTF range yon yok; funding squeeze riski"
     }
   },
-  "_meta": {"llm": "ok"}
+  "_meta": {
+    "llm": "ok",
+    "snapshot_ts": "2026-06-27T18:09:30.085525+00:00"
+  }
 }
