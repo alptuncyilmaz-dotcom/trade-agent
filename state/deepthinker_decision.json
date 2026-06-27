@@ -1,14 +1,31 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "LLM eri\u015filemedi (claude CLI ba\u015far\u0131s\u0131z: Failed to authenticate. API Error: 401 Invalid bearer token) \u2014 g\u00fcvenli WAIT",
-    "ETH": "LLM eri\u015filemedi (claude CLI ba\u015far\u0131s\u0131z: Failed to authenticate. API Error: 401 Invalid bearer token) \u2014 g\u00fcvenli WAIT",
-    "XRP": "LLM eri\u015filemedi (claude CLI ba\u015far\u0131s\u0131z: Failed to authenticate. API Error: 401 Invalid bearer token) \u2014 g\u00fcvenli WAIT",
-    "HYPE": "LLM eri\u015filemedi (claude CLI ba\u015far\u0131s\u0131z: Failed to authenticate. API Error: 401 Invalid bearer token) \u2014 g\u00fcvenli WAIT"
+    "BTC": "1d DOWN \u2192 long counter-trend yasak; short i\u00e7in k\u0131sa-vade 15m/1h up momentum'a kar\u015f\u0131 + ge\u00e7erli trigger yok. Bear rejim, 4h range. Edge yok, over-trading riski.",
+    "ETH": "1d DOWN \u2192 long yasak; MACD hist ~0 momentumsuz, 4h range, trigger yok. BTC ile korelasyon \u2192 konsantrasyon riski. WAIT.",
+    "XRP": "1d DOWN \u2192 long yasak; MACD marjinal negatif (g\u00fcr\u00fclt\u00fc), 15m/1h up \u00e7eli\u015fiyor, trigger yok. Temiz short kurulumu de\u011fil. WAIT.",
+    "HYPE": "1d RANGE \u2192 demir-kural gere\u011fi WAIT (y\u00f6ns\u00fcz HTF, edge yok); trigger de yok."
+  },
+  "analysis": {
+    "BTC": {
+      "analyst": "Fiyat 60778, RSI 36.57 (ekstrem de\u011fil), MACD hist hafif pozitif (25.5) ama MACD \u00e7izgisi derin negatif \u2014 toparlanma de\u011fil zay\u0131f z\u0131plama. Trend yap\u0131s\u0131 \u00e7eli\u015fkili: 15m/1h up, 4h range, 1d DOWN. Rejim bear. Trigger YOK. 1d down oldu\u011fu i\u00e7in long counter-trend (YASAK). Short, 1d-down ile hizal\u0131 olurdu ama k\u0131sa-vade momentum (15m/1h up) tam tersi + ge\u00e7erli trigger yok \u2192 giri\u015f i\u00e7in kan\u0131t zay\u0131f. Asimetrik R:R kurabilecek temiz kurulum yok.",
+      "challenger": "Short d\u00fc\u015f\u00fcn\u00fcl\u00fcrse: 15m+1h up momentum'a kar\u015f\u0131, 4h range i\u00e7inde short = likidite-av\u0131 stop riski (range tavan\u0131na s\u00fcp\u00fcr\u00fclme). Long d\u00fc\u015f\u00fcn\u00fcl\u00fcrse 1d-down counter-trend zaten yasak. Her iki y\u00f6nde de trigger yokken giri\u015f = over-trading (L-03 sessiz fee katili). Tez sa\u011flam kar\u015f\u0131-arg\u00fcman aramaya gerek yok \u2014 edge yok."
+    },
+    "ETH": {
+      "analyst": "Fiyat 1603.9, RSI 42.1 n\u00f6tr, MACD hist ~0 (0.83) momentumsuz, funding n\u00f6tr. Trendler BTC ile ayn\u0131: 15m/1h up, 4h range, 1d DOWN. Trigger YOK. 1d-down \u2192 long yasak (counter-trend). Short i\u00e7in k\u0131sa-vade up momentum'a ters + tetik yok \u2192 kan\u0131t zay\u0131f. Net y\u00f6ns\u00fcz kurulum.",
+      "challenger": "ETH BTC ile y\u00fcksek korelasyon \u2014 BTC ile ayn\u0131 anda pozisyon = portf\u00f6y konsantrasyonu (korelasyonlu \u00e7oklu poz riski). MACD hist s\u0131f\u0131ra yak\u0131n = y\u00f6n belirsizli\u011fi; range-4h i\u00e7inde herhangi bir giri\u015f whipsaw'a a\u00e7\u0131k. Edge yok, a\u00e7ma."
+    },
+    "XRP": {
+      "analyst": "Fiyat 1.0758, RSI 39.55 n\u00f6tr-zay\u0131f, MACD hist hafif NEGAT\u0130F (-0.0035) momentum a\u015fa\u011f\u0131 e\u011filimli, funding n\u00f6tr. Trendler: 15m/1h up, 4h range, 1d DOWN. Trigger YOK. 1d-down \u2192 long yasak. MACD a\u015fa\u011f\u0131 + 1d-down short'u destekler gibi ama ge\u00e7erli trigger yok ve 15m/1h up \u00e7eli\u015fiyor \u2192 temiz short kurulumu de\u011fil.",
+      "challenger": "MACD hist marjinal negatif (-0.0035) neredeyse g\u00fcr\u00fclt\u00fc \u2014 y\u00f6n sinyali say\u0131lmaz. Range-4h i\u00e7inde short, k\u0131sa-vade up'a kar\u015f\u0131 = stop h\u0131zla yenir senaryosu. D\u00fc\u015f\u00fck likidite varl\u0131\u011f\u0131nda range i\u00e7i giri\u015f slippage + avlanma riski y\u00fcksek. Trigger yokken a\u00e7ma."
+    },
+    "HYPE": {
+      "analyst": "Fiyat 64.24, RSI 55.64 n\u00f6tr, MACD hist hafif negatif, funding normal-yukar\u0131. Trendler: 15m/1h up, 4h range, 1d RANGE. 1d trend RANGE \u2192 demir-kural gere\u011fi WAIT (y\u00f6ns\u00fcz HTF, edge yok). Trigger de YOK. A\u00e7\u0131lacak y\u00f6n yok.",
+      "challenger": "1d range = HTF y\u00f6ns\u00fcz; her iki y\u00f6n de d\u00fc\u015f\u00fck-edge. RSI 55 ortada, momentum kar\u0131\u015f\u0131k. Range rejiminde trend-takip mant\u0131\u011f\u0131 \u00e7al\u0131\u015fmaz, mean-reversion i\u00e7in de ekstrem yok. A\u00e7ma \u2014 kural zaten WAIT diyor."
+    }
   },
   "_meta": {
-    "llm": "unavailable",
-    "error": "claude CLI ba\u015far\u0131s\u0131z: Failed to authenticate. API Error: 401 Invalid bearer token",
-    "snapshot_ts": "2026-06-27T15:22:04.959853+00:00"
+    "llm": "ok",
+    "snapshot_ts": "2026-06-27T16:09:26.010922+00:00"
   }
 }
