@@ -1,14 +1,14 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTTGqaFU1kvkUV7g3tx2'}) \u2014 g\u00fcvenli WAIT",
-    "ETH": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTTGqaFU1kvkUV7g3tx2'}) \u2014 g\u00fcvenli WAIT",
-    "XRP": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTTGqaFU1kvkUV7g3tx2'}) \u2014 g\u00fcvenli WAIT",
-    "HYPE": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTTGqaFU1kvkUV7g3tx2'}) \u2014 g\u00fcvenli WAIT"
+    "BTC": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTdhMB4HvHhXoRogQWG4'}) \u2014 g\u00fcvenli WAIT",
+    "ETH": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTdhMB4HvHhXoRogQWG4'}) \u2014 g\u00fcvenli WAIT",
+    "XRP": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTdhMB4HvHhXoRogQWG4'}) \u2014 g\u00fcvenli WAIT",
+    "HYPE": "LLM eri\u015filemedi (SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTdhMB4HvHhXoRogQWG4'}) \u2014 g\u00fcvenli WAIT"
   },
   "_meta": {
     "llm": "unavailable",
-    "error": "SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTTGqaFU1kvkUV7g3tx2'}",
-    "snapshot_ts": "2026-06-27T08:31:59.244402+00:00"
+    "error": "SDK hata: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CcTdhMB4HvHhXoRogQWG4'}",
+    "snapshot_ts": "2026-06-27T10:48:41.022843+00:00"
   }
 }
