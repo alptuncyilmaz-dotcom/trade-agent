@@ -1685,3 +1685,137 @@ Trade-agent: /Users/alpyilmaz/trade-agent
 === sync.sh tamam — site/index.html açılabilir ===
 
 Dashboard tazelendi.
+[main f4c8ab2] tur: 2026-06-27T18:12
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 10 files changed, 140 insertions(+), 58 deletions(-)
+ create mode 100644 journal/MANUEL-DERIN-20260627T181223Z.md
+ create mode 100644 runs_psikomanyak.jsonl
+ create mode 100644 state/psikomanyak_decision.json
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   90f53a5..f4c8ab2  main -> main
+=== A/B/C TUR BAŞLADI — 2026-06-27T18:09:12.882007+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-27T18:09:13.008992+00:00
+  BTC çekiliyor...
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: bear
+  BTC: $60509.0 | RSI 35.29 | MACDh 8.3518 | 1d:down | ❌
+  ETH: $1591.7 | RSI 40.61 | MACDh 0.0482 | 1d:down | ❌
+  XRP: $1.0588 | RSI 36.49 | MACDh -0.0046 | 1d:down | ❌
+  HYPE: $63.105 | RSI 53.7 | MACDh -0.8858 | 1d:range | ❌
+
+
+▶ run_deterministic.py
+  WAIT BTC: RSI 35.29 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 35.29, MACDh 8.3518
+  WAIT ETH: RSI 40.61 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 40.61, MACDh 0.0482
+  WAIT XRP: RSI 36.49 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:range/1d:down | RSI 36.49, MACDh -0.0046
+  WAIT HYPE: RSI 53.7 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:down/1d:range | RSI 53.7, MACDh -0.8858
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ run_aggressive.py
+  WAIT BTC: RSI 35.29 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 35.29, MACDh 8.3518
+  WAIT ETH: RSI 40.61 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:up/4h:range/1d:down | RSI 40.61, MACDh 0.0482
+  WAIT XRP: RSI 36.49 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:range/1d:down | RSI 36.49, MACDh -0.0046
+  WAIT HYPE: RSI 53.7 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:down/1d:range | RSI 53.7, MACDh -0.8858
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı
+
+▶ run_deepthinker.py
+  deep-thinker: snapshot 2026-06-27T18:09:30.085525+00:00 (rejim: bear) okundu
+
+  — BTC —
+    ANALYST: 1d DOWN → buy counter-trend yasak; trigger yok, RSI 35.29 extreme degil, 1h up + MACDh pozitif = bounce → short fitile girer
+    CHALLENGER: ralli short'u likidite-avi stop'una surukler; bear-rejimde kalabalik short → squeeze; trigger yok → L-03 fee bleed
+
+  — ETH —
+    ANALYST: 1d DOWN → buy yasak; MACDh ~0 momentum duz, RSI 40.61 notr, 4h range chop, trigger yok
+    CHALLENGER: MACDh sifira yapisik yon belirsiz; negatif funding → kalabalik short squeeze; trigger yok
+
+  — XRP —
+    ANALYST: 1d DOWN → buy yasak; 15m/1h/4h hepsi RANGE yonsuz, trigger yok, RSI 36.49 gec-giris H-03
+    CHALLENGER: tum TF range + 1d down sikisma, yon belirsiz; MACDh gurultu; whipsaw riski
+
+  — HYPE —
+    ANALYST: 1d RANGE → range-HTF demir kurali WAIT; trigger yok, RSI 53.7 notr
+    CHALLENGER: 1d range zaten WAIT zorunlu; HTF range yon yok; funding squeeze riski
+
+  KARAR (taze):
+    WAIT BTC: 1d DOWN buy yasak; trigger yok; 1h up + MACDh pozitif bounce → short fitile girer → WAIT
+    WAIT ETH: 1d DOWN buy yasak; momentum notr; trigger yok → WAIT
+    WAIT XRP: 1d DOWN buy yasak; tum dusuk-TF range; trigger yok; H-03 → WAIT
+    WAIT HYPE: 1d RANGE → range-HTF kurali → WAIT
+
+  → state/deepthinker_decision.json yazıldı (eski dosya kullanılmadı).
+
+
+▶ apply_deepthinker.py
+  WAIT BTC: 1d DOWN buy yasak; trigger yok; 1h up + MACDh pozitif bounce → short fitile girer → WAIT
+  WAIT ETH: 1d DOWN buy yasak; momentum notr; trigger yok → WAIT
+  WAIT XRP: 1d DOWN buy yasak; tum dusuk-TF range; trigger yok; H-03 → WAIT
+  WAIT HYPE: 1d RANGE → range-HTF kurali → WAIT
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ psikomanyak: aşırı-risk LLM kolu (D) — tek-en-iyi momentum fırsatı, 5-20x
+
+▶ run_psikomanyak.py
+  psikomanyak: snapshot 2026-06-27T18:09:30.085525+00:00 (rejim: bear) okundu
+  KARAR: BTC buy entry 60509.0 stop 59300.0 target 63600.0 lev 15x
+    tez: BTC momentum dönüşü long — MACD histogram pozitife döndü (+8.35, line -2277 > signal -2286 yukarı kesişim) + 1h trend UP, RSI 35 dipten toparlanma yakıtı. Bear rejimde sıkışmış ama saatlik momentum yukarı kırıyor; psikomanyak bu dönüşü 15x ile kovalar.
+  → state/psikomanyak_decision.json yazıldı.
+
+
+▶ apply_psikomanyak.py
+  AÇIK BTC: $60509.0 K/Z 0.09%
+  Açık poz var (['BTC']) — maks 1, yeni açılmadı.
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 1
+
+
+▶ deep_scan.py
+Tamamlandi: journal/MANUEL-DERIN-20260627T181223Z.md
+Rejim: bear
+  BTC: $60509.0 | RSI 35.29 | funding normal | down
+  ETH: $1591.7 | RSI 40.61 | funding normal | down
+  XRP: $1.0588 | RSI 36.49 | funding normal-yukari | down
+  HYPE: $63.105 | RSI 53.7 | funding normal-yukari | range
+
+
+=== TUR TAMAMLANDI — 2026-06-27T18:12:23.811425+00:00 ===
+Git push tamamlandi.
+
+▶ sync.sh — dashboard tazeleniyor
+=== sync.sh başlıyor ===
+Vault: /Users/alpyilmaz/Obsidian Vault
+Trade-agent: /Users/alpyilmaz/trade-agent
+→ trade-agent git pull...
+→ refresh_site_data.py çalışıyor...
+✅ site/data.js güncellendi — 2026-06-27 18:12 UTC
+   det  bal=4000  fwd=0
+   deep bal=4000  fwd=0
+   agg  bal=4000  fwd=0
+   psiko bal=4000  fwd=0
+=== sync.sh tamam — site/index.html açılabilir ===
+
+Dashboard tazelendi.

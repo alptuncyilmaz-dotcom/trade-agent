@@ -26,7 +26,7 @@ def run(script):
     return True
 
 def main():
-    print(f"=== A/B/C TUR BAŞLADI — {datetime.now(timezone.utc).isoformat()} ===")
+    print(f"=== A/B/C/D TUR BAŞLADI — {datetime.now(timezone.utc).isoformat()} ===")
 
     if not run("capture_snapshot.py"):
         print("Snapshot başarısız — tur durdu.")
