@@ -1,28 +1,13 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "1d-down short izinli ama 15m/1h UP + MACDh +24.05 (kisa-vade boga) + RSI 36.46 dip-ziplama riski -> catisan TF. Challenger: ~+1 ATR stop momentum karsidayken target'tan once yenir, liq-haritasi kor. Dusuk guven, asimetri olasilikla pozitif degil -> WAIT.",
-    "ETH": "1d-down short izinli ama 15m/1h UP + MACDh +0.865 pozitif -> catisan TF. funding -6.95e-06 (short kalabalik) = squeeze yakiti. Challenger: dar stop bear-rally'de yenir, 2R kosullu olasiligi dusuk -> WAIT.",
-    "XRP": "1d-down ama MACDh ~0 (yonsuz) + 15m/1h UP, 4h range -> 3 dilimden 2'si terse, pratikte yonsuz rejim. funding -9.09e-06 short-squeeze riski. Challenger: range ici stop target'tan cok daha olasi, edge yok -> WAIT.",
-    "HYPE": "1d:range -> counter-trend her iki yon de false, HTF yonsuz -> dusuk-edge, acma yok (kural: range-HTF -> WAIT)."
+    "ETH": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "XRP": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "HYPE": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT"
   },
-  "analysis": {
-    "BTC": {
-      "analyst": "Tentatif SHORT (1d-down, izinli) entry 60755 stop 62958 target 56348, confidence low. Bilinen zayiflik: HTF-down ile kisa-vade-up (15m/1h up, MACDh +24, RSI 36) catisiyor.",
-      "challenger": "5 kirilma: (1) ~+1 ATR stop tam yukari catismada pay birakmiyor; (2) funding hafif long-agirlik squeeze icin zayif yakit, yukari baski; (3) on-chain flows/whale/liq ucu eksik -> liq-haritasi kor; (4) OI 33902 yorumlanmamis, dip-alim profili; (5) low-confidence <-> 2:1 hedef tutarsiz, realize R:R duser."
-    },
-    "ETH": {
-      "analyst": "Tentatif SHORT entry 1604.5 stop 1688 target 1438, confidence low. Zayiflik: 15m/1h up, MACDh +0.865 pozitif, RSI 42 notr-dusuk.",
-      "challenger": "3 kirilma: tek-TF rejim varsayimi (giris suresinde yukselen tablo); negatif funding = kalabalik short = squeeze yakiti (yanlis yonlu varsayim); 2:1 olasilikla agirlikli degil + fee/funding/slippage net beklenti kontrol edilmemis; liq/whale eksik -> stop yerlesimi kor."
-    },
-    "XRP": {
-      "analyst": "Tentatif SHORT entry 1.0682 stop 1.121 target 0.9626, confidence low. Zayiflik: MACDh ~0 (momentum yok), RSI 38 dusuk, kisa-vade up.",
-      "challenger": "4 kirilma: negatif funding+LTF up+RSI38 = squeeze fitili, +1 ATR stop aninda yenir; counter-trend kapisi tek-TF'ye fazla guveniyor (3'ten 2 dilim terse); range'de stop target'tan cok daha olasi -> 2:1 pozitif beklenti vermez; liq-haritasi kor."
-    },
-    "HYPE": {
-      "analyst": "WAIT — 1d:range, yonsuz HTF, edge yok. Tez uretilmedi.",
-      "challenger": "Cagrilmadi (tez yok)."
-    }
-  },
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-27T17:01:28.209408+00:00"}
+  "_meta": {
+    "llm": "unavailable",
+    "error": "claude CLI bulunamad\u0131",
+    "snapshot_ts": "2026-06-27T17:12:31.566511+00:00"
+  }
 }
