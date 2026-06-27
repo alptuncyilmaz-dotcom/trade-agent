@@ -1,31 +1,31 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Trigger yok, 1d down (long counter-trend yasak), short i\u00e7in ekstrem RSI/trigger yok + MACD yukar\u0131 d\u00f6n\u00fcyor \u2014 net edge yok, over-trading riski.",
-    "ETH": "Trigger yok, 1d down (long yasak), short edge'i zay\u0131f (MACD yukar\u0131 k\u0131vr\u0131l\u0131yor, RSI n\u00f6tr). BTC ile korelasyon, ba\u011f\u0131ms\u0131z tez yok.",
-    "XRP": "Trigger yok, 1d down (long yasak), MACD hist \u22480 momentum yok; y\u00fcksek ATR/fiyat g\u00fcr\u00fclt\u00fcs\u00fc trigger's\u0131z short'u riskli k\u0131lar.",
-    "HYPE": "1d trend RANGE \u2192 demir kural gere\u011fi WAIT (y\u00f6ns\u00fcz HTF). Trigger de yok."
+    "BTC": "1d DOWN \u2192 long counter-trend yasak; short i\u00e7in 15m/1h up momentum ters + 4h range + ge\u00e7erli trigger yok. Over-trading fee riski (L-03), edge yok.",
+    "ETH": "1d DOWN \u2192 long yasak; short momentum-ters + trigger yok. BTC ile korelasyonlu yap\u0131, ba\u011f\u0131ms\u0131z edge yok.",
+    "XRP": "1d DOWN \u2192 long yasak; MACD d\u00fcz, y\u00f6n belirsiz, trigger yok. Asimetrik R:R yok.",
+    "HYPE": "1d RANGE (+4h range) \u2192 range-HTF demir-kural\u0131 = WAIT; y\u00f6ns\u00fcz, trigger yok, edge yok."
   },
   "analysis": {
     "BTC": {
-      "analyst": "Fiyat 60759, RSI 36.48 (ekstrem de\u011fil), MACD hist +24.3 (negatif b\u00f6lgede ama yukar\u0131 d\u00f6n\u00fcyor). TF dizilimi: 15m up, 1h up, 4h range, 1d DOWN. Rejim bear. Trigger YOK. Long d\u00fc\u015f\u00fcn\u00fclemez (1d down \u2192 counter-trend yasak). Short taraf\u0131 1d-down ile uyumlu olurdu ama ge\u00e7erli trigger yok, RSI ekstrem de\u011fil, MACD momentum yukar\u0131 d\u00f6n\u00fcyor (short i\u00e7in ters sinyal). Net edge yok \u2192 WAIT.",
-      "challenger": "15m/1h up + MACD hist pozitife d\u00f6n\u00fc\u015f bir dip-toparlanma sinyali olabilir; short a\u00e7mak bu k\u0131sa-vade momentuma kar\u015f\u0131 likidite-av\u0131na yem olur. Long ise 1d-down ana trendle \u00e7eli\u015fir. \u0130ki y\u00f6nde de kontrol edilmemi\u015f varsay\u0131m = karars\u0131z rejim \u2192 tez yok. Do\u011fru."
+      "analyst": "Fiyat 60747, RSI 36.43 (zay\u0131f ama ekstrem de\u011fil), MACD hist yeni pozitife d\u00f6nd\u00fc (+23.5) \u2192 k\u0131sa-vade momentum toparl\u0131yor. Trendler: 15m/1h up, 4h range, 1d DOWN. Rejim bear. 1d a\u015fa\u011f\u0131 oldu\u011fu i\u00e7in long counter-trend = YASAK. Short d\u00fc\u015f\u00fcn\u00fclse bile 15m/1h yukar\u0131 momentuma ve 4h range'e kar\u015f\u0131, \u00fcstelik ge\u00e7erli trigger yok. Asimetrik edge yok.",
+      "challenger": "Short tezi: 1d-down rejim short'u hakl\u0131 g\u00f6sterse de giri\u015f an\u0131 yanl\u0131\u015f \u2014 MACD hist yeni pozitife d\u00f6nd\u00fc ve 15m/1h up, yani k\u0131sa-vade likidite-av\u0131 bir short'u an\u0131nda stop'lar. Long tezi zaten counter-trend (1d down) \u2192 kapal\u0131. Hi\u00e7bir y\u00f6n i\u00e7in trigger yok; bu sadece bir g\u00f6zlem, sinyal de\u011fil. Tez yok, k\u0131r\u0131lacak bir \u015fey de yok."
     },
     "ETH": {
-      "analyst": "Fiyat 1604.1, RSI 42.13 (ekstrem de\u011fil), MACD hist +0.84 (n\u00f6tr-pozitif). 15m up, 1h up, 4h range, 1d DOWN. Trigger YOK. Long counter-trend (1d down) \u2192 yasak. Short i\u00e7in ne ekstrem RSI ne trigger var, MACD da yukar\u0131 k\u0131vr\u0131l\u0131yor \u2192 short edge'i zay\u0131f. WAIT.",
-      "challenger": "BTC ile y\u00fcksek korelasyon \u2014 ETH'de ba\u011f\u0131ms\u0131z tez yokken ayn\u0131 belirsiz rejim. Funding hafif negatif (-6.3e-6) short kalabal\u0131\u011f\u0131 sinyali olabilir ama bu tek ba\u015f\u0131na trade gerek\u00e7esi de\u011fil. Bo\u015f itiraz yok ama ger\u00e7ek edge de yok."
+      "analyst": "Fiyat 1604, RSI 42.12 (n\u00f6tr-zay\u0131f), MACD hist ~0 (+0.83, karars\u0131z). Trendler: 15m/1h up, 4h range, 1d DOWN. 1d a\u015fa\u011f\u0131 \u2192 long counter-trend YASAK. Short i\u00e7in k\u0131sa-vade momentum (15m/1h up) ters; 4h range y\u00f6ns\u00fcz; trigger yok. BTC ile birebir ayn\u0131 yap\u0131 \u2192 korelasyonlu, ba\u011f\u0131ms\u0131z edge yok.",
+      "challenger": "ETH yap\u0131s\u0131 BTC'nin kopyas\u0131 (ayn\u0131 \u00e7oklu-TF dizilim, ayn\u0131 rejim). E\u011fer hem BTC hem ETH'de pozisyon d\u00fc\u015f\u00fcn\u00fclseydi = korelasyon konsantrasyonu (tek makro hareket ikisini birden vurur). Ama zaten ne long (1d-down counter) ne short (momentum ters + trigger yok) a\u00e7\u0131labilir. Sa\u011flam tez yok."
     },
     "XRP": {
-      "analyst": "Fiyat 1.0699, RSI 38.52, MACD hist -0.004 (neredeyse s\u0131f\u0131r, hafif negatif). 15m up, 1h up, 4h range, 1d DOWN. Trigger YOK. Long counter-trend \u2192 yasak. Short i\u00e7in MACD hist s\u0131f\u0131ra yak\u0131n, momentum yok, trigger yok. Net edge yok \u2192 WAIT.",
-      "challenger": "ATR/fiyat oran\u0131 y\u00fcksek (0.0528/1.07 \u2248 %4.9) \u2014 d\u00fc\u015f\u00fck fiyatl\u0131 varl\u0131kta stop g\u00fcr\u00fclt\u00fcs\u00fc b\u00fcy\u00fck; trigger olmadan girilen short h\u0131zla yenir. Trade gerek\u00e7esi yok, do\u011fru karar WAIT."
+      "analyst": "Fiyat 1.0696, RSI 38.47, MACD hist hafif negatif (-0.0039, neredeyse d\u00fcz). Trendler: 15m/1h up, 4h range, 1d DOWN. 1d a\u015fa\u011f\u0131 \u2192 long YASAK. Short i\u00e7in k\u0131sa-vade yukar\u0131 momentum ve range 4h ters; trigger yok; ATR'ye g\u00f6re net seviye yok. Edge yok.",
+      "challenger": "XRP de ayn\u0131 d\u00f6rt-varl\u0131k dizilimini ta\u015f\u0131yor \u2014 e\u015fzamanl\u0131 hareket rejim ba\u011flam\u0131, sinyal de\u011fil (anayasa). MACD'nin d\u00fcz olmas\u0131 y\u00f6n belirsizli\u011fini do\u011fruluyor; range-HTF benzeri y\u00f6ns\u00fcz ortamda stop kolayca yenir. \u0130tiraz edilecek pozitif tez yok."
     },
     "HYPE": {
-      "analyst": "Fiyat 64.094, RSI 55.38 (n\u00f6tr), MACD hist -0.82 (hafif negatif, signal alt\u0131nda). 15m up, 1h up, 4h range, 1d RANGE. Demir kural: 1d range \u2192 WAIT (y\u00f6ns\u00fcz HTF, edge yok). Trigger de yok. WAIT.",
-      "challenger": "1d range + 4h range = tamamen y\u00f6ns\u00fcz; her iki y\u00f6n de coin-flip. MACD hist negatife d\u00f6nd\u00fc ama range i\u00e7inde anlams\u0131z. Tez kurulamaz, WAIT zorunlu."
+      "analyst": "Fiyat 64.105, RSI 55.4 (tam n\u00f6tr), MACD hist negatif (-0.822, momentum hafif zay\u0131fl\u0131yor). Trendler: 15m/1h up, 4h range, 1d RANGE. 1d range \u2192 demir-kural gere\u011fi WAIT (y\u00f6ns\u00fcz HTF, edge yok). Trigger yok. A\u00e7ma gerek\u00e7esi yok.",
+      "challenger": "1d range + 4h range = \u00e7ift y\u00f6ns\u00fcz HTF; burada herhangi bir y\u00f6n se\u00e7mek coin-flip. RSI 55 + negatif MACD hafif a\u015fa\u011f\u0131 bask\u0131 ima etse de bu range i\u00e7i g\u00fcr\u00fclt\u00fc. Range-rejimde edge iddias\u0131 kendini \u00e7\u00fcr\u00fct\u00fcr. Tez yok."
     }
   },
   "_meta": {
     "llm": "ok",
-    "snapshot_ts": "2026-06-27T16:45:45.952766+00:00"
+    "snapshot_ts": "2026-06-27T16:47:33.470834+00:00"
   }
 }
