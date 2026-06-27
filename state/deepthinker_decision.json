@@ -1,31 +1,14 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "1d DOWN buy yasak; trigger yok; 1h up + MACDh pozitif bounce \u2192 short fitile girer \u2192 WAIT",
-    "ETH": "1d DOWN buy yasak; momentum notr; trigger yok \u2192 WAIT",
-    "XRP": "1d DOWN buy yasak; tum dusuk-TF range; trigger yok; H-03 \u2192 WAIT",
-    "HYPE": "1d RANGE \u2192 range-HTF kurali \u2192 WAIT"
-  },
-  "analysis": {
-    "BTC": {
-      "analyst": "1d DOWN \u2192 buy counter-trend yasak; trigger yok, RSI 35.29 extreme degil, 1h up + MACDh pozitif = bounce \u2192 short fitile girer",
-      "challenger": "ralli short'u likidite-avi stop'una surukler; bear-rejimde kalabalik short \u2192 squeeze; trigger yok \u2192 L-03 fee bleed"
-    },
-    "ETH": {
-      "analyst": "1d DOWN \u2192 buy yasak; MACDh ~0 momentum duz, RSI 40.61 notr, 4h range chop, trigger yok",
-      "challenger": "MACDh sifira yapisik yon belirsiz; negatif funding \u2192 kalabalik short squeeze; trigger yok"
-    },
-    "XRP": {
-      "analyst": "1d DOWN \u2192 buy yasak; 15m/1h/4h hepsi RANGE yonsuz, trigger yok, RSI 36.49 gec-giris H-03",
-      "challenger": "tum TF range + 1d down sikisma, yon belirsiz; MACDh gurultu; whipsaw riski"
-    },
-    "HYPE": {
-      "analyst": "1d RANGE \u2192 range-HTF demir kurali WAIT; trigger yok, RSI 53.7 notr",
-      "challenger": "1d range zaten WAIT zorunlu; HTF range yon yok; funding squeeze riski"
-    }
+    "BTC": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "ETH": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "XRP": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "HYPE": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT"
   },
   "_meta": {
-    "llm": "ok",
-    "snapshot_ts": "2026-06-27T18:09:30.085525+00:00"
+    "llm": "unavailable",
+    "error": "claude CLI bulunamad\u0131",
+    "snapshot_ts": "2026-06-27T18:33:18.783546+00:00"
   }
 }

@@ -1,18 +1,8 @@
 {
-  "decision": {
-    "coin": "BTC",
-    "side": "buy",
-    "entry": 60509.0,
-    "stop": 59300.0,
-    "target": 63600.0,
-    "leverage": 15,
-    "thesis": "BTC momentum d\u00f6n\u00fc\u015f\u00fc long \u2014 MACD histogram pozitife d\u00f6nd\u00fc (+8.35, line -2277 > signal -2286 yukar\u0131 kesi\u015fim) + 1h trend UP, RSI 35 dipten toparlanma yak\u0131t\u0131. Bear rejimde s\u0131k\u0131\u015fm\u0131\u015f ama saatlik momentum yukar\u0131 k\u0131r\u0131yor; psikomanyak bu d\u00f6n\u00fc\u015f\u00fc 15x ile kovalar.",
-    "detailed_rationale": "4 varl\u0131k i\u00e7inde en temiz momentum-d\u00f6n\u00fc\u015f sinyali BTC'de: MACD hist 4 varl\u0131k aras\u0131nda en g\u00fc\u00e7l\u00fc pozitif (+8.35; ETH +0.05 zay\u0131f, XRP -0.005 ve HYPE -0.89 negatif/zay\u0131fl\u0131yor) ve 1h trend UP. RSI 35.29 oversold b\u00f6lgeden yukar\u0131, mean-reversion + momentum birle\u015fimi. Kar\u015f\u0131: 1d down + 4h range (HTF zay\u0131f) \u2192 counter-trend riski, ama psikomanyak counter-trend serbest ve saatlik momentum d\u00f6n\u00fc\u015f\u00fcn\u00fc yakal\u0131yor. Entry 60509 (snapshot price), stop 59300 (~2%, ATR 2203'\u00fcn alt\u0131nda s\u0131k\u0131 tutuldu h\u0131zl\u0131 invalidation i\u00e7in), target 63600 (~2.55:1 R:R, ~%5.1 hareket). 15x kald\u0131ra\u00e7: stop %2'de likidasyon mesafesinden (~%6.6) g\u00fcvenli i\u00e7eride. Risk: bear rejimde HTF sat\u0131c\u0131l\u0131, hist pozitif ama line h\u00e2l\u00e2 negatif b\u00f6lgede \u2014 momentum yalanc\u0131 \u00e7\u0131karsa stop h\u0131zl\u0131 keser.",
-    "wait_reason": null
-  },
-  "wait_reason": null,
+  "decision": null,
+  "wait_reason": "LLM eri\u015filemedi (claude CLI bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
   "_meta": {
-    "llm": "ok",
-    "snapshot_ts": "2026-06-27T18:09:30.085525+00:00"
+    "llm": "unavailable",
+    "error": "claude CLI bulunamad\u0131"
   }
 }
