@@ -1,24 +1,12 @@
-# [VARLIK] — [trade-id veya turn] — [YYYY-MM-DD HH:MM UTC]
+# journal/_template.md — Trade Günlüğü Şablonu
 
-> Journal = tek kaynak (state). Tez / sonuç / neden AYRI yazılır. SUCCESSFUL/FAILED etiketi YASAK.
+> Her trade için bir kayıt. **tez / sonuç / neden AYRI** (tez≠fiyat).
+> Reflection agent doldurur (taslak), insan onaylar.
 
-## 📋 ANALİZ ÖZETİ (her kapanışta ZORUNLU — kazanç DA kayıp DA)
-- **Nasıl verildi:** [hangi trigger/feature/varsayım, kaldıraç-gerekçe — "bu kararı nasıl verdim"]
-- **Sonuç:** [net % (fee-dahil) + baseline (B&H + basit-RSI yendi mi, edge var mı) + tez≠fiyat (tez tuttu mu, yoksa kazançsa şans/varyans mıydı / kayıpsa tez mi zayıftı)]
-- **DERS:** [çıkan ders VAR mı? neyi göz önünde bulunduramadı, ne KAÇIRDI (HTF trend? rejim? edge-kalitesi?). Yoksa "DERS: yok — gürültü/varyans"]
-
-## Karar (decided_at: [UTC ISO])
-- **side / entry / stop / target / confidence:** [...]
-- **leverage:** [kod-türetilmiş + gerekçe]
-- **thesis:** [tek cümle]
-- **detailed_rationale:** [ne göz önünde bulunduruldu, ne riskli/eksik — zengin]
-
-**Challenger —**
-- [kırılma senaryosu + neden + eksik veri]
-(veya) Tez sağlam, ciddi karşı-argüman yok.
-
-**Analyst cevabı —**
-- [her itiraza tek tek: kabul edip güncelledim / gerekçeyle reddettim]
-
-## Sonuç (kapanışta)
-- path: [open / stop_hit / target_hit] · net %: [...] · baseline edge: [...] · forward-test sayacı: +1
+<!--
+## [BTC|ETH] — [trade-id] — [tarih]
+**① Tez (karar anı, point-in-time)**: side · entry/stop/target · confidence · tetikleyen feature'lar
+**② Sonuç (net, maliyet dahil)**: gross / fees / funding / net PnL · stop mu target mı zaman mı
+**③ Neden (reflection)**: rejim? funding mı yedi? likidite? volatilite? — KARAR kalitesi vs FİYAT sonucu ayrı
+**④ Aday öğrenim**: (etiketli hipotez — terfi DEĞİL) · tekrar paterni gözlenirse PROMOTE-SWEEP'e aday
+-->

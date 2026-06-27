@@ -1,52 +1,44 @@
 # trade-agent
 
-Kripto perp (BTC · ETH · XRP · HYPE) **A/B araştırma + forward-test** sistemi. Hyperliquid
-**testnet/paper ONLY — gerçek para YOK.** Tam anayasa: [CLAUDE.md](CLAUDE.md).
+Kripto perp (tek varlık: BTC veya ETH) **forward-test + araştırma** sistemi. Hyperliquid **testnet/paper ONLY — gerçek para YOK.** Vault'un kardeşi ama AYRI repo, ayrı git.
 
-> Dürüst beklenti: LLM-güdümlü trader'ın fee+funding sonrası piyasayı yenmesi düşük ihtimal (L-01).
-> Değer: kendi strateji dokümanını üreten + ileri-test eden, **kuralı LLM'e karşı ölçen** öğretici sistem.
-
-## A/B/C mimarisi
-Üç kol, **aynı snapshot**, ayrı $4000 bakiye, ayrı state/runs, TAM İZOLE:
-- **A — deterministic-trader** (`run_deterministic.py`): saf kural (RSI/MACD/trend/rejim, LLM YOK). %1.5 risk / ≤5x.
-- **B — deep-thinker** (`run_deepthinker.py` → `apply_deepthinker.py`): LLM analyst → challenger → otonom karar. A ile AYNI sizing.
-- **C — aggressive-trader** (`run_aggressive.py`): A ile aynı kural, yüksek-risk profili (%5 risk / ≤20x + likidasyon kapısı).
-
-Soru: LLM kuralları yenebilir mi? Yüksek risk/kaldıraç işe yarar mı? ~30+ trade sonra VERİYLE karşılaştır.
+> Dürüst beklenti: LLM-güdümlü trader'ın fee+funding sonrası piyasayı yenmesi düşük ihtimal. Değer: kendi strateji dokümanını üreten + ileri-test eden öğretici sistem. Kurallar `CLAUDE.md`'de.
 
 ## 7 katman (determinism kodda, judgment LLM'de)
 | # | Katman | Dizin | Ne |
 |---|---|---|---|
-| 1 | Veri (point-in-time) | `data/` | OHLCV (`ohlcv.py`) + funding (`funding.py`) + on-chain proxy (`onchain.py`) + `snapshot.py` |
-| 2 | Feature | `features/` | RSI/MACD/ATR/SMA/EMA (`indicators.py`) + çok-TF trend/rejim (`trend.py`) — KOD hesaplar |
-| 3 | Decision | A: `run_deterministic.py` · B: `.claude/agents/deep-thinker.md` | snapshot → JSON tez/entry/stop/target |
-| 4 | Execution sim | `execution/` | sizing + leverage + fee/funding/slippage'li `simulator.py` |
-| 5 | Evaluation | `evaluation/metrics.py` | expectancy / PF / maxDD / Sharpe + `baselines` (B&H + RSI) |
-| 6 | Reflection | `.claude/agents/trader-refresh.md` | sonuç → neden + aday öğrenim |
+| 1 | Veri (point-in-time) | `data/` | OHLCV (`ohlcv.py`) + funding (`funding.py`) + on-chain (`onchain.py` — gap) + `snapshot.py` (look-ahead öldür) |
+| 2 | Feature | `features/` | RSI/MACD/ATR/SMA/EMA/likidite (`indicators.py`) — KOD hesaplar |
+| 3 | Decision agent | `.claude/agents/trader-scan.md` | snapshot → JSON tez/entry/stop/target |
+| 4 | Execution sim | `execution/simulator.py` | fee + funding + slippage DAHİL paper-fill |
+| 5 | Evaluation | `evaluation/metrics.py` | expectancy / profit factor / max DD / Sharpe |
+| 6 | Reflection agent | `.claude/agents/trader-refresh.md` | sonuç → neden + aday öğrenim |
 | 7 | Strateji doc | `strategy/` | yavaş evrilen, insan-okunur |
 
-Ek: `triggers/rules.py` (LLM ne zaman çalışır), `execution/decision.py` (JSON şema+guard), `execution/autonomous.py` (gate/path-check/anchor), `journal/` (tez/sonuç/neden ayrı).
-
-## Veri akışı (özet)
-`ohlcv.fetch_candles` + `funding.fetch_funding` → `indicators` + `trend` → `snapshot.build_snapshot` →
-(trigger ateşlerse) decision → `simulator.simulate_trade` → `metrics.summarize` + `baselines.compare` → reflection + `strategy/`.
+Ek: `triggers/rules.py` (LLM ne zaman çalışır), `decision.py` (JSON şema), `journal/` (tez/sonuç/neden ayrı).
 
 ## Kurulum
 ```bash
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-cp .env.example .env        # ANTHROPIC_API_KEY=... (deep-thinker SDK; .env gitignore'lu)
-.venv/bin/python run_turn.py
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env        # HL_TESTNET_KEY (sadece testnet)
 ```
-Saatlik otomatik tetik: lokal launchd `com.trade-agent.turn` → `run_turn.sh` (akış: [ROUTINE.md](ROUTINE.md)).
+Çekirdek katmanlar bağımlılıksız (stdlib). Hyperliquid `/info` read düz HTTP.
 
-## Test
-```bash
-.venv/bin/python -m pytest tests -v
-```
+## Veri akışı (özet)
+`ohlcv.get_candles` + `funding.get_funding` → `indicators.compute_features` → `snapshot.build_snapshot(as_of)` → (trigger ateşlerse) `trader-scan` JSON karar → `simulator.simulate_round_trip` → `metrics.summarize` → `trader-refresh` neden + `strategy/` öneri.
 
 ## Güvenlik sınırları (DEĞİŞMEZ — bkz CLAUDE.md)
 Testnet-only EMİR · win-rate hedefi yok · point-in-time (leakage yok) · tez≠fiyat · fee+funding+slippage · trigger-only · anchor asimetrik · uydurma yok. **Hiçbir cutoff-öncesi sonuç performans kanıtı değildir.**
 
+**Okuma mainnet, emir testnet (KARAR 3):** Fiyat/funding/feature OKUMA'sı varsayılan **mainnet** (derin likidite → feature kalitesi; public read, para yok). **EMİR yine testnet/paper** — order endpoint tanımsız, mainnet emri imkânsız. Testnet okumayı zorla: `HL_FORCE_TESTNET_READ=1`.
+
+## Test
+```bash
+python -m pytest tests -v
+```
+6 test: feature unit · point-in-time enforce · execution sim maliyet · evaluation metrik · decision JSON şema · **testnet bağlantı smoke** (gerçek mainnet emir DEĞİL).
+
 ## Veri durumu
-- ✅ OHLCV + funding + OI: Hyperliquid `/info` (ücretsiz, anahtarsız read).
-- ⚠️ On-chain exchange flow: **güvenilir ücretsiz kaynak yok** (bkz `logs/onchain-research.md`) → `data/onchain.py` proxy, sinyal uydurmaz. Gerçek kaynaklar: `strategy/paid-sources.md`.
+- ✅ OHLCV + funding: Hyperliquid testnet `/info` (ücretsiz, anahtarsız read).
+- ⚠️ On-chain exchange flow: **güvenilir ücretsiz kaynak yok** (bkz `logs/onchain-research.md`) → `onchain.py` `available:False`, sinyal uydurmaz. Sistem funding+OHLCV ile çalışır.

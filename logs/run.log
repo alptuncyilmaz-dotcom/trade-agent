@@ -803,3 +803,55 @@ Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
 
 === TUR TAMAMLANDI — 2026-06-27T15:47:36.031292+00:00 ===
 Git push tamamlandi.
+[main a840e7d] tur: 2026-06-27T15:52
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 4 files changed, 88 insertions(+), 34 deletions(-)
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   b1b7922..a840e7d  main -> main
+=== A/C TUR BAŞLADI — 2026-06-27T15:52:25.806210+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-27T15:52:26.045725+00:00
+  BTC çekiliyor...
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: bear
+  BTC: $60742.0 | RSI 36.4 | MACDh 23.2213 | 1d:down | ❌
+  ETH: $1603.9 | RSI 42.1 | MACDh 0.8268 | 1d:down | ❌
+  XRP: $1.0736 | RSI 39.17 | MACDh -0.0037 | 1d:down | ❌
+  HYPE: $64.325 | RSI 55.79 | MACDh -0.8079 | 1d:range | ❌
+
+
+▶ run_deterministic.py
+  WAIT BTC: RSI 36.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 36.4, MACDh 23.2213
+  WAIT ETH: RSI 42.1 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 42.1, MACDh 0.8268
+  WAIT XRP: RSI 39.17 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 39.17, MACDh -0.0037
+  WAIT HYPE: RSI 55.79 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:range | RSI 55.79, MACDh -0.8079
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ run_aggressive.py
+  WAIT BTC: RSI 36.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 36.4, MACDh 23.2213
+  WAIT ETH: RSI 42.1 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 42.1, MACDh 0.8268
+  WAIT XRP: RSI 39.17 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 39.17, MACDh -0.0037
+  WAIT HYPE: RSI 55.79 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:range | RSI 55.79, MACDh -0.8079
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+=== TUR TAMAMLANDI — 2026-06-27T15:52:42.473983+00:00 ===
+Git push tamamlandi.

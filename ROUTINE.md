@@ -1,51 +1,50 @@
 # ROUTINE.md — A/B çatı tetik (akış + giriş noktaları)
 
-> **Tetik mekanizması (bizim ortam):** LOKAL **launchd** scheduled task `com.trade-agent.turn`
-> (saatlik, `StartInterval 3600`) → `run_turn.sh`. Yalnız PC/Claude uygulaması açıkken çalışır
-> (kapalıyken o tik kaçar). Cloud routine KULLANILMAZ — Anthropic cloud sandbox Hyperliquid'e
-> erişemez ("Host not in allowlist"). Proje `~/trade-agent` altında (TCC için Documents'tan taşındı).
+> ⚠️ **CLOUD ROUTINE TERK EDİLDİ (2026-06-16):** Anthropic cloud routine **Hyperliquid'e
+> erişemiyor** (cloud sandbox dış-API engeli: "Host not in allowlist: api.hyperliquid.xyz";
+> allowlist self-servis değil). **Otomatik tetik = LOKAL scheduled task `ab-trader-turn`
+> (saatlik)** — yalnız PC/Claude uygulaması açıkken çalışır (kapalıyken kaçar). Aşağıdaki
+> AKIŞ aynen geçerli; sadece tetik mekanizması cloud değil lokal. (`sync.sh` adımı lokalde
+> çalışır çünkü vault yalnız lokalde var.)
 
-> **Neden Claude gerekli:** deep-thinker LLM kolu her tik analyst+challenger akıl yürütür. Saf
-> GitHub Actions'ta Claude yok → deep-thinker orada koşamaz. Tek canonical tetik bu lokal tur.
+> **Bu repo'nun A/B tetiği = Claude Code routine** (claude.ai/code/routines). Routine
+> Claude'u çağırır; Claude aşağıdaki sırayı yürütür — TEK tetikte iki agent AYNI snapshot'la
+> karar verir (adil A/B). Routine'in KENDİSİNİ sen kurarsın (cron + aşağıdaki prompt).
+>
+> **Neden GitHub Actions değil:** Actions'ta Claude yok → deep-thinker orada koşamaz.
+> A/B süresince GitHub schedule KALDIRILDI; tek canonical tetik bu routine.
 
-## Cadans
-**Saatlik** (`StartInterval 3600`). deep-thinker her tik LLM token harcar (SDK, `ANTHROPIC_API_KEY`).
-Maliyet cadansa bağlı; istenirse plist'te artırılır.
+## Önerilen cadans
+**100 dakikada bir** (günde ~14-15 tik — routine'in 15 limitine sığar). deep-thinker her
+tik Claude token harcar (analyst+challenger) — maliyet cadansa bağlı.
 
-## Akış (run_turn.py yürütür)
+## Routine prompt (claude.ai/code'da bu metni gir)
 ```
-1. capture_snapshot.py     → data/snapshot.py: ortak point-in-time snapshot (state/snapshot_latest.json)
-2. run_deterministic.py    → A kolu: kural-bazlı karar + kendi state'i
-3. run_deepthinker.py      → B kolu: deep-thinker.md + güncel snapshot → analyst→challenger
-                              → state/deepthinker_decision.json (taze; eski dosya kullanılmaz)
-                              LLM erişilemezse güvenli all-WAIT (stale karar asla kullanılmaz)
-4. apply_deepthinker.py    → B kararını ORTAK sizing/simulator ile uygula
-5. git add -A && commit && push
+trade-agent A/B turu çalıştır. Sırayla:
+1. `cd <trade-agent yolu> && python capture_snapshot.py`  (ortak snapshot → state/snapshot_latest.json)
+2. `python run_deterministic.py`  (deterministic-trader: kural-bazlı, kendi state'i)
+3. deep-thinker akışı (.claude/agents/deep-thinker.md): state/snapshot_latest.json'u oku →
+   her varlık için analyst tezi → challenger agent'ıyla bağımsız çürüt → hayatta kalanları
+   state/deepthinker_decision.json'a yaz (yoksa boş decisions).
+4. `python apply_deepthinker.py`  (deep-thinker kararını ORTAK sizing'le uygular)
+5. **PARALEL GÖZLEM (karara GİRMEZ):** `python deep_scan.py` + haber/makro WebSearch (tarih/tazelik) → MANUEL-DERIN journal (Derin Mod tab'ı bağlamı; iki agent'a da SIZMAZ)
+6. `git add -A && git commit && git push`
+7. `bash "../Obsidian Vault/data/scripts/sync.sh"`  (dashboard tazele)
+Sonra iki agent'ın bakiye/equity/açık-poz özetini ver. Demir kurallar: ikisi de aynı
+sizing; deep-thinker otonom + turlar arası öğrenmez; gerçek para YOK.
 ```
-Paralel GÖZLEM (manuel, karara GİRMEZ): `deep_scan.py` + haber/makro → `journal/MANUEL-DERIN-*.md` (trader-deep).
 
-## Giriş noktaları (scriptler)
-| Adım | Komut | Yazar |
-|---|---|---|
-| 1 | `python capture_snapshot.py` | `state/snapshot_latest.json` |
-| 2 | `python run_deterministic.py` | `positions_deterministic.json` + `runs_deterministic.jsonl` |
-| 3 | `python run_deepthinker.py` | `state/deepthinker_decision.json` |
-| 4 | `python apply_deepthinker.py` | `positions_deepthinker.json` + `runs_deepthinker.jsonl` |
-| 5 | `git ...` | repo |
+## Giriş noktaları (scriptler — hazır)
+| Adım | Komut | Ne yapar | Yazar |
+|---|---|---|---|
+| 1 | `python capture_snapshot.py` | tek point-in-time snapshot | `state/snapshot_latest.json` (transient) |
+| 2 | `python run_deterministic.py` | deterministic-trader turu | `positions_deterministic.json` + `runs_deterministic.jsonl` |
+| 3 | (Claude) deep-thinker akıl yürütme | analyst+challenger → karar | `state/deepthinker_decision.json` (transient) |
+| 4 | `python apply_deepthinker.py` | deep-thinker kararını uygular | `positions_deepthinker.json` + `runs_deepthinker.jsonl` |
+| 5 | `python deep_scan.py` + (Claude) haber doldur | **paralel gözlem** (haber/funding-liq) — karara GİRMEZ | `journal/MANUEL-DERIN-*.md` |
+| 6 | `git add -A && git commit && git push` | iki agent + gözlem journal | repo |
+| 7 | `bash "../Obsidian Vault/data/scripts/sync.sh"` | dashboard | vault `site/data.js` |
 
-## Manuel çalıştırma
-```bash
-cd ~/trade-agent && set -a; . ./.env; set +a; .venv/bin/python run_turn.py
-```
-Dashboard tazele: `bash sync.sh` (snapshot + localhost site/, yalnız 127.0.0.1).
-
-## launchd kontrol
-```bash
-launchctl list | grep trade-agent                      # durum (PID / son exit / label)
-launchctl kickstart -k gui/$(id -u)/com.trade-agent.turn   # elle tetikle
-tail -f logs/run.log                                    # tur çıktısı
-```
-plist: `~/Library/LaunchAgents/com.trade-agent.turn.plist`. `.env` (ANTHROPIC_API_KEY) `run_turn.sh` ile yüklenir.
-
-## Demir kurallar (tur)
-İkisi de aynı sizing; deep-thinker otonom + turlar arası öğrenmez; **gerçek para YOK.**
+## Standalone deterministic (A/B dışı)
+GitHub Actions `workflow_dispatch` ELLE `run_deterministic.py` koşar (Claude'suz). **A/B
+süresince bunu tetikleme** — fazladan deterministic-tek tik A/B'yi kirletir (routine canonical).
