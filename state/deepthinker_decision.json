@@ -1,31 +1,28 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Trigger yok; 1d DOWN \u2192 long counter-trend (yasak), short ise 15m/1h up momentum \u00e7at\u0131\u015fmas\u0131 + RSI ekstrem de\u011fil + onay yok. Edge yok, over-trading riski (L-03).",
-    "ETH": "BTC ile ayn\u0131 yap\u0131; trigger yok, 1d DOWN. Long yasak (counter-trend), short zay\u0131f + BTC ile korelasyon konsantrasyon riski. WAIT.",
-    "XRP": "Trigger yok, 1d DOWN. Long counter-trend (yasak), short MACD g\u00fcr\u00fclt\u00fc seviyesinde + momentum \u00e7at\u0131\u015fmas\u0131. Edge yok.",
-    "HYPE": "1d RANGE \u2192 range-HTF kural\u0131 = WAIT. Trigger yok, RSI n\u00f6tr, MACD range i\u00e7inde g\u00fcvenilmez."
+    "BTC": "1d-down short izinli ama 15m/1h UP + MACDh +24.05 (kisa-vade boga) + RSI 36.46 dip-ziplama riski -> catisan TF. Challenger: ~+1 ATR stop momentum karsidayken target'tan once yenir, liq-haritasi kor. Dusuk guven, asimetri olasilikla pozitif degil -> WAIT.",
+    "ETH": "1d-down short izinli ama 15m/1h UP + MACDh +0.865 pozitif -> catisan TF. funding -6.95e-06 (short kalabalik) = squeeze yakiti. Challenger: dar stop bear-rally'de yenir, 2R kosullu olasiligi dusuk -> WAIT.",
+    "XRP": "1d-down ama MACDh ~0 (yonsuz) + 15m/1h UP, 4h range -> 3 dilimden 2'si terse, pratikte yonsuz rejim. funding -9.09e-06 short-squeeze riski. Challenger: range ici stop target'tan cok daha olasi, edge yok -> WAIT.",
+    "HYPE": "1d:range -> counter-trend her iki yon de false, HTF yonsuz -> dusuk-edge, acma yok (kural: range-HTF -> WAIT)."
   },
   "analysis": {
     "BTC": {
-      "analyst": "Fiyat 60785, RSI 36.6 (ekstrem de\u011fil), MACD hist hafif pozitife d\u00f6nm\u00fc\u015f (+25.9) ama macd_line h\u00e2l\u00e2 signal alt\u0131nda de\u011fil\u2014\u00e7ok zay\u0131f toparlanma sinyali. Trend yap\u0131s\u0131: 15m/1h up, 4h range, 1d DOWN. Trigger=false. Long a\u00e7mak 1d-down'a kar\u015f\u0131 = counter-trend (YASAK). Short ise 1d-down ile uyumlu olurdu ama 15m/1h up momentum tersine, RSI ekstrem de\u011fil, trigger yok \u2192 sat\u0131\u015f\u0131 do\u011frulayan kan\u0131t yok. Net edge yok.",
-      "challenger": "D\u00fc\u015f\u00fck-TF up ile HTF down aras\u0131ndaki \u00e7at\u0131\u015fma tam da likidite-av\u0131 b\u00f6lgesi; trigger olmadan girilen short, 15m/1h ralisinde stop yer. RSI 36.6 oversold'a yak\u0131n\u2014short a\u00e7an biri dip'e sat\u0131\u015f yapma riskiyle kar\u015f\u0131 kar\u015f\u0131ya. Tez zaten yok; ciddi kar\u015f\u0131-arg\u00fcman gere\u011fi de yok, WAIT do\u011fru."
+      "analyst": "Tentatif SHORT (1d-down, izinli) entry 60755 stop 62958 target 56348, confidence low. Bilinen zayiflik: HTF-down ile kisa-vade-up (15m/1h up, MACDh +24, RSI 36) catisiyor.",
+      "challenger": "5 kirilma: (1) ~+1 ATR stop tam yukari catismada pay birakmiyor; (2) funding hafif long-agirlik squeeze icin zayif yakit, yukari baski; (3) on-chain flows/whale/liq ucu eksik -> liq-haritasi kor; (4) OI 33902 yorumlanmamis, dip-alim profili; (5) low-confidence <-> 2:1 hedef tutarsiz, realize R:R duser."
     },
     "ETH": {
-      "analyst": "Fiyat 1606, RSI 42.35, MACD hist marjinal pozitif (+0.96), funding hafif negatif. Trend BTC ile ayn\u0131: 15m/1h up, 4h range, 1d DOWN. Trigger=false. Long=counter-trend (YASAK). Short i\u00e7in HTF-down uyumlu ama momentum (15m/1h up) ters + trigger yok \u2192 zay\u0131f. Edge yok.",
-      "challenger": "BTC ile birebir korelasyonlu yap\u0131\u2014burada pozisyon a\u00e7mak portf\u00f6y konsantrasyonu demek (ayn\u0131 rejim, ayn\u0131 y\u00f6n riski). Tek snapshot'ta hem ETH hem BTC short = tek makro harekete \u00e7oklu bahis. Trigger yokken bu riski almak fee + korelasyon cezas\u0131. WAIT savunulur."
+      "analyst": "Tentatif SHORT entry 1604.5 stop 1688 target 1438, confidence low. Zayiflik: 15m/1h up, MACDh +0.865 pozitif, RSI 42 notr-dusuk.",
+      "challenger": "3 kirilma: tek-TF rejim varsayimi (giris suresinde yukselen tablo); negatif funding = kalabalik short = squeeze yakiti (yanlis yonlu varsayim); 2:1 olasilikla agirlikli degil + fee/funding/slippage net beklenti kontrol edilmemis; liq/whale eksik -> stop yerlesimi kor."
     },
     "XRP": {
-      "analyst": "Fiyat 1.0698, RSI 38.5, MACD hist hafif negatif (-0.0039)\u2014n\u00f6tr/zay\u0131f d\u00fc\u015f\u00fc\u015f. Trend yine 15m/1h up, 4h range, 1d DOWN. Trigger=false, funding normal. Long=counter-trend (YASAK). Short i\u00e7in momentum \u00e7at\u0131\u015fmas\u0131 + trigger yok. Edge yok.",
-      "challenger": "MACD hist negatif ama b\u00fcy\u00fckl\u00fck g\u00fcr\u00fclt\u00fc seviyesinde; bundan y\u00f6n \u00e7\u0131karmak a\u015f\u0131r\u0131-yorum. Range 4h i\u00e7inde XRP d\u00fc\u015f\u00fck volatil\u2014stop'a tak\u0131lma/whipsaw olas\u0131l\u0131\u011f\u0131 y\u00fcksek, R:R asimetrisi kurulamaz. WAIT uygun."
+      "analyst": "Tentatif SHORT entry 1.0682 stop 1.121 target 0.9626, confidence low. Zayiflik: MACDh ~0 (momentum yok), RSI 38 dusuk, kisa-vade up.",
+      "challenger": "4 kirilma: negatif funding+LTF up+RSI38 = squeeze fitili, +1 ATR stop aninda yenir; counter-trend kapisi tek-TF'ye fazla guveniyor (3'ten 2 dilim terse); range'de stop target'tan cok daha olasi -> 2:1 pozitif beklenti vermez; liq-haritasi kor."
     },
     "HYPE": {
-      "analyst": "Fiyat 64.165, RSI 55.51 (n\u00f6tr), MACD hist negatif (-0.82), macd_line signal alt\u0131na yeni kesmi\u015f\u2014zay\u0131flama. Trend: 15m/1h up, 4h range, 1d RANGE. Trigger=false. 1d RANGE \u2192 range-HTF kural\u0131 gere\u011fi y\u00f6ns\u00fcz edge yok \u2192 WAIT (zorunlu).",
-      "challenger": "1d range + n\u00f6tr RSI = klasik karars\u0131zl\u0131k; her iki y\u00f6ne giri\u015f de coin-flip. MACD'nin yeni a\u015fa\u011f\u0131 kesi\u015fi cazip g\u00f6r\u00fcnebilir ama range i\u00e7inde MACD sinyalleri y\u00fcksek yanl\u0131\u015f-pozitif \u00fcretir. Tez yok, do\u011fru."
+      "analyst": "WAIT — 1d:range, yonsuz HTF, edge yok. Tez uretilmedi.",
+      "challenger": "Cagrilmadi (tez yok)."
     }
   },
-  "_meta": {
-    "llm": "ok",
-    "snapshot_ts": "2026-06-27T17:00:17.400299+00:00"
-  }
+  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-27T17:01:28.209408+00:00"}
 }
