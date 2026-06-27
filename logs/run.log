@@ -1153,3 +1153,94 @@ Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
 
 === TUR TAMAMLANDI — 2026-06-27T16:10:05.480790+00:00 ===
 Git push tamamlandi.
+[main e1e16ee] tur: 2026-06-27T16:19
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 6 files changed, 148 insertions(+), 54 deletions(-)
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   c2c5e33..e1e16ee  main -> main
+=== A/B/C TUR BAŞLADI — 2026-06-27T16:19:08.967251+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-27T16:19:09.255782+00:00
+  BTC çekiliyor...
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: bear
+  BTC: $60690.0 | RSI 36.16 | MACDh 19.9028 | 1d:down | ❌
+  ETH: $1601.1 | RSI 41.77 | MACDh 0.6481 | 1d:down | ❌
+  XRP: $1.0722 | RSI 38.93 | MACDh -0.0038 | 1d:down | ❌
+  HYPE: $64.109 | RSI 55.41 | MACDh -0.8217 | 1d:range | ❌
+
+
+▶ run_deterministic.py
+  WAIT BTC: RSI 36.16 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 36.16, MACDh 19.9028
+  WAIT ETH: RSI 41.77 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 41.77, MACDh 0.6481
+  WAIT XRP: RSI 38.93 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 38.93, MACDh -0.0038
+  WAIT HYPE: RSI 55.41 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:range | RSI 55.41, MACDh -0.8217
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ run_aggressive.py
+  WAIT BTC: RSI 36.16 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 36.16, MACDh 19.9028
+  WAIT ETH: RSI 41.77 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 41.77, MACDh 0.6481
+  WAIT XRP: RSI 38.93 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:down | RSI 38.93, MACDh -0.0038
+  WAIT HYPE: RSI 55.41 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:up/4h:range/1d:range | RSI 55.41, MACDh -0.8217
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı
+
+▶ run_deepthinker.py
+  deep-thinker: snapshot 2026-06-27T16:19:25.256303+00:00 (rejim: bear) okundu
+
+  — BTC —
+    ANALYST: Fiyat 60690, RSI 36.16 (ekstrem değil), MACD hist +19.9 (yukarı dönüş başlangıcı), ATR 2203. Trendler: 15m up, 1h up, 4h range, 1d down. Trigger YOK. Long açmak counter-trend (1d down) → YASAK. Short 1d ile uyumlu ama 15m/1h yukarı momentum short'a karşı, trigger yok, RSI ekstrem değil → edge zayıf. Fırsat yok.
+    CHALLENGER: Short düşünülse bile 4h range + 1h/15m up = kısa vadeli sıçrama short'u hemen stop'a taşır; RSI 36 zaten dipten dönüyor. Long ise tamamen counter-trend. Tetik olmadan giriş = L-03 over-trading fee tuzağı. Tez sağlam değil, açma.
+
+  — ETH —
+    ANALYST: Fiyat 1601, RSI 41.77, MACD hist +0.65 (zayıf yukarı), ATR 83.3. 15m up, 1h up, 4h range, 1d down. Trigger YOK. Long counter-trend (1d down) → YASAK. Short 1d uyumlu ama kısa-TF yukarı + tetik yok → edge zayıf. Fırsat yok.
+    CHALLENGER: MACD hist pozitife dönmüş = aşağı momentum zayıflıyor, short için kötü zamanlama. Funding ~0 (nötr), short tezini besleyen funding baskısı da yok. Tetiksiz giriş gereksiz fee. Ciddi tez yok.
+
+  — XRP —
+    ANALYST: Fiyat 1.0722, RSI 38.93, MACD hist -0.0038 (nötr), ATR 0.0528. 15m up, 1h up, 4h range, 1d down. Trigger YOK. Long counter-trend → YASAK. Short için momentum çok zayıf (MACD ~düz, kısa-TF up). Fırsat yok.
+    CHALLENGER: MACD neredeyse düz = yön belirsiz; range içinde tetiksiz short = likidite-avı stop riski. Long counter-trend. Net edge yok, açma doğru.
+
+  — HYPE —
+    ANALYST: Fiyat 64.109, RSI 55.41, MACD hist -0.82 (aşağı), ATR 5.5. 15m up, 1h up, 4h range, 1d range. 1d trend RANGE → demir kural gereği WAIT (yönsüz HTF, edge yok). Trigger de yok.
+    CHALLENGER: 1d range = yönsüz, hangi yöne açılsa coin-flip. MACD hist negatif ama RSI 55 nötr bölgede, çelişki. Range-HTF kuralı net: açma.
+
+  KARAR (taze):
+    WAIT BTC: 1d down → long counter-trend YASAK; short için tetik yok + kısa-TF yukarı momentum, edge zayıf (L-03 over-trading).
+    WAIT ETH: 1d down → long YASAK; MACD pozitife dönmüş, short zamanlaması kötü, tetik yok.
+    WAIT XRP: 1d down → long YASAK; MACD düz, momentum belirsiz, tetik yok.
+    WAIT HYPE: 1d range → range-HTF demir kuralı WAIT; tetik de yok.
+
+  → state/deepthinker_decision.json yazıldı (eski dosya kullanılmadı).
+
+
+▶ apply_deepthinker.py
+  WAIT BTC: 1d down → long counter-trend YASAK; short için tetik yok + kısa-TF yukarı momentum, edge zayıf (L-03 over-trading).
+  WAIT ETH: 1d down → long YASAK; MACD pozitife dönmüş, short zamanlaması kötü, tetik yok.
+  WAIT XRP: 1d down → long YASAK; MACD düz, momentum belirsiz, tetik yok.
+  WAIT HYPE: 1d range → range-HTF demir kuralı WAIT; tetik de yok.
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+=== TUR TAMAMLANDI — 2026-06-27T16:19:53.013956+00:00 ===
+Git push tamamlandi.
