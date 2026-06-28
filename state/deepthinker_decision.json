@@ -1,31 +1,31 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "1d down \u2192 counter-trend long YASAK; short HTF-uyumlu ama 3-TF range (momentum yok) + RSI 26.91 derin oversold (s\u0131\u00e7rama riski) \u2192 k\u00f6t\u00fc R:R, edge zay\u0131f.",
-    "ETH": "Trigger yok, RSI 32.4 ekstrem de\u011fil; over-trading riski (L-03) \u2192 WAIT.",
-    "XRP": "1d down \u2192 counter-trend long YASAK; short oversold (RSI 27.22) + 3-TF range + geni\u015f ATR \u2192 edge zay\u0131f, BTC ile korelasyon.",
-    "HYPE": "Trigger yok, RSI n\u00f6tr (47.99), 1d range (y\u00f6ns\u00fcz-edge) \u2192 WAIT."
+    "BTC": "Counter-trend long yasak (1d down); trend-uyumlu short ise RSI 26.5 ekstrem oversold'a kovalama \u2014 bounce riski, asimetrik R:R yok.",
+    "ETH": "Trigger false, RSI 32.4 ekstrem de\u011fil \u2014 ge\u00e7erli tetik yok, over-trading riski.",
+    "XRP": "Counter-trend long yasak (1d down); short ekstrem oversold kovalama + BTC ile korelasyonlu konsantrasyon. Edge yok.",
+    "HYPE": "Trigger false, RSI 48.4 n\u00f6tr, 1d range \u2192 range-HTF, y\u00f6ns\u00fcz edge yok."
   },
   "analysis": {
     "BTC": {
-      "analyst": "1d down (bear rejim), trigger ate\u015fledi, RSI 26.91 derin a\u015f\u0131r\u0131-sat\u0131m. Long = counter-trend (1d down) \u2192 YASAK. Short ise HTF-uyumlu (1d down) g\u00f6r\u00fcn\u00fcr AMA 15m/1h/4h hepsi RANGE = d\u00fc\u015f\u00fck-TF momentum YOK; RSI 26.91 ekstrem oversold \u2192 mean-reversion s\u0131\u00e7rama riski y\u00fcksek (oversold'a short atmak k\u00f6t\u00fc R:R). A\u015fa\u011f\u0131 momentum onay\u0131 yok \u2192 edge zay\u0131f.",
-      "challenger": "BTC 60225, ATR 2093 (~%3.5) \u00e7ok geni\u015f \u2014 oversold short stop'u likidite-av\u0131 s\u0131\u00e7ramas\u0131nda kolayca yenir. 1d-down d\u0131\u015f\u0131nda hi\u00e7bir TF a\u015fa\u011f\u0131 momentum teyit etmiyor (3 TF range); tek 'a\u015fa\u011f\u0131' sinyal HTF, o da yorgun (RSI 27). Funding normal-yukar\u0131 \u2192 short taraf\u0131 kalabal\u0131k de\u011fil, s\u0131k\u0131\u015fma riski. Edge yok."
+      "analyst": "RSI 26.5 ekstrem oversold, trigger true, ama 1d+4h down. Counter-trend long YASAK. Trend-uyumlu tek se\u00e7enek short \u2014 fakat RSI 26.5'te short a\u00e7mak a\u015f\u0131r\u0131 gerilmi\u015f hareketi kovalamak, mean-reversion bounce riski y\u00fcksek. Asimetrik R:R kurulam\u0131yor.",
+      "challenger": "Oversold ekstremde short = likidite-av\u0131 yukar\u0131 + oversold snap-back senaryosunda stop hemen yenir. Bear rejim do\u011fru ama giri\u015f zamanlamas\u0131 k\u00f6t\u00fc; bounce sonras\u0131 short daha temiz olurdu. Tez k\u0131r\u0131l\u0131r."
     },
     "ETH": {
-      "analyst": "Trigger YOK, RSI 32.4 ekstrem de\u011fil. 4h/1d down ama tetikleyici sinyal yok \u2192 kural-bazl\u0131 kan\u0131t zay\u0131f. Over-trading (L-03) riski.",
-      "challenger": "Tez yok; a\u00e7\u0131lacak sinyal yok. Ciddi kar\u015f\u0131-arg\u00fcman gereksiz \u2014 trigger yoklu\u011fu zaten WAIT."
+      "analyst": "Trigger false, RSI 32.4 ekstrem de\u011fil. Ge\u00e7erli tetik yok, kan\u0131t zay\u0131f.",
+      "challenger": "Tetik yok \u2192 kural-bazl\u0131 kan\u0131t yok; a\u00e7mak over-trading. \u0130tiraza gerek yok, f\u0131rsat zaten yok."
     },
     "XRP": {
-      "analyst": "1d down, trigger ate\u015fledi, RSI 27.22 derin a\u015f\u0131r\u0131-sat\u0131m. Long = counter-trend \u2192 YASAK. Short HTF-uyumlu ama 15m/1h/4h RANGE, momentum yok; RSI oversold \u2192 s\u0131\u00e7rama riski. BTC ile ayn\u0131 kal\u0131p.",
-      "challenger": "XRP 1.0516, ATR 0.0493 (~%4.7) \u2014 en geni\u015f vol. Oversold + 3-TF range'de short, geni\u015f ATR ile likidasyon mesafesi/stop dengesi zor. BTC short ile y\u00fcksek korelasyon \u2192 e\u015fzamanl\u0131 a\u00e7\u0131l\u0131rsa konsantrasyon riski. Edge zay\u0131f."
+      "analyst": "BTC ile ayn\u0131: RSI 26.5 oversold + trigger true ama 1d down (counter-trend long yasak), short = ekstrem oversold kovalamak. Edge yok.",
+      "challenger": "Oversold short bounce riski; BTC ile korelasyonlu \u2014 a\u00e7\u0131lsa portf\u00f6y konsantrasyonu (ayn\u0131 y\u00f6n, ayn\u0131 rejim). Tez k\u0131r\u0131l\u0131r."
     },
     "HYPE": {
-      "analyst": "Trigger YOK, RSI 47.99 n\u00f6tr, 1d RANGE. Range-HTF \u2192 y\u00f6ns\u00fcz edge yok \u2192 WAIT.",
-      "challenger": "15m up / 4h down \u00e7at\u0131\u015fan TF'ler, 1d range = net y\u00f6n yok. A\u00e7\u0131lacak tez bile olu\u015fmuyor."
+      "analyst": "Trigger false, RSI 48.4 n\u00f6tr, 1d range. Range-HTF \u2192 y\u00f6ns\u00fcz edge yok.",
+      "challenger": "Range-HTF'de y\u00f6n tutmak kumar; 15m up g\u00fcr\u00fclt\u00fc. F\u0131rsat yok."
     }
   },
   "_meta": {
     "llm": "ok",
-    "snapshot_ts": "2026-06-28T08:02:17.493295+00:00"
+    "snapshot_ts": "2026-06-28T10:09:22.344808+00:00"
   }
 }

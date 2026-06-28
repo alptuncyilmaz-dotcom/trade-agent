@@ -1,17 +1,8 @@
 {
-  "decision": {
-    "coin": "ETH",
-    "side": "sell",
-    "entry": 1577.0,
-    "stop": 1608.5,
-    "target": 1490.0,
-    "leverage": 15,
-    "thesis": "Bear rejimde en temiz trend-hizal\u0131 momentum SHORT'u ETH'te. 4h down + 1d down birlikte a\u015fa\u011f\u0131 y\u00f6nde teyit; 15m/1h range = yaln\u0131zca konsolidasyon, k\u0131r\u0131l\u0131m a\u015fa\u011f\u0131 y\u00f6nde olas\u0131. RSI 32.4 hen\u00fcz ekstrem oversold (\u226430) DE\u011e\u0130L \u2192 d\u00fc\u015fmeye yer var, BTC(26.9)/XRP(27.2) gibi dip-bounce riski daha d\u00fc\u015f\u00fck. MACD hist negatif ve MACD line sinyalin alt\u0131nda \u2192 ivme a\u015fa\u011f\u0131.",
-    "detailed_rationale": "Aday se\u00e7imi: BTC ve XRP RSI ~27 ile a\u015f\u0131r\u0131 sat\u0131m b\u00f6lgesinde \u2192 counter-trend bounce/short-squeeze riski y\u00fcksek (psikomanyak short a\u00e7abilir ama burada R:R bozuk, dip yak\u0131n\u0131nda short = zay\u0131f giri\u015f). HYPE RSI 47.99 n\u00f6tr + 15m up \u2192 kar\u0131\u015f\u0131k, edge yok. ETH tek varl\u0131k ki hem trend-hizal\u0131 (4h+1d down) hem de RSI hen\u00fcz ekstreme ula\u015fmam\u0131\u015f \u2192 en iyi devam-short kurulumu. Giri\u015f 1577 (snapshot price). Stop 1608.5 \u2248 +%2 (giri\u015f \u00fcst\u00fc, asimetri sell: target<entry<stop). Target 1490 \u2248 -%5.5, stop mesafesinin ~2.75 kat\u0131 \u2192 asimetrik R:R. Kald\u0131ra\u00e7 15x: %2 stop ile likidasyon mesafesi (~%6.7 @15x) stop mesafesinin \u00fczerinde \u2192 stop likidasyondan \u00f6nce \u00e7al\u0131\u015f\u0131r; psikomanyak risk i\u015ftah\u0131yla agresif ama stop anlaml\u0131. Funding -7.3e-06 (hafif negatif, normal) \u2192 kalabal\u0131k short YOK, squeeze yak\u0131t\u0131 s\u0131n\u0131rl\u0131, short tezini bozmuyor. Tutu\u015f hedefi 36-48s funding penceresi i\u00e7inde. Uydurma yok: t\u00fcm seviyeler price/ATR/%-t\u00fcrevli."
-  },
-  "wait_reason": null,
+  "decision": null,
+  "wait_reason": "parse hatas\u0131 (JSON nesnesi bulunamad\u0131) \u2014 WAIT",
   "_meta": {
-    "llm": "ok",
-    "snapshot_ts": "2026-06-28T08:02:17.493295+00:00"
+    "llm": "parse_error",
+    "raw": "Karar `state/psikomanyak_decision.json`'a yaz\u0131lmay\u0131 bekliyor (yazma izni gerekiyor). Karar \u00f6zeti:\n\n**ETH SHORT** (psikomanyak \u2014 D kolu, testnet/paper)\n- **side:** sell \u00b7 **entry:** 1577.0 \u00b7 **stop:** 1608.5 (~+%2) \u00b7 **target:** 1490.0 (~-%5.5)\n- **leverage:** 15x \u00b7 **R:R:** ~2.75:1 (stop mesafesi ~31.5, target mesafesi ~87)\n\n**Gerek\u00e7e:** Bear rejimde tek temiz trend-hizal\u0131 momentum short'u ETH. 4h"
   }
 }
