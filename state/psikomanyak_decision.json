@@ -1,5 +1,5 @@
 {
   "decision": null,
-  "wait_reason": "Eşzamanlı maks 2 poz dolu (BTC long @60453, XRP long @1.0473 — ikisi de açık; BTC mark 60382 stop 59244 üstünde + target 63778 altında, XRP mark 1.0543 stop 1.0264 üstünde + target 1.1049 altında). Yeni slot yok; bu tur yalnız mevcut pozlar path-check ile yenilenir.",
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T12:31:03.820696+00:00"}
+  "wait_reason": "Eszamanli maks 2 poz dolu (BTC long @60453 stop59244/target63778; XRP long @1.0473 stop1.0264/target1.1049 — ikisi de acik). Yeni slot yok; bu tur yalniz mevcut pozlar path-check ile yenilenir. (Aksi halde en guclu momentum BTC short olurdu: MACDh -10.39.)",
+  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T13:35:27.607731+00:00"}
 }

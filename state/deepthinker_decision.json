@@ -1,28 +1,28 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "counter-trend long YASAK (1d:down); short da geçersiz — MACDh +5.63 güçlü pozitif + 15m/1h up = momentum yukarı dönüyor, RSI 27.86 derin oversold. Temiz yön yok.",
-    "ETH": "Aday short tezi (1d:down + MACDh -0.495 trend-takip) challenger tarafından ciddi kırıldı: piyasa-geneli oversold ekstrem (ETH 33.8/BTC 27.9/XRP 27.9) + funding short-ağırlıklı (kalabalık short = squeeze yakıtı) + BTC momentum dönüyor → reflexive bounce 0.8 ATR dar stop'u yapısal olarak target'tan önce yer. Zamanlama/asimetri kötü → WAIT.",
-    "XRP": "counter-trend long YASAK (1d:down); RSI 27.88 derin oversold → short kötü R:R (bounce riski), MACDh ~flat (-0.0043) momentum yok. Edge yok.",
-    "HYPE": "1d:range → HTF yönsüz, düşük edge. RSI 49.14 nötr, MACDh -0.939 zayıf. Açma eğilimi yok."
+    "BTC": "Short trend-yonunde (1d/4h down) ama RSI 26.3 derin asiri-satim = dip-girisi; challenger ciddi kirdi: kapitulasyon/bounce + kalabalik-short (negatif funding) squeeze riski + 15m/1h range whipsaw. Beklenti-pozitif edge gosterilemedi.",
+    "ETH": "Short tezi sebepsiz: trigger=FALSE, MACDh -0.81 (momentum yok), 15m:up + 1h/4h range (yon yok), RSI 33 ekstrem degil. Challenger ciddi kirdi: zamanlamasiz trend-takip = range testeresi.",
+    "XRP": "Short trend-yonunde ama RSI 26.9 dip-girisi + MACDh ~0 (yassi, momentum yok) + 15m/4h range + negatif funding (kalabalik short -> squeeze). Challenger ciddi kirdi: dipte short = ciplak mean-reversion/squeeze riski.",
+    "HYPE": "1d:range -> kural geregi WAIT (yonsuz edge yok). RSI 48.7 notr, MACDh -0.96 zayif, trigger=FALSE."
   },
   "analysis": {
     "BTC": {
-      "analyst": "Bear rejim ama RSI 27.86 derin oversold + MACDh +5.63 momentum yukarı dönüyor + 15m/1h up. Long counter-trend yasak; short momentum-karşıtı. Temiz kurulum yok.",
-      "challenger": "BTC momentum dönüşü (MACDh +5.63) piyasa-geneli bounce sinyali — short adaylarını da zayıflatıyor."
+      "analyst": "Aday SHORT: 1d+4h downtrend yonunde, MACDh -10.39 guclu negatif momentum. entry=60131, stop=62240 (~+1 ATR), target=55920 (~-2 ATR), R:R~2:1, confidence=low.",
+      "challenger": "Ciddi kirildi. RSI 26.3 derin asiri-satim -> short'u tam dibe acmak bounce/kapitulasyon riski; negatif funding = kalabalik short = squeeze yakiti; +1 ATR dar stop ATR=2107 yuksekken tek volatil yukari barla yenir; 15m/1h range whipsaw; on-chain available:False -> kapitulasyon mu devam mi ayirt edilemiyor."
     },
     "ETH": {
-      "analyst": "1d:down + MACDh negatif → trend-takip short adayı, entry 1586 / stop 1650 / target 1430 (R:R ~2.4), confidence low.",
-      "challenger": "4 kırılma: (1) piyasa-geneli oversold ekstremde trend-takip short, reflexive bounce dar stop'u yer; (2) BTC momentum dönerken laggard ETH short — sıçrama varsayımı kontrol edilmedi; (3) multi-TF çelişki (15m up + 1h/4h range), 0.8 ATR stop whipsaw'a açık, stop-hit olasılığı > target-hit; (4) on-chain eksik + funding short-ağırlıklı = squeeze yakıtı."
+      "analyst": "Aday SHORT: 1d down yonunde. entry=1581.1, stop=1661 (~+1 ATR), target=1421 (~-2 ATR), confidence=low.",
+      "challenger": "Ciddi kirildi. trigger=FALSE (kod firsat gormedi), 15m:up + 1h/4h range (kisa-orta vade yon yok), MACDh -0.81 momentum yok, RSI 33 ekstrem degil. 'Sadece 1d down' gerekcesi zamanlamasiz sebepsiz-short'a indirgeniyor; range'de testere riski."
     },
     "XRP": {
-      "analyst": "1d:down long yasak; RSI 27.88 oversold short'a kötü R:R; MACDh ~flat momentum yok → WAIT.",
-      "challenger": "Aday tez yok; piyasa-geneli oversold teyit ediyor."
+      "analyst": "Aday SHORT: 1d/1h down yonunde, trigger ateledi. entry=1.0502, stop=1.10 (~+1 ATR), target=0.951 (~-2 ATR), R:R~2:1, confidence=low.",
+      "challenger": "Ciddi kirildi. RSI 26.9 dip-girisi = en kotu short bolgesi (mean-reversion bounce); MACDh ~0 yassi momentum yok; 15m+4h range -> trend karma; negatif funding kalabalik short = squeeze yakiti, kuyruk-riski R:R'a fiyatlanmamis; on-chain available:False."
     },
     "HYPE": {
-      "analyst": "1d:range HTF yönsüz, RSI nötr 49.14, MACDh zayıf negatif → edge yok, WAIT.",
-      "challenger": "Aday tez yok; range rejimde yönsüz edge teyit."
+      "analyst": "1d:range -> yonsuz; counter-trend degil ama edge yok. RSI 48.7 notr, MACDh -0.96 zayif, trigger=FALSE.",
+      "challenger": "Itiraz gereksiz: kural geregi 1d range = WAIT; aksiyon onerisi yok."
     }
   },
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T12:31:03.820696+00:00"}
+  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T13:35:27.607731+00:00"}
 }
