@@ -11,6 +11,16 @@
       "leverage": 15.0,
       "thesis": "BTC oversold-bounce long: RSI 35 dipte + MACD histogram pozitife d\u00f6nd\u00fc (+4.78, momentum yukar\u0131 k\u0131r\u0131l\u0131m) + 1h trend up. 1d down counter-trend ama psikomanyak momentum kovalar \u2014 taze bo\u011fa ivmesi var.",
       "decided_at": "2026-06-27T18:07:40.739461+00:00"
+    },
+    "XRP": {
+      "side": "buy",
+      "entry": 1.0473,
+      "stop": 1.0264,
+      "target": 1.1049,
+      "notional": 4000.0,
+      "leverage": 12.0,
+      "thesis": "A\u015f\u0131r\u0131-sat\u0131m squeeze long: RSI 26.15 dipte, MACD hist -0.0048 (d\u00fc\u015f\u00fc\u015f ivmesi t\u00fckenmi\u015f), funding negatif = kalabal\u0131k short = squeeze yak\u0131t\u0131 long lehine.",
+      "decided_at": "2026-06-28T11:14:59.926862+00:00"
     }
   }
 }

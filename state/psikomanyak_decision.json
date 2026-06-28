@@ -1,5 +1,20 @@
 {
-  "decision": null,
-  "wait_reason": "Zaten acik 1 pozisyon var (BTC long, entry 60453, stop 59244, target 63778) ve maks 1 poz. Fiyat 60225 -> ne stop ne target degdi, pozisyon path-check ile acik tutuluyor. Yeni slot yok -> WAIT.",
-  "_meta": {"llm": "ok"}
+  "decision": {
+    "coin": "XRP",
+    "side": "buy",
+    "entry": 1.0473,
+    "stop": 1.0264,
+    "target": 1.1049,
+    "leverage": 12,
+    "thesis": "A\u015f\u0131r\u0131-sat\u0131m squeeze long: RSI 26.15 dipte, MACD hist -0.0048 (d\u00fc\u015f\u00fc\u015f ivmesi t\u00fckenmi\u015f), funding negatif = kalabal\u0131k short = squeeze yak\u0131t\u0131 long lehine.",
+    "detailed_rationale": "4 varl\u0131k aras\u0131nda XRP en asimetrik squeeze: RSI 26.15 ekstrem oversold; MACD hist ~0 iken BTC h\u00e2l\u00e2 -12.6 (XRP'de sat\u0131\u015f bitmi\u015f); funding -4.66e-06 (BTC'den daha negatif) = en kalabal\u0131k short; 15m/1h range = d\u00fc\u015f\u00fc\u015f durdu. Stop %2, target %5.5, R:R 2.75, 12x.",
+    "_meta": {
+      "llm": "ok"
+    }
+  },
+  "wait_reason": null,
+  "_meta": {
+    "llm": "ok",
+    "snapshot_ts": "2026-06-28T11:13:03.769827+00:00"
+  }
 }

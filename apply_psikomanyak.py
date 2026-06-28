@@ -18,6 +18,7 @@ DECISION = "state/psikomanyak_decision.json"
 RUNS = "runs_psikomanyak.jsonl"
 POS_PCT = 1.0      # notional = 1× bakiye (≤$4k cap)
 LEV_MIN, LEV_MAX = 5.0, 20.0
+MAX_POS = 2        # aynı anda maks açık pozisyon (2026-06-28: 1→2, daha aktif gözlem)
 
 
 def load_json(path, default=None):
@@ -84,12 +85,16 @@ def main():
     for coin in to_close:
         del positions[coin]
 
-    # --- Yeni karar: maks 1 poz; açık varsa AÇMA ---
+    # --- Yeni karar: maks MAX_POS poz; dolu ya da aynı coin zaten açıksa AÇMA ---
     decision = dec.get("decision")
-    if positions:
-        print(f"  Açık poz var ({list(positions)}) — maks 1, yeni açılmadı.")
+    dcoin = decision.get("coin") if decision else None
+    if decision and dcoin in positions:
+        print(f"  {dcoin} zaten açık — atlandı.")
+        log.append({"coin": dcoin, "action": "skip_dup", "reason": "zaten açık"})
+    elif len(positions) >= MAX_POS:
+        print(f"  Açık poz dolu ({list(positions)}) — maks {MAX_POS}, yeni açılmadı.")
         if decision:
-            log.append({"coin": decision.get("coin"), "action": "skip_max1", "reason": "açık poz var"})
+            log.append({"coin": dcoin, "action": "skip_max", "reason": f"maks {MAX_POS} poz dolu"})
     elif decision:
         coin = decision.get("coin")
         side = decision.get("side")

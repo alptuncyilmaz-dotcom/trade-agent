@@ -1,7 +1,7 @@
 """
 run_psikomanyak.py — D kolu (psikomanyak) için TAZE karar üretir.
 Ne yapar: .claude/agents/psikomanyak.md mandasını + GÜNCEL snapshot'ı okur; aşırı-risk iştahlı
-          bir LLM'e 4 varlıktan TEK-EN-İYİ momentum fırsatını seçtirir (maks 1 poz, 5-20x);
+          bir LLM'e 4 varlıktan TEK-EN-İYİ momentum fırsatını seçtirir (eşzamanlı maks 2 poz, 5-20x);
           state/psikomanyak_decision.json'a yazar. apply_psikomanyak.py uygular.
 LLM:      API KEY GEREKTİRMEZ — run_deepthinker.call_llm (headless `claude -p`, Claude Code girişi).
           Erişilemezse güvenli WAIT yazar. TESTNET/PAPER — gerçek para YOK.
@@ -30,7 +30,7 @@ Aşağıdaki mandaya göre davran. Turlar arası ÖĞRENME yok; sadece bu snapsh
 # 'gate'/'reference_levels' muhafazakâr kol içindir; psikomanyak bunları AŞABİLİR (counter-trend/range serbest).
 {json.dumps(context, indent=2)}
 
-Görev: {", ".join(COINS)} arasından **TEK-EN-İYİ yüksek-momentum fırsatını** seç (maks 1 pozisyon). Momentum/breakout/funding-hizası ara; psikomanyak risk sever → eğilim AÇMAK yönünde, ama gerçekten hiçbir edge yoksa WAIT.
+Görev: {", ".join(COINS)} arasından bu tur için **TEK-EN-İYİ yüksek-momentum fırsatını** seç (her tur 1 öneri; kod en fazla 2 eşzamanlı poz tutar). Momentum/breakout/funding-hizası ara; psikomanyak risk sever → eğilim AÇMAK yönünde, ama gerçekten hiçbir edge yoksa WAIT.
 - side "buy" (long) veya "sell" (short). Asimetri: buy → stop<entry<target ; sell → target<entry<stop.
 - entry/stop/target snapshot'taki price/atr'den TÜRET (uydurma yok). Stop ~%2 veya 1.5×ATR; target ~2-2.75× stop mesafesi.
 - leverage: 5 ile 20 arası bir sayı (sen seç; risk iştahına göre).

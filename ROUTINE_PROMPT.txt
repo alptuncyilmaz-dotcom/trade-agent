@@ -17,9 +17,9 @@ KESİN SINIRLAR (ihlal = DUR):
 5. `.venv/bin/python apply_deepthinker.py`  → B kararını ORTAK sizing'le uygula.
 5b. D KOLU (psikomanyak) — .claude/agents/psikomanyak.md mandasına uy (AŞIRI RİSK; A/B/C'den AYRI, TAM İZOLE, logları yalnız gözlem):
    a. state/snapshot_latest.json'u oku.
-   b. 4 varlıktan TEK-EN-İYİ yüksek-momentum fırsatını seç (maks 1 poz). Counter-trend/range SERBEST (psikomanyak kurallarla bağlı değil), ama entry/stop/target snapshot price/atr'den türemeli (uydurma yok). leverage 5-20 arası SEN seç.
+   b. 4 varlıktan TEK-EN-İYİ yüksek-momentum fırsatını seç (her tur 1 öneri; kod eşzamanlı maks 2 poz tutar). Counter-trend/range SERBEST (psikomanyak kurallarla bağlı değil), ama entry/stop/target snapshot price/atr'den türemeli (uydurma yok). leverage 5-20 arası SEN seç.
    c. state/psikomanyak_decision.json'a yaz: {"decision":{"coin","side","entry","stop","target","leverage","thesis","detailed_rationale"} VEYA null, "wait_reason":"...", "_meta":{"llm":"ok"}}. Fırsat yoksa decision=null.
-   d. `.venv/bin/python apply_psikomanyak.py`  → D kararını İZOLE sizing'le uygula (notional≤1× bakiye, kaldıraç [5,20], maks 1 poz).
+   d. `.venv/bin/python apply_psikomanyak.py`  → D kararını İZOLE sizing'le uygula (notional≤1× bakiye, kaldıraç [5,20], eşzamanlı maks 2 poz).
 6. `.venv/bin/python deep_scan.py`  → journal/MANUEL-DERIN-*.md üretir (en yeni dosya). SONRA WebSearch ile güncel BTC/ETH/kripto haber + makro (funding/likidite/regülasyon) özetini bul; o journal dosyasının "## Haber / Makro" bölümünü kaynak+tarihle DOLDUR (Edit). Uydurma yok; karara GİRMEZ (yalnız Derin Mod bağlamı).
 7. `git add -A && git commit -m "tur: <UTC ISO>"` && `git push`  SONRA `bash "../Obsidian Vault/data/scripts/sync.sh"` (dashboard tazele).
 
