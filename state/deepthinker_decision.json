@@ -1,28 +1,19 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Short trend-yonunde (1d/4h down) ama RSI 26.3 derin asiri-satim = dip-girisi; challenger ciddi kirdi: kapitulasyon/bounce + kalabalik-short (negatif funding) squeeze riski + 15m/1h range whipsaw. Beklenti-pozitif edge gosterilemedi.",
-    "ETH": "Short tezi sebepsiz: trigger=FALSE, MACDh -0.81 (momentum yok), 15m:up + 1h/4h range (yon yok), RSI 33 ekstrem degil. Challenger ciddi kirdi: zamanlamasiz trend-takip = range testeresi.",
-    "XRP": "Short trend-yonunde ama RSI 26.9 dip-girisi + MACDh ~0 (yassi, momentum yok) + 15m/4h range + negatif funding (kalabalik short -> squeeze). Challenger ciddi kirdi: dipte short = ciplak mean-reversion/squeeze riski.",
-    "HYPE": "1d:range -> kural geregi WAIT (yonsuz edge yok). RSI 48.7 notr, MACDh -0.96 zayif, trigger=FALSE."
+    "BTC": "Trend-yonlu short adayi (1h/4h/1d down) ama challenger ciddi kirdi: RSI 25.75 derin asiri-satim + short-agirlikli (konsensus) funding = squeeze kurulumu; $62150 stop tam squeeze menzilinde; MACDh yataylasmasi taze-kirilma degil tukenmis-dusus; 15m=range erken-stop riski. Asimetri bize karsi (squeeze kuyrugu = felaket-kuyrugu) -> WAIT.",
+    "ETH": "HTF karisik: 1d down ama 4h/1h range, 15m up. Temiz yonsel edge yok, trigger=false -> WAIT.",
+    "XRP": "HTF karisik (4h/1h range, 1d down) + MACDh ~duz (-0.0042) momentum duragan. Counter-trend long yasak, short icin edge zayif -> WAIT.",
+    "HYPE": "1d=range -> yonsel edge yok (kural: range-HTF=WAIT); RSI 48.74 notr, trigger=false -> WAIT."
   },
   "analysis": {
     "BTC": {
-      "analyst": "Aday SHORT: 1d+4h downtrend yonunde, MACDh -10.39 guclu negatif momentum. entry=60131, stop=62240 (~+1 ATR), target=55920 (~-2 ATR), R:R~2:1, confidence=low.",
-      "challenger": "Ciddi kirildi. RSI 26.3 derin asiri-satim -> short'u tam dibe acmak bounce/kapitulasyon riski; negatif funding = kalabalik short = squeeze yakiti; +1 ATR dar stop ATR=2107 yuksekken tek volatil yukari barla yenir; 15m/1h range whipsaw; on-chain available:False -> kapitulasyon mu devam mi ayirt edilemiyor."
+      "analyst": "Tum yuksek-TF asagi (1h/4h/1d down), MACDh -16.26 -> trend-yonlu short adayi. entry 60039, stop 62150 (~1 ATR), target 55800 (~2 ATR), R:R ~2:1, confidence low. Squeeze riski farkinda.",
+      "challenger": "4 somut kirilma: (1) yorgun-trend kor noktasi (RSI 25.75 + MACDh yataylasma = tukenmis dusus, trend-following en kotu girisi); (2) konsensus negatif funding = kalabalik short -> squeeze yakiti, $62150 stop squeeze menzilinde; (3) 15m=range + 1 ATR stop = erken-yenilme riski; (4) 2 ATR target oversold dipten duz-akis varsayimi kontrol edilmemis. Squeeze+konsensus kombinasyonu 'low confidence yine de ac' esigini ciddi-kirilma tarafina itiyor."
     },
-    "ETH": {
-      "analyst": "Aday SHORT: 1d down yonunde. entry=1581.1, stop=1661 (~+1 ATR), target=1421 (~-2 ATR), confidence=low.",
-      "challenger": "Ciddi kirildi. trigger=FALSE (kod firsat gormedi), 15m:up + 1h/4h range (kisa-orta vade yon yok), MACDh -0.81 momentum yok, RSI 33 ekstrem degil. 'Sadece 1d down' gerekcesi zamanlamasiz sebepsiz-short'a indirgeniyor; range'de testere riski."
-    },
-    "XRP": {
-      "analyst": "Aday SHORT: 1d/1h down yonunde, trigger ateledi. entry=1.0502, stop=1.10 (~+1 ATR), target=0.951 (~-2 ATR), R:R~2:1, confidence=low.",
-      "challenger": "Ciddi kirildi. RSI 26.9 dip-girisi = en kotu short bolgesi (mean-reversion bounce); MACDh ~0 yassi momentum yok; 15m+4h range -> trend karma; negatif funding kalabalik short = squeeze yakiti, kuyruk-riski R:R'a fiyatlanmamis; on-chain available:False."
-    },
-    "HYPE": {
-      "analyst": "1d:range -> yonsuz; counter-trend degil ama edge yok. RSI 48.7 notr, MACDh -0.96 zayif, trigger=FALSE.",
-      "challenger": "Itiraz gereksiz: kural geregi 1d range = WAIT; aksiyon onerisi yok."
-    }
+    "ETH": {"analyst": "HTF karisik, trigger=false -> dusuk edge.", "challenger": "Aday tez yok (WAIT) - challenger cagrilmadi."},
+    "XRP": {"analyst": "MACDh ~duz, HTF range; long counter-trend yasak.", "challenger": "Aday tez yok (WAIT) - challenger cagrilmadi."},
+    "HYPE": {"analyst": "1d range, RSI notr.", "challenger": "Aday tez yok (WAIT) - challenger cagrilmadi."}
   },
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T13:35:27.607731+00:00"}
+  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T15:35:38.828040+00:00"}
 }

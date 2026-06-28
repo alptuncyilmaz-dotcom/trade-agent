@@ -41,3 +41,17 @@ Tur tamamlandı. Tüm 8 adım sırayla yürütüldü.
 **Tur özeti (2026-06-28T12:35Z, rejim: bear, TESTNET/PAPER — gerçek para YOK):** Ortak snapshot çekildi (BTC $60382 RSI 27.86, ETH $1586 RSI 33.83, XRP $1.0543 RSI 27.88, HYPE $63.36 RSI 49.14 — piyasa geneli derin oversold, 1d:down). **A (deterministic):** 4 varlıkta da WAIT (counter-trend long yasağı + RSI ekstrem değil) → eq **$4000, 0 açık poz**. **B (deep-thinker):** ETH short adayını üretip `challenger`'ı bağımsız çağırdım; challenger 4 ciddi kırılma buldu (oversold ekstremde reflexive bounce dar stop'u yer, kalabalık short squeeze yakıtı, BTC momentum dönüyor) → kabul edip ETH WAIT, tümü WAIT → eq **$4000, 0 açık poz**. **C (aggressive):** 4 WAIT → eq **$4000, 0 açık poz**. **D (psikomanyak):** 2/2 slot dolu (BTC long @60453, XRP long @1.0473 — ikisi de açık, stop/target değmedi) → yeni açılış yok, karar=null → eq **~$4022, 2 açık poz**. Derin tarama dosyası üretildi + WebSearch ile haber/makro dolduruldu (FOMC ŞAHİN şok %3.50–3.75 sabit, BTC Eyl-2024 dipleri, ~$2.14T piyasa — yalnız Derin Mod bağlamı, karara girmedi). Commit+push+sync tamam. **Demir kurallar korundu:** A/B/C aynı sizing; D ayrı/tam-izole (aşırı risk, gözlem); deep-thinker + psikomanyak otonom + turlar arası öğrenmez; gerçek para emri üretilmedi.
 === ROUTINE (Claude) BİTTİ — 2026-06-28T12:35:20Z (exit 0) ===
 === ROUTINE (Claude) BAŞLADI — 2026-06-28T13:35:20Z ===
+Tur tamamlandı. ✅
+
+**Tur özeti (2026-06-28 ~13:57 UTC, rejim: bear)** — snapshot: BTC $60.131 (RSI 26.3, trigger), ETH $1.581, XRP $1.05 (RSI 26.9, trigger), HYPE $63. Tüm 1d trendler down (HYPE range).
+
+- **A — deterministic:** Tüm varlıklar WAIT (counter-trend long yasağı + RSI ekstrem değil). **eq $4000, 0 poz.**
+- **B — deep-thinker:** BTC/ETH/XRP için short tezleri ürettim, 3 challenger'ı bağımsız çağırdım — üçü de tezi **ciddi kırdı** (dip-girişi mean-reversion/squeeze riski, momentum-teyitsiz, range whipsaw, ETH'de trigger=FALSE sebepsiz short). HYPE 1d:range → kural WAIT. 4'ü de WAIT. **eq $4000, 0 poz.**
+- **C — aggressive:** A ile aynı, tümü WAIT. **eq $4000, 0 poz.**
+- **D — psikomanyak (izole, aşırı risk):** 2 poz zaten dolu (BTC long, XRP long — maks 2), yeni slot yok → null karar, path-check ile mevcut pozlar yenilendi (BTC -0.53%, XRP +0.28%). **eq $3990, 2 poz açık.**
+
+Haber/makro: Fed 18 Haziran şahin → güçlü USD; BTC Eylül 2024'ten beri en düşük, ~$1B futures tasfiyesi — snapshot bear/derin-oversold bağlamıyla tutarlı, fiyat-şüphesi yok (journal'a kaynak+tarihle yazıldı, **karara girmez**). Commit+push+dashboard sync başarılı.
+
+Demir kurallar korundu: A/B/C aynı ortak sizing; D tam izole (aşırı risk, yalnız gözlem); deep-thinker + psikomanyak otonom ve turlar arası öğrenmez; config'e/koda dokunulmadı (faz disiplini); **gerçek para YOK — testnet/paper.**
+=== ROUTINE (Claude) BİTTİ — 2026-06-28T14:14:07Z (exit 0) ===
+=== ROUTINE (Claude) BAŞLADI — 2026-06-28T15:35:18Z ===
