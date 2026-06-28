@@ -8,3 +8,4 @@
 {"timestamp": "2026-06-28T10:20:03.106210+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
 {"timestamp": "2026-06-28T11:14:59.926862+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "XRP", "action": "open_new", "side": "buy", "entry": 1.0473, "notional": 4000.0, "leverage": 12.0}]}
 {"timestamp": "2026-06-28T11:29:22.456327+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
+{"timestamp": "2026-06-28T12:34:10.866951+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
