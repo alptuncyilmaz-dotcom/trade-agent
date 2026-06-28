@@ -5,3 +5,4 @@
 {"timestamp": "2026-06-27T21:14:21.364037+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
 {"timestamp": "2026-06-28T08:03:35.474431+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "ETH", "action": "skip_max1", "reason": "a\u00e7\u0131k poz var"}]}
 {"timestamp": "2026-06-28T10:11:54.207672+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
+{"timestamp": "2026-06-28T10:20:03.106210+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}

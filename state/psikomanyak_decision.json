@@ -1,8 +1,5 @@
 {
   "decision": null,
-  "wait_reason": "parse hatas\u0131 (JSON nesnesi bulunamad\u0131) \u2014 WAIT",
-  "_meta": {
-    "llm": "parse_error",
-    "raw": "Karar `state/psikomanyak_decision.json`'a yaz\u0131lmay\u0131 bekliyor (yazma izni gerekiyor). Karar \u00f6zeti:\n\n**ETH SHORT** (psikomanyak \u2014 D kolu, testnet/paper)\n- **side:** sell \u00b7 **entry:** 1577.0 \u00b7 **stop:** 1608.5 (~+%2) \u00b7 **target:** 1490.0 (~-%5.5)\n- **leverage:** 15x \u00b7 **R:R:** ~2.75:1 (stop mesafesi ~31.5, target mesafesi ~87)\n\n**Gerek\u00e7e:** Bear rejimde tek temiz trend-hizal\u0131 momentum short'u ETH. 4h"
-  }
+  "wait_reason": "Zaten acik 1 pozisyon var (BTC long, entry 60453, stop 59244, target 63778) ve maks 1 poz. Fiyat 60225 -> ne stop ne target degdi, pozisyon path-check ile acik tutuluyor. Yeni slot yok -> WAIT.",
+  "_meta": {"llm": "ok"}
 }

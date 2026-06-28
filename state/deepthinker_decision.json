@@ -1,31 +1,28 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Counter-trend long yasak (1d down); trend-uyumlu short ise RSI 26.5 ekstrem oversold'a kovalama \u2014 bounce riski, asimetrik R:R yok.",
-    "ETH": "Trigger false, RSI 32.4 ekstrem de\u011fil \u2014 ge\u00e7erli tetik yok, over-trading riski.",
-    "XRP": "Counter-trend long yasak (1d down); short ekstrem oversold kovalama + BTC ile korelasyonlu konsantrasyon. Edge yok.",
-    "HYPE": "Trigger false, RSI 48.4 n\u00f6tr, 1d range \u2192 range-HTF, y\u00f6ns\u00fcz edge yok."
+    "BTC": "Short 1d-down ile hizali ama challenger ciddi kirdi: RSI 26.91 derin oversold + 15m up = bounce/relief tuzagi; 4h range (down degil) -> trend hizalamasi abartili (4 TF'den 1'i); short-agirlikli funding = crowded-short squeeze yakiti. Stop +1.2 ATR bounce gurultu bandinin icinde. Edge gosterilemiyor.",
+    "ETH": "trigger=false (kod-edge yok) -> her bar'da degil disiplinine teget. 'En temiz hizalama' goreli/best-of-bad argumani, mutlak setup degil. 15m up + 1h range = giris ufkunda hizalama yok; short-agirlikli funding squeeze riski; RSI 32.75 oversold sinirinda. Challenger ciddi kirdi.",
+    "XRP": "RSI 26.68 derin oversold + giris tam dipte = mean-reversion bounce stop'u ates hattina koyar. MACD_hist -0.0046 ~ duz -> asagi ivme tukenmis, 'downtrend devam' atalete yasli. 15m up + crowded-short = squeeze yakiti. Challenger ciddi kirdi.",
+    "HYPE": "1d range -> yonsuz edge yok, kural geregi WAIT; RSI 48.54 notr, trigger=false."
   },
   "analysis": {
     "BTC": {
-      "analyst": "RSI 26.5 ekstrem oversold, trigger true, ama 1d+4h down. Counter-trend long YASAK. Trend-uyumlu tek se\u00e7enek short \u2014 fakat RSI 26.5'te short a\u00e7mak a\u015f\u0131r\u0131 gerilmi\u015f hareketi kovalamak, mean-reversion bounce riski y\u00fcksek. Asimetrik R:R kurulam\u0131yor.",
-      "challenger": "Oversold ekstremde short = likidite-av\u0131 yukar\u0131 + oversold snap-back senaryosunda stop hemen yenir. Bear rejim do\u011fru ama giri\u015f zamanlamas\u0131 k\u00f6t\u00fc; bounce sonras\u0131 short daha temiz olurdu. Tez k\u0131r\u0131l\u0131r."
+      "analyst": "Bear rejim, 1d down -> yalniz short serbest. Onerilen SHORT entry 60225 / stop 62753 (+1.2 ATR) / target 56011 (-2 ATR), R:R ~1.67, confidence LOW. Gerekce: 1d downtrend + negatif MACD_hist.",
+      "challenger": "Ciddi kirilma -> WAIT: (1) RSI 26.91 + 15m up = oversold-into-bounce tuzagi, stop bounce bandi icinde; (2) sadece 1d down (4 TF'den 1'i) -> hizalama abartili; (3) short-weighted funding = crowded-short squeeze yakiti; (4) onchain proxy-only, distribution vs kapitulasyon ayirt edilemiyor."
     },
     "ETH": {
-      "analyst": "Trigger false, RSI 32.4 ekstrem de\u011fil. Ge\u00e7erli tetik yok, kan\u0131t zay\u0131f.",
-      "challenger": "Tetik yok \u2192 kural-bazl\u0131 kan\u0131t yok; a\u00e7mak over-trading. \u0130tiraza gerek yok, f\u0131rsat zaten yok."
+      "analyst": "1d+4h down -> 4 varlik icinde en temiz short hizalamasi; RSI 32.75 BTC/XRP'den az ekstrem. SHORT entry 1579.2 / stop 1675.2 / target 1419.2, confidence LOW-MEDIUM.",
+      "challenger": "Ciddi kirilma -> WAIT: trigger=false (kod-edge yok, trigger-only disiplinine teget); 'en temiz' goreli argument (best-of-bad); 15m up + 1h range = giris ufkunda hizalama yok; crowded-short funding squeeze; RSI 32.75 hala oversold sinirinda; dar stop target'tan once yenir -> gerceklesen beklenti R:R'den dusuk."
     },
     "XRP": {
-      "analyst": "BTC ile ayn\u0131: RSI 26.5 oversold + trigger true ama 1d down (counter-trend long yasak), short = ekstrem oversold kovalamak. Edge yok.",
-      "challenger": "Oversold short bounce riski; BTC ile korelasyonlu \u2014 a\u00e7\u0131lsa portf\u00f6y konsantrasyonu (ayn\u0131 y\u00f6n, ayn\u0131 rejim). Tez k\u0131r\u0131l\u0131r."
+      "analyst": "1d+4h down ile hizali SHORT entry 1.0494 / stop 1.109 / target 0.950, R:R ~1.67, confidence LOW.",
+      "challenger": "Ciddi kirilma -> WAIT: MACD_hist -0.0046 ~ duz -> asagi ivme tukenmis; RSI 26.68 dipte + giris dipte = bounce stop'u ates hattina; 15m up + crowded-short = squeeze yakiti; gercek on-chain flow yok."
     },
     "HYPE": {
-      "analyst": "Trigger false, RSI 48.4 n\u00f6tr, 1d range. Range-HTF \u2192 y\u00f6ns\u00fcz edge yok.",
-      "challenger": "Range-HTF'de y\u00f6n tutmak kumar; 15m up g\u00fcr\u00fclt\u00fc. F\u0131rsat yok."
+      "analyst": "1d range -> yonsuz; kural geregi WAIT.",
+      "challenger": "Itiraza gerek yok: yon edge'i yok, RSI notr, trigger=false."
     }
   },
-  "_meta": {
-    "llm": "ok",
-    "snapshot_ts": "2026-06-28T10:09:22.344808+00:00"
-  }
+  "_meta": {"llm": "ok"}
 }

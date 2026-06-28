@@ -2067,3 +2067,135 @@ Trade-agent: /Users/alpyilmaz/trade-agent
 === sync.sh tamam — site/index.html açılabilir ===
 
 Dashboard tazelendi.
+[main eaf8fbb] tur: 2026-06-28T10:11
+ Committer: Alp Yilmaz <alpyilmaz@Alps-MacBook-Air.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 9 files changed, 237 insertions(+), 67 deletions(-)
+ create mode 100644 journal/MANUEL-DERIN-20260628T101154Z.md
+To https://github.com/alptuncyilmaz-dotcom/trade-agent.git
+   1cf62a2..eaf8fbb  main -> main
+=== A/B/C/D TUR BAŞLADI — 2026-06-28T10:09:00.689246+00:00 ===
+
+▶ capture_snapshot.py
+Snapshot çekiliyor — 2026-06-28T10:09:00.992877+00:00
+  BTC çekiliyor...
+  ETH çekiliyor...
+  XRP çekiliyor...
+  HYPE çekiliyor...
+Tamamlandı. Rejim: bear
+  BTC: $60161.0 | RSI 26.51 | MACDh -8.4746 | 1d:down | ✅ TRIGGER
+  ETH: $1577.0 | RSI 32.4 | MACDh -1.0757 | 1d:down | ❌
+  XRP: $1.0487 | RSI 26.5 | MACDh -0.0047 | 1d:down | ✅ TRIGGER
+  HYPE: $62.895 | RSI 48.4 | MACDh -0.9686 | 1d:range | ❌
+
+
+▶ run_deterministic.py
+  WAIT BTC: counter-trend long (1d down) → YASAK | trend 15m:range/1h:range/4h:down/1d:down | RSI 26.51, MACDh -8.4746
+  WAIT ETH: RSI 32.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:down/1d:down | RSI 32.4, MACDh -1.0757
+  WAIT XRP: counter-trend long (1d down) → YASAK | trend 15m:range/1h:range/4h:down/1d:down | RSI 26.5, MACDh -0.0047
+  WAIT HYPE: RSI 48.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:range/4h:down/1d:range | RSI 48.4, MACDh -0.9686
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ run_aggressive.py
+  WAIT BTC: counter-trend long (1d down) → YASAK | trend 15m:range/1h:range/4h:down/1d:down | RSI 26.51, MACDh -8.4746
+  WAIT ETH: RSI 32.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:range/1h:range/4h:down/1d:down | RSI 32.4, MACDh -1.0757
+  WAIT XRP: counter-trend long (1d down) → YASAK | trend 15m:range/1h:range/4h:down/1d:down | RSI 26.5, MACDh -0.0047
+  WAIT HYPE: RSI 48.4 ekstrem değil (>= 70 veya <= 30 bekleniyor) | trend 15m:up/1h:range/4h:down/1d:range | RSI 48.4, MACDh -0.9686
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ deep-thinker: agent kuralları + GÜNCEL snapshot → taze analyst/challenger kararı
+
+▶ run_deepthinker.py
+  deep-thinker: snapshot 2026-06-28T10:09:22.344808+00:00 (rejim: bear) okundu
+
+  — BTC —
+    ANALYST: RSI 26.5 ekstrem oversold, trigger true, ama 1d+4h down. Counter-trend long YASAK. Trend-uyumlu tek seçenek short — fakat RSI 26.5'te short açmak aşırı gerilmiş hareketi kovalamak, mean-reversion bounce riski yüksek. Asimetrik R:R kurulamıyor.
+    CHALLENGER: Oversold ekstremde short = likidite-avı yukarı + oversold snap-back senaryosunda stop hemen yenir. Bear rejim doğru ama giriş zamanlaması kötü; bounce sonrası short daha temiz olurdu. Tez kırılır.
+
+  — ETH —
+    ANALYST: Trigger false, RSI 32.4 ekstrem değil. Geçerli tetik yok, kanıt zayıf.
+    CHALLENGER: Tetik yok → kural-bazlı kanıt yok; açmak over-trading. İtiraza gerek yok, fırsat zaten yok.
+
+  — XRP —
+    ANALYST: BTC ile aynı: RSI 26.5 oversold + trigger true ama 1d down (counter-trend long yasak), short = ekstrem oversold kovalamak. Edge yok.
+    CHALLENGER: Oversold short bounce riski; BTC ile korelasyonlu — açılsa portföy konsantrasyonu (aynı yön, aynı rejim). Tez kırılır.
+
+  — HYPE —
+    ANALYST: Trigger false, RSI 48.4 nötr, 1d range. Range-HTF → yönsüz edge yok.
+    CHALLENGER: Range-HTF'de yön tutmak kumar; 15m up gürültü. Fırsat yok.
+
+  KARAR (taze):
+    WAIT BTC: Counter-trend long yasak (1d down); trend-uyumlu short ise RSI 26.5 ekstrem oversold'a kovalama — bounce riski, asimetrik R:R yok.
+    WAIT ETH: Trigger false, RSI 32.4 ekstrem değil — geçerli tetik yok, over-trading riski.
+    WAIT XRP: Counter-trend long yasak (1d down); short ekstrem oversold kovalama + BTC ile korelasyonlu konsantrasyon. Edge yok.
+    WAIT HYPE: Trigger false, RSI 48.4 nötr, 1d range → range-HTF, yönsüz edge yok.
+
+  → state/deepthinker_decision.json yazıldı (eski dosya kullanılmadı).
+
+
+▶ apply_deepthinker.py
+  WAIT BTC: Counter-trend long yasak (1d down); trend-uyumlu short ise RSI 26.5 ekstrem oversold'a kovalama — bounce riski, asimetrik R:R yok.
+  WAIT ETH: Trigger false, RSI 32.4 ekstrem değil — geçerli tetik yok, over-trading riski.
+  WAIT XRP: Counter-trend long yasak (1d down); short ekstrem oversold kovalama + BTC ile korelasyonlu konsantrasyon. Edge yok.
+  WAIT HYPE: Trigger false, RSI 48.4 nötr, 1d range → range-HTF, yönsüz edge yok.
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 0
+
+
+▶ psikomanyak: aşırı-risk LLM kolu (D) — tek-en-iyi momentum fırsatı, 5-20x
+
+▶ run_psikomanyak.py
+  psikomanyak: snapshot 2026-06-28T10:09:22.344808+00:00 (rejim: bear) okundu
+  ⚠ Parse hatası: JSON nesnesi bulunamadı → WAIT
+
+HATA: 
+  Not: psikomanyak LLM üretmedi; güvenli WAIT ile devam.
+
+▶ apply_psikomanyak.py
+  AÇIK BTC: $60161.0 K/Z -0.48%
+  Açık poz var (['BTC']) — maks 1, yeni açılmadı.
+
+Tamamlandı. Bakiye: $4000 | Açık pozisyon: 1
+
+
+▶ deep_scan.py
+Tamamlandi: journal/MANUEL-DERIN-20260628T101154Z.md
+Rejim: bear
+  BTC: $60161.0 | RSI 26.51 | funding normal-yukari | down
+  ETH: $1577.0 | RSI 32.4 | funding normal | down
+  XRP: $1.0487 | RSI 26.5 | funding normal-yukari | down
+  HYPE: $62.895 | RSI 48.4 | funding normal-yukari | range
+
+
+=== TUR TAMAMLANDI — 2026-06-28T10:11:54.233543+00:00 ===
+Git push tamamlandi.
+
+▶ sync.sh — dashboard tazeleniyor
+=== sync.sh başlıyor ===
+Vault: /Users/alpyilmaz/Obsidian Vault
+Trade-agent: /Users/alpyilmaz/trade-agent
+→ trade-agent git pull...
+→ refresh_site_data.py çalışıyor...
+✅ site/data.js güncellendi — 2026-06-28 10:11 UTC (rejim: bear)
+   Deterministic eq=$4000 fwd=0/30 açık=0 geçmiş=43n
+   Deep-thinker  eq=$4000 fwd=0/30 açık=0 geçmiş=45n
+   Aggressive    eq=$4000 fwd=0/30 açık=0 geçmiş=29n
+   Psikomanyak   eq=$3981 fwd=0/30 açık=1 geçmiş=7n
+=== sync.sh tamam — site/index.html açılabilir ===
+
+Dashboard tazelendi.
