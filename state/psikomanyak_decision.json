@@ -1,5 +1,14 @@
 {
-  "decision": null,
-  "wait_reason": "2/2 pozisyon DOLU (BTC long @60453 + XRP long @1.0473), ikisi de stop/target'a degmedi (BTC 60039>stop 59244; XRP 1.0563>stop 1.0264) -> bos slot yok, kod 2-poz tavaninda. Psikomanyak yine de en guclu taze adayi ETH oversold-squeeze long olarak gorur (RSI 33.4 + funding negatif -1.13e-05 = kalabalik short squeeze yakiti, 15m:up taze ivme) ama slot olmadan acilmaz. Mevcut BTC/XRP longlari oversold-squeeze tezini zaten tutuyor.",
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T15:35:38.828040+00:00"}
+  "decision": {
+    "coin": "ETH",
+    "side": "buy",
+    "entry": 1569.3,
+    "stop": 1538.0,
+    "target": 1655.6,
+    "leverage": 14,
+    "thesis": "ETH oversold-bounce squeeze long: RSI 31.46 dipte + negatif funding (-1.62e-05 = kalabalik short = squeeze yakiti long lehine) + 15m range = dusus ivmesi durdu (MACDh -1.57 cuce). 1d down counter-trend ama psikomanyak squeeze kovalar.",
+    "detailed_rationale": "Snapshot: ETH 1569.3, RSI 31.46, ATR 80.14, funding -1.62e-05. ~2% stop (1538) / ~5.5% target (1655.6) = ~2.75:1 R:R. 14x kaldirac. Counter-trend serbest (psikomanyak). NOT: D kolu su an 2/2 dolu (BTC+XRP long); slot ancak path-check'te BTC veya XRP stop/target degerse acilir; aksi halde kod 2-poz tavaninda bu adayi acmaz. Mevcut BTC/XRP longlar zaten ayni oversold-squeeze tezini tutuyor."
+  },
+  "wait_reason": "",
+  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T16:40:32.491548+00:00"}
 }

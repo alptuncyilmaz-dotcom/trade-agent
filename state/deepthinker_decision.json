@@ -1,19 +1,28 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Trend-yonlu short adayi (1h/4h/1d down) ama challenger ciddi kirdi: RSI 25.75 derin asiri-satim + short-agirlikli (konsensus) funding = squeeze kurulumu; $62150 stop tam squeeze menzilinde; MACDh yataylasmasi taze-kirilma degil tukenmis-dusus; 15m=range erken-stop riski. Asimetri bize karsi (squeeze kuyrugu = felaket-kuyrugu) -> WAIT.",
-    "ETH": "HTF karisik: 1d down ama 4h/1h range, 15m up. Temiz yonsel edge yok, trigger=false -> WAIT.",
-    "XRP": "HTF karisik (4h/1h range, 1d down) + MACDh ~duz (-0.0042) momentum duragan. Counter-trend long yasak, short icin edge zayif -> WAIT.",
-    "HYPE": "1d=range -> yonsel edge yok (kural: range-HTF=WAIT); RSI 48.74 notr, trigger=false -> WAIT."
+    "BTC": "Long counter-trend (1d down) YASAK. Short aday tezi challenger'da ciddi kirildi: RSI 24.79 derin oversold + negatif funding (kalabalik short) -> squeeze; stop +1.3ATR (62427) tek fitille yenir, target uzak -> ters risk-asimetrisi + dibi-satma/gec-giris (H-03). Edge yok -> WAIT.",
+    "ETH": "Short aday tezi challenger'da kirildi: 15m range + zayif MACDh (-1.57) momentum tukeniyor, trigger=false (kod bile tetiklemedi) = zorlama-trade; negatif funding'de range short'u fee+funding sizdirir + squeeze asimetrisi ters. WAIT.",
+    "XRP": "1d down -> long YASAK. Short with-trend mumkun ama MACDh -0.0049 = 0 (momentum yok) + RSI 25.84 derin oversold = with-trend short'ta edge yok, BTC ile ayni squeeze riski. WAIT.",
+    "HYPE": "1d range -> HTF yonsuz, yonsel edge yok (kural: range-HTF -> WAIT). RSI 47.54 notr. WAIT."
   },
   "analysis": {
     "BTC": {
-      "analyst": "Tum yuksek-TF asagi (1h/4h/1d down), MACDh -16.26 -> trend-yonlu short adayi. entry 60039, stop 62150 (~1 ATR), target 55800 (~2 ATR), R:R ~2:1, confidence low. Squeeze riski farkinda.",
-      "challenger": "4 somut kirilma: (1) yorgun-trend kor noktasi (RSI 25.75 + MACDh yataylasma = tukenmis dusus, trend-following en kotu girisi); (2) konsensus negatif funding = kalabalik short -> squeeze yakiti, $62150 stop squeeze menzilinde; (3) 15m=range + 1 ATR stop = erken-yenilme riski; (4) 2 ATR target oversold dipten duz-akis varsayimi kontrol edilmemis. Squeeze+konsensus kombinasyonu 'low confidence yine de ac' esigini ciddi-kirilma tarafina itiyor."
+      "analyst": "1d down -> long counter-trend yasak. Short with-trend aday: HTF tum-down + guclu negatif MACDh (-39.55) momentum devami. entry 59674 / stop 62427 / target 54168.",
+      "challenger": "Squeeze asimetrisi (RSI 24.79 oversold + neg funding kalabalik short, stop +1.3ATR tek fitille yenir); gec-giris/dibi-satma (H-03, hareketin cogu olmus); yuvarlak $62K ustu likidite-avi stop; on-chain available:False -> dip-dagitim/kapitulasyon ayirt edilemiyor."
     },
-    "ETH": {"analyst": "HTF karisik, trigger=false -> dusuk edge.", "challenger": "Aday tez yok (WAIT) - challenger cagrilmadi."},
-    "XRP": {"analyst": "MACDh ~duz, HTF range; long counter-trend yasak.", "challenger": "Aday tez yok (WAIT) - challenger cagrilmadi."},
-    "HYPE": {"analyst": "1d range, RSI notr.", "challenger": "Aday tez yok (WAIT) - challenger cagrilmadi."}
+    "ETH": {
+      "analyst": "1h/4h/1d down -> short with-trend aday: RSI 31.46 ekstrem degil, dusmeye yer var. entry 1569.3 / stop 1673.5 / target 1361.",
+      "challenger": "15m range + MACDh -1.57 cuce = with-trend yanilsamasi/gec giris, asagi bacak olmus olabilir; trigger=false -> kod bile edge gormedi, zorlama-trade + negatif funding range'de sizinti; kalabalik short -> yukari kirilim squeeze, stop hizla yenir (ters asimetri)."
+    },
+    "XRP": {
+      "analyst": "1d down -> long yasak. Short with-trend aday ama MACDh =0 momentum yok.",
+      "challenger": "(BTC ile ayni lens) derin oversold (RSI 25.84) + neg funding = squeeze riski; momentumsuz short edge'siz."
+    },
+    "HYPE": {
+      "analyst": "1d range -> kural geregi WAIT, tez uretilmedi.",
+      "challenger": "-"
+    }
   },
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T15:35:38.828040+00:00"}
+  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T16:40:32.491548+00:00"}
 }
