@@ -12,3 +12,4 @@
 {"timestamp": "2026-06-28T13:39:11.429231+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
 {"timestamp": "2026-06-28T15:38:54.810699+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
 {"timestamp": "2026-06-28T16:44:16.736784+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "ETH", "action": "skip_max", "reason": "maks 2 poz dolu"}]}
+{"timestamp": "2026-06-28T17:50:39.838235+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "ETH", "action": "skip_max", "reason": "maks 2 poz dolu"}]}

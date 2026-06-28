@@ -2,13 +2,13 @@
   "decision": {
     "coin": "ETH",
     "side": "buy",
-    "entry": 1569.3,
-    "stop": 1538.0,
-    "target": 1655.6,
+    "entry": 1567.8,
+    "stop": 1536.4,
+    "target": 1654.0,
     "leverage": 14,
-    "thesis": "ETH oversold-bounce squeeze long: RSI 31.46 dipte + negatif funding (-1.62e-05 = kalabalik short = squeeze yakiti long lehine) + 15m range = dusus ivmesi durdu (MACDh -1.57 cuce). 1d down counter-trend ama psikomanyak squeeze kovalar.",
-    "detailed_rationale": "Snapshot: ETH 1569.3, RSI 31.46, ATR 80.14, funding -1.62e-05. ~2% stop (1538) / ~5.5% target (1655.6) = ~2.75:1 R:R. 14x kaldirac. Counter-trend serbest (psikomanyak). NOT: D kolu su an 2/2 dolu (BTC+XRP long); slot ancak path-check'te BTC veya XRP stop/target degerse acilir; aksi halde kod 2-poz tavaninda bu adayi acmaz. Mevcut BTC/XRP longlar zaten ayni oversold-squeeze tezini tutuyor."
+    "thesis": "ETH oversold-squeeze long: RSI 31.35 dipte + negatif funding (-9.4e-06 = kalabalik short = squeeze yakiti long lehine) + 15m range = dusus ivmesi durdu (MACDh -1.66 cuce). 1d down counter-trend ama psikomanyak squeeze kovalar.",
+    "detailed_rationale": "Snapshot: ETH 1567.8, RSI 31.35, ATR 80.14, funding -9.4e-06. Stop 1536.4 (~2% = ~0.4 ATR), target 1654.0 (~5.5% = ~1.07 ATR) -> ~2.7:1 R:R. 14x kaldirac (likidasyon riskini kucakla). HYPE elendi (tum-TF range, momentum yok); BTC/XRP zaten D'de tutuluyor (ayni oversold-squeeze tezi). NOT: D kolu 2/2 dolu (BTC+XRP long, ikisi de su altinda, BTC 59506 stop 59244'e yakin); bu aday ancak path-check BTC/XRP'yi kapatip slot acarsa acilir."
   },
   "wait_reason": "",
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T16:40:32.491548+00:00"}
+  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T17:46:02.451587+00:00"}
 }
