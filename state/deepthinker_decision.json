@@ -1,28 +1,14 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Trend-uyumlu short (tum TF down, MACDh -50.27) AMA RSI 24.44 DERIN asiri-satim = kapitulasyon/bounce riski. Challenger ciddi kirdi: ayni kurulum son 5 tur WAIT'lendi, funding-isaret celiskisi (bu tur long-agirlikli vs onceki turlar short-agirlikli), stop 62000 yuvarlak-sayi likidite-avi menzili, BTC/ETH/XRP senkron oversold = piyasa-geneli ekstrem. Dogru yon / yanlis an -> WAIT.",
-    "ETH": "En temiz trend-uyumlu short adayi (1d/4h/1h down, RSI 31.35 ekstrem degil) AMA challenger uc gercek kirilma: 15m range = momentum durakladi (giris erken olabilir), funding short-agirlikli = kalabalik short = squeeze yakiti (stop 1648 likidite havuzunun icinde), RSI 31 oversold-bitisigi. Piyasa-geneli oversold ekstremde tek short bile marjinal R:R -> WAIT.",
-    "XRP": "Trend yapisi down AMA MACDh -0.0049 ~= 0 = momentum oldu, short edge yok (dususun sonuna giris). RSI 25.81 derin oversold + short-agirlikli funding = cifte squeeze (mean-reversion alicisi + short squeeze), stop +1 ATR squeeze menzilinin icinde. Portfoy konsantrasyonu: BTC/ETH short ile ayni makro bahis, relief-rally ucunu birden yer. -> WAIT.",
-    "HYPE": "1d range + 1h range + 15m range = yonsuz, HTF edge yok. RSI 47.91 notr. 4h down tek basina yon vermez. Yonsuz rejim -> WAIT."
+    "BTC": "LLM \u00e7\u0131kt\u0131s\u0131 parse edilemedi (JSON nesnesi bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "ETH": "LLM \u00e7\u0131kt\u0131s\u0131 parse edilemedi (JSON nesnesi bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "XRP": "LLM \u00e7\u0131kt\u0131s\u0131 parse edilemedi (JSON nesnesi bulunamad\u0131) \u2014 g\u00fcvenli WAIT",
+    "HYPE": "LLM \u00e7\u0131kt\u0131s\u0131 parse edilemedi (JSON nesnesi bulunamad\u0131) \u2014 g\u00fcvenli WAIT"
   },
-  "analysis": {
-    "BTC": {
-      "analyst": "Tum TF down + MACDh -50.27 guclu negatif -> trend-uyumlu short adayi; ama RSI 24.44 derin asiri-satim zayif nokta. entry 59506 / stop 62000 / target 55000, confidence low.",
-      "challenger": "Ayni kurulum son 5 tur WAIT; bu tur 'ac'a donus gerekcesiz. Funding isaret celiskisi (long vs onceki short okuma). Stop 62000 yuvarlak-sayi likidite-avi -> bounce'ta tek fitille yenir. on-chain available:False (dip-dagitim vs kapitulasyon ayrilamiyor). BTC/ETH/XRP senkron oversold = piyasa-geneli ekstrem, degerlendirilmedi. -> Ciddi kirilma."
-    },
-    "ETH": {
-      "analyst": "1d/4h/1h down, 15m range, RSI 31.35 (ekstrem degil), funding short-agirlikli. En temiz trend-uyumlu short. entry 1567.8 / stop 1648 / target 1408, confidence medium.",
-      "challenger": "15m range = momentum bosaldi, range'in tabanda mi tepede mi acildigi kontrol edilmedi (tabanda short = en kotu R:R). Funding short-agirlikli = kalabalik short = squeeze yakiti, stop 1648 likidite havuzunun icinde. RSI 31 oversold-bitisigi. Dogru yon / yanlis an. -> Zamanlama kirilmasi."
-    },
-    "XRP": {
-      "analyst": "1d/4h/1h down, 15m range, MACDh -0.0049 zayif, RSI 25.81 derin oversold, funding short-agirlikli. entry 1.0446 / stop 1.094 / target 0.965, confidence low.",
-      "challenger": "MACDh ~= 0 = momentum oldu, short edge yok. RSI 25.8 + short-agirlikli funding = cifte squeeze, stop +1 ATR squeeze menzilinde (asimetri tezin aleyhine). Portfoy konsantrasyonu: BEAR'de XRP short = BTC/ETH short ile tek makro bahis, relief-rally ucunu birden stop yedirir (XRP betasi en sert). -> Ciddi kirilma."
-    },
-    "HYPE": {
-      "analyst": "1d/1h/15m range, 4h down, RSI 47.91 notr -> yonsuz, edge yok. WAIT.",
-      "challenger": "Cagrilmadi (analyst zaten WAIT - yonsuz rejim)."
-    }
-  },
-  "_meta": {"llm": "ok", "snapshot_ts": "2026-06-28T17:46:02.451587+00:00"}
+  "_meta": {
+    "llm": "parse_error",
+    "error": "JSON nesnesi bulunamad\u0131",
+    "raw": "Karar \u00fcretildi: **4 varl\u0131k da WAIT** (bu turda trade YOK).\n\n**\u00d6zet (snapshot 2026-06-28T21:06Z, rejim: bear):**\n\n| Varl\u0131k | Trigger | HTF (1d) | Karar | Gerek\u00e7e |\n|--------|---------|----------|-------|---------|\n| BTC | \u2713 | down | WAIT | Short y\u00f6n do\u011fru ama RSI **24.69** derin oversold = bounce riski; counter-trend long YASAK. Senkron piyasa-geneli oversold. |\n| ETH | \u2717 | down | WAIT | trigger yok \u2192 kan\u0131t zay\u0131f (L-03 over-trading), 15m range momentum bo\u015fald\u0131, negatif funding = squeeze yak\u0131t\u0131. |"
+  }
 }
