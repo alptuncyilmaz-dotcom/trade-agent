@@ -1,28 +1,31 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Challenger ciddi ic-celiski buldu: range-stop (+1.5ATR) + trend-target (-2.5ATR) tutarsiz; 1h/4h RANGE iken -2.5ATR target range kirilmasi gerektirir, 1d-down stop'u fazla dar. RSI 34.4 olgun dusus (entry hareketin sonunda), funding +3.79e-06 cilizz/notur. Trigger:false. Tez kirildi.",
-    "ETH": "HTF-down (4h+1d) en temiz aday AMA MACDh -0.53 (~%0.6 ATR) pratik momentum yok; 15m+1h RANGE giris (HTF yon != giris edge); stop 1707.6 konsolidasyon tavani ustu = likidite-avi bolgesi; RSI 39 mean-reversion sicrama riski; BTC korelasyon. Trigger:false. Ince edge -> acma.",
-    "XRP": "MACDh -0.0048 (~0, momentum motoru YOK) + funding -1.13e-05 SHORT-agirlikli (kalabalik short -> squeeze) + 1h/4h RANGE. Genis-target/dar-stop duz-momentumda kayip-egilimli asimetri; uzun tutusta funding-drag. Trigger:false. WAIT.",
-    "HYPE": "1d:range -> yonsuz, dusuk-edge (deep-thinker kurali: HTF range -> acma). 15m/1h/4h down ama 1d range; RSI 52.8 notur. WAIT."
+    "BTC": "1d down \u2192 counter-trend long YASAK; short HTF-uyumlu ama 3-TF range (momentum yok) + RSI 26.91 derin oversold (s\u0131\u00e7rama riski) \u2192 k\u00f6t\u00fc R:R, edge zay\u0131f.",
+    "ETH": "Trigger yok, RSI 32.4 ekstrem de\u011fil; over-trading riski (L-03) \u2192 WAIT.",
+    "XRP": "1d down \u2192 counter-trend long YASAK; short oversold (RSI 27.22) + 3-TF range + geni\u015f ATR \u2192 edge zay\u0131f, BTC ile korelasyon.",
+    "HYPE": "Trigger yok, RSI n\u00f6tr (47.99), 1d range (y\u00f6ns\u00fcz-edge) \u2192 WAIT."
   },
   "analysis": {
     "BTC": {
-      "analyst": "side SELL adayi (1d-down trend-uyumlu, bear rejim, MACD negatif), entry 60329 stop 63634 target 54820, confidence LOW. RSI 34.4 oversold-yakini + 1h/4h range HTF temiz degil.",
-      "challenger": "Ic-celiski (range-stop vs trend-target ayni anda tutarsiz; range dogruysa target imkansiz, trend dogruysa stop dar). RSI 34.4'te short = olgun dususe giris. Funding tek-yonlu + buyukluk cilizz, path boyunca sabit varsayilmis. Likidasyon-mesafesi>stop teyidi yok, on-chain available:False."
+      "analyst": "1d down (bear rejim), trigger ate\u015fledi, RSI 26.91 derin a\u015f\u0131r\u0131-sat\u0131m. Long = counter-trend (1d down) \u2192 YASAK. Short ise HTF-uyumlu (1d down) g\u00f6r\u00fcn\u00fcr AMA 15m/1h/4h hepsi RANGE = d\u00fc\u015f\u00fck-TF momentum YOK; RSI 26.91 ekstrem oversold \u2192 mean-reversion s\u0131\u00e7rama riski y\u00fcksek (oversold'a short atmak k\u00f6t\u00fc R:R). A\u015fa\u011f\u0131 momentum onay\u0131 yok \u2192 edge zay\u0131f.",
+      "challenger": "BTC 60225, ATR 2093 (~%3.5) \u00e7ok geni\u015f \u2014 oversold short stop'u likidite-av\u0131 s\u0131\u00e7ramas\u0131nda kolayca yenir. 1d-down d\u0131\u015f\u0131nda hi\u00e7bir TF a\u015fa\u011f\u0131 momentum teyit etmiyor (3 TF range); tek 'a\u015fa\u011f\u0131' sinyal HTF, o da yorgun (RSI 27). Funding normal-yukar\u0131 \u2192 short taraf\u0131 kalabal\u0131k de\u011fil, s\u0131k\u0131\u015fma riski. Edge yok."
     },
     "ETH": {
-      "analyst": "side SELL adayi (4h+1d ikisi de down = en temiz HTF-down, bear rejim, MACD negatif), entry 1582.7 stop 1707.6 target 1374.5, confidence MEDIUM. RSI 39.45 mid (dusecek alan).",
-      "challenger": "Range-ici giris (15m+1h range, MACDh -0.53 ~%0.6 -> momentum pratikte yok). Stop 1707.6 = range-ustu likidite-avi. RSI 39 dusus gec fazi -> mean-reversion sicramasi stop yer. BTC korelasyon: 'en temiz HTF-down' = 'en cok bear-betasi', ETH-spesifik katalizor yok."
+      "analyst": "Trigger YOK, RSI 32.4 ekstrem de\u011fil. 4h/1d down ama tetikleyici sinyal yok \u2192 kural-bazl\u0131 kan\u0131t zay\u0131f. Over-trading (L-03) riski.",
+      "challenger": "Tez yok; a\u00e7\u0131lacak sinyal yok. Ciddi kar\u015f\u0131-arg\u00fcman gereksiz \u2014 trigger yoklu\u011fu zaten WAIT."
     },
     "XRP": {
-      "analyst": "side SELL adayi (1d-down) AMA MACDh ~0 (momentum yok) + funding SHORT-agirlikli (squeeze riski) -> WAIT'e meyilli. confidence LOW.",
-      "challenger": "Duz-MACD'de genis-target/dar-stop kayip-egilimli (range mean-reversion stop'a daha yakin). HTF hakim yapi RANGE (1h/4h), 1d-down tek-dilim; RSI 35.88 sikisma bolgesi range yorumunu guclendirir. Negatif funding short'a funding ODETIR (uzun tutus drag). OI yonu bilinmiyor, on-chain available:False."
+      "analyst": "1d down, trigger ate\u015fledi, RSI 27.22 derin a\u015f\u0131r\u0131-sat\u0131m. Long = counter-trend \u2192 YASAK. Short HTF-uyumlu ama 15m/1h/4h RANGE, momentum yok; RSI oversold \u2192 s\u0131\u00e7rama riski. BTC ile ayn\u0131 kal\u0131p.",
+      "challenger": "XRP 1.0516, ATR 0.0493 (~%4.7) \u2014 en geni\u015f vol. Oversold + 3-TF range'de short, geni\u015f ATR ile likidasyon mesafesi/stop dengesi zor. BTC short ile y\u00fcksek korelasyon \u2192 e\u015fzamanl\u0131 a\u00e7\u0131l\u0131rsa konsantrasyon riski. Edge zay\u0131f."
     },
     "HYPE": {
-      "analyst": "1d:range -> kural geregi WAIT. counter_trend long+short ikisi de false; RSI 52.8 notur, MACDh -0.92.",
-      "challenger": "Challenge edilmedi (1d-range kurali geregi analyst zaten WAIT)."
+      "analyst": "Trigger YOK, RSI 47.99 n\u00f6tr, 1d RANGE. Range-HTF \u2192 y\u00f6ns\u00fcz edge yok \u2192 WAIT.",
+      "challenger": "15m up / 4h down \u00e7at\u0131\u015fan TF'ler, 1d range = net y\u00f6n yok. A\u00e7\u0131lacak tez bile olu\u015fmuyor."
     }
   },
-  "_meta": {"llm": "ok"}
+  "_meta": {
+    "llm": "ok",
+    "snapshot_ts": "2026-06-28T08:02:17.493295+00:00"
+  }
 }
