@@ -1,31 +1,31 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Long counter-trend YASAK (1d down). Short trend-y\u00f6nl\u00fc olsa da RSI 26.1 ekstrem oversold \u2192 tetik asl\u0131nda mean-reversion sinyali, short i\u00e7in yanl\u0131\u015f; bear-trap/s\u0131\u00e7rama riski + geni\u015f ATR. Edge zay\u0131f, WAIT.",
-    "ETH": "Trigger yok (RSI 32.22 ekstrem de\u011fil), HTF kar\u0131\u015f\u0131k. Kan\u0131t yok \u2192 over-trading ka\u00e7\u0131n.",
-    "XRP": "Long YASAK (1d down). Short oversold'a ge\u00e7 giri\u015f + BTC ile y\u00fcksek korelasyon = konsantre tek-y\u00f6n risk. Edge zay\u0131f, WAIT.",
-    "HYPE": "1d range (y\u00f6ns\u00fcz HTF) + trigger yok \u2192 range-HTF kural\u0131 gere\u011fi WAIT."
+    "BTC": "1d down → counter-trend long YASAK. Tek with-trend aday short; ama 15m+1h up + RSI 27 aşırı-satım = aktif relief-bounce. Challenger ciddi kırdı: short zamanlaması yanlış (stop 63430 sıradan 15m/1h up devamıyla yenir), target tetiği olmayan taze aşağı bacak gerektirir. Edge zamanlamada yok → WAIT.",
+    "ETH": "1d down → counter-trend long YASAK. With-trend short adayı; ama trigger=false (kod sinyal görmedi → giriş edge'i yok), funding short-ağırlıklı = short-squeeze yakıtı, 15m+1h up momentum short'a ters. Challenger ciddi kırdı (RSI 32.9 relief-bounce ile tutarlı, kalabalık short'a ekleme). WAIT.",
+    "XRP": "1d down → counter-trend long YASAK. Short adayı ama 1h+4h range, 15m up, RSI 27 aşırı-satım → range içi oversold'a short = edge yok, mean-reversion riski + BTC korelasyonu. WAIT.",
+    "HYPE": "1d range → yönsüz edge yok (deep-thinker kuralı: 1d range → WAIT). RSI 49 nötr, MACD hist hafif negatif ama 4h down/1d range çatışması. WAIT."
   },
   "analysis": {
     "BTC": {
-      "analyst": "Bear rejim; 4h/1d DOWN, 1h/15m range. Trigger=true ama nedeni RSI 26.1 (ekstrem oversold). Long YASAK (counter-trend, 1d down). Short trend-y\u00f6nl\u00fc olur AMA RSI 26 = a\u015fa\u011f\u0131 momentum t\u00fckenmi\u015f, tetik asl\u0131nda mean-reversion (yukar\u0131) sinyali \u2014 short i\u00e7in YANLI\u015e sinyal. ATR 2107 \u00e7ok geni\u015f \u2192 stop ya \u00e7ok uzak (k\u00f6t\u00fc R:R) ya \u00e7ok yak\u0131n (g\u00fcr\u00fclt\u00fcde yenir). Oversold'a short = dipte sat\u0131\u015f, s\u0131\u00e7rama riski y\u00fcksek.",
-      "challenger": "Short tezini k\u0131rar: RSI 26.1'de a\u00e7\u0131lan short klasik bear-trap; 4h/15m range zaten dip konsolidasyonu i\u015fareti, ilk s\u0131\u00e7rama geni\u015f ATR stop'unu kolayca tetikler. Tetik long-mean-reversion i\u00e7in tasarland\u0131, short gerek\u00e7esi olarak kullanmak sinyal-amac\u0131na ayk\u0131r\u0131. Edge zay\u0131f."
+      "analyst": "1d down + bear rejim + MACD -1.58 = ana trend aşağı → with-trend short adayı (entry 60269, stop 63430 ~+1.5ATR, target 56055 ~-2ATR, confidence low). Counter-trend long YASAK.",
+      "challenger": "Aktif relief-bounce'a (15m+1h up) kontra short; esas zayıflık yön değil ZAMANLAMA. Stop sıradan up-trend devamıyla yenir; 'bear'da oversold uzun kalır' = umut, 15m/1h up tepkinin doğduğunu gösteriyor. R:R timing yanlışlığında ters döner. on-chain boş → 63k likidite duvarı kör nokta. → ciddi kırılma."
     },
     "ETH": {
-      "analyst": "Trigger=false (RSI 32.22 ekstrem de\u011fil). 1d/4h down, 1h range, 15m up \u2014 kar\u0131\u015f\u0131k. Kural-bazl\u0131 kan\u0131t yok.",
-      "challenger": "Tetik yok, edge yok; a\u00e7mak over-trading (L-03 fee sessiz katil). Kar\u015f\u0131-arg\u00fcmana gerek yok."
+      "analyst": "4h+1d down + bear rejim + MACD negatif = ana trend aşağı → with-trend short adayı (entry 1580.2, stop 1700, target 1420, confidence low). Counter-trend long YASAK.",
+      "challenger": "trigger=false → giriş edge'i YOK, tez tamamen HTF anlatısına dayanıyor (over-trading riski). 15m+1h up = ters-momentum AN'ı. funding short-ağırlıklı = short-squeeze yakıtı (kalabalık short'a ekleme). RSI 32.9 relief-bounce kurulumuyla tutarlı, analyst tersine okudu. → ciddi kırılma."
     },
     "XRP": {
-      "analyst": "BTC ile ayn\u0131 tablo: trigger=true sebebi RSI 26.15 (ekstrem oversold), 1d/4h down. Long YASAK. Short trend-y\u00f6nl\u00fc ama derin oversold'a girilen short = ge\u00e7/dipte sat\u0131\u015f. Tetik mean-reversion i\u00e7in, short gerek\u00e7esi de\u011fil.",
-      "challenger": "BTC'ye korelasyon y\u00fcksek (ayn\u0131 bear rejim, ayn\u0131 oversold). \u0130ki short a\u00e7mak = tek y\u00f6nl\u00fc konsantre risk; bir s\u0131\u00e7rama ikisini birden vurur. Oversold short edge'i zaten zay\u0131f, korelasyon onu daha da k\u00f6t\u00fcle\u015ftirir."
+      "analyst": "1d down → long YASAK. Short adayı ama 1h/4h range, 15m up, RSI 27 aşırı-satım → yönsüz/oversold, net edge yok.",
+      "challenger": "Range yapısında oversold'a short = mean-reversion riski; with-trend dayanağı sadece 1d, alt TF'ler onaylamıyor; BTC'ye yüksek korelasyon = konsantre tek-yön risk. WAIT uygun."
     },
     "HYPE": {
-      "analyst": "RSI 48.48 n\u00f6tr, trigger=false, 1d range. Y\u00f6ns\u00fcz HTF \u2192 edge yok.",
-      "challenger": "Range-HTF = y\u00f6ns\u00fcz, demir kural gere\u011fi WAIT. \u0130tiraza gerek yok."
+      "analyst": "1d range → kural gereği WAIT. RSI 49 nötr.",
+      "challenger": "Yönsüz; 4h down/1d range çatışması, edge yok. WAIT uygun."
     }
   },
   "_meta": {
     "llm": "ok",
-    "snapshot_ts": "2026-06-28T11:13:03.769827+00:00"
+    "snapshot_ts": "2026-06-28T11:24:35.652761+00:00"
   }
 }
