@@ -1,20 +1,8 @@
 {
-  "decision": {
-    "coin": "HYPE",
-    "side": "sell",
-    "entry": 61.715,
-    "stop": 62.95,
-    "target": 58.31,
-    "leverage": 15,
-    "thesis": "Trend-aligned momentum short. HYPE 15m/1h/4h t\u00fcm\u00fc DOWN, 1d range \u2014 taze a\u015fa\u011f\u0131 ivme. RSI 46.42 n\u00f6tr (oversold DE\u011e\u0130L) \u2192 d\u00fc\u015fecek bol alan var, BTC/XRP'deki oversold-s\u0131\u00e7rama tuza\u011f\u0131 yok. MACD hist -1.04 negatife d\u00f6nm\u00fc\u015f, macd_line yava\u015f \u00e7izginin alt\u0131na ge\u00e7iyor. Bear rejimde trendle ayn\u0131 y\u00f6nde agresif short = psikomanyak'\u0131n en temiz kurulumu.",
-    "detailed_rationale": "4 varl\u0131k taramas\u0131: BTC RSI 24.69 + XRP RSI 25.89 ekstrem oversold \u2192 trendle short a\u00e7mak squeeze-bounce riski (psikomanyak sevse de edge bozuk). ETH RSI 31.63 + negatif funding (kalabal\u0131k short) \u2192 short squeeze yak\u0131t\u0131, short lehine de\u011fil. HYPE tek temiz momentum-short: RSI n\u00f6tr (room to fall), 3 d\u00fc\u015f\u00fck TF a\u015fa\u011f\u0131, pozitif funding (longlar \u00f6d\u00fcyor, bo\u011fa t\u00fckeniyor de\u011fil ama momentum a\u015fa\u011f\u0131), MACD a\u015fa\u011f\u0131 d\u00f6n\u00fcyor. Stop 62.95 (~%2 \u00fcst\u00fc), target 58.31 (\u22482.75:1 R:R). 15x kald\u0131ra\u00e7 \u2014 n\u00f6tr RSI + temiz trend = y\u00fcksek g\u00fcven, likidasyon mesafesini kucakl\u0131yorum. Maks tutu\u015f 36-48s funding maliyeti. Risk: 1d range yukar\u0131 k\u0131rarsa stop yer ama trendle ayn\u0131 y\u00f6ndeyim.",
-    "_meta": {
-      "llm": "ok"
-    }
-  },
-  "wait_reason": null,
+  "decision": null,
+  "wait_reason": "Eszamanli poz tavani DOLU (maks 2): BTC buy @60453 + XRP buy @1.0473 acik. Mevcut snapshot'ta (BTC 59827, XRP 1.0493) ikisi de stop/target'a degmedi -> kapanmadi, yeni slot yok. Istah var ama kod tavani geregi bu tur yeni poz acilamaz. Aday: HYPE 15m/1h up momentum-long ya da BTC/ETH/XRP oversold-bounce long; ama slot olmadigi icin pas.",
   "_meta": {
     "llm": "ok",
-    "snapshot_ts": "2026-06-28T21:06:11.833116+00:00"
+    "snapshot_ts": "2026-06-29T16:55:54.209529+00:00"
   }
 }
