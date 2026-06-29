@@ -1,30 +1,28 @@
 {
   "decisions": {},
   "waits": {
-    "BTC": "Short trend-uyumlu (4h/1d down) ama islem ufku 15m/1h RANGE; RSI 22.64 ekstrem oversold + MACDh -21 asiri uzamis -> dibe short kovalama, bounce/mean-reversion stop'u tetikler; funding long-agirlikli, asagi yon yakiti henuz temizlenmemis. Challenger ciddi kirdi -> WAIT.",
-    "ETH": "Yalniz 1d down; 15m/1h/4h UCU de range -> whipsaw riski; MACDh ~0 momentum teyidi yok; RSI 20.4 ekstrem oversold -> bounce dar 1 ATR stop'u yer; funding short-agirlikli (crowded short, squeeze riski). Challenger ciddi kirdi -> WAIT.",
-    "XRP": "RSI 11.07 = kapitulasyon bolgesi; buradan short = dibe satis; MACDh ~0 momentum teyidi yok; 15m/1h range -> giris ufkunda edge yok; funding short-agirlikli crowding squeeze yakiti. Asimetri kagit uzerinde, pratikte target'a varmadan stop-yeme olasiligi yuksek. Challenger ciddi kirdi -> WAIT.",
-    "HYPE": "trigger=false (RSI ekstrem degil); RSI 46.48 notr -> edge yok; MACDh -0.8682 negatif + MACD crossdown -> kisa-vade momentum zayifliyor; 4h range; genel bear rejimde 1d-up yalniz. Long'u tasiyan tek ayak (1d-up etiketi) momentumla celisiyor. Challenger teyit etti -> WAIT."
+    "BTC": "1d down -> long counter-trend YASAK. Tek with-trend opsiyon short, ama challenger ciddi kirdi: tek with-trend kanit 1d=down (15m/1h/4h hepsi range), RSI 25.71 + MACDh +9.97 short'un TERSI yonu gosteriyor (dip momentum-fade, with-trend degil); +1 ATR stop oversold-bounce'ta hedeften once yenir (asimetri ters); funding short-agirlikli -> short-squeeze yakiti. WAIT.",
+    "ETH": "1d down -> long counter-trend YASAK. Short with-trend ama 15m+1h UP + MACDh +2.53 + RSI 28.73 oversold = entry LTF momentuma karsi (donusun ortasina short). Challenger: stop asimetrisi + squeeze yakiti + 4h range gecikmis-olcek bahsi. Somut gecersizlik -> WAIT.",
+    "XRP": "1d down -> long counter-trend YASAK. RSI 16.23 ekstrem oversold + MACDh ~flat -> short R:R berbat (yuksek geri-tepme riski, oversold ekstremde with-trend short acilmaz). WAIT.",
+    "HYPE": "Trigger yok. RSI 48.99 notr (ekstrem degil), MACDh -0.77 (momentum hafif asagi), 1d up -> short counter-trend YASAK, long icin ekstrem/edge yok. WAIT."
   },
   "analysis": {
     "BTC": {
-      "analyst": "SHORT adayi: 4h+1d down -> trend asagi, short counter-trend degil. Entry 59827, stop 61991 (+~1 ATR), target 56582 (-1.5 ATR), R:R ~1.5, confidence low. ANCAK RSI 22.64 + MACDh -21 asiri uzamis, islem ufku range.",
-      "challenger": "Uc kirilma: (1) oversold giris bounce stop'u tetikler (stop tam mean-reversion menzilinde), (2) ufuk uyumsuzlugu - trend-uyumlu yalniz 4h/1d, islem ufku 15m/1h range, stop range icinde mi olculmemis, (3) funding long-agirlikli -> asagi yon yakiti temizlenmemis, momentum-short itisi gelmeyebilir."
+      "analyst": "1d downtrend (bear rejim) korunuyor; LTF range konsolidasyon. Long counter-trend yasak. With-trend short adayi: entry 60315, stop 62480 (+1 ATR), target 57070 (-1.5 ATR), R:R ~1.5, confidence low. RSI 25.7 oversold + MACDh +9.97 bounce riski kabul edildi.",
+      "challenger": "with-trend etiketi yaniltici (tek kanit 1d=down; 15m/1h/4h range). RSI+MACDh short'un tersi -> dip momentum-fade short. Stop asimetrisi oversold-bounce'ta ters doner. funding short-agirlikli = squeeze yakiti. on-chain available:False. Gecersizlik: MACDh pozitif kalir + RSI 30 ustu, veya bir TF range'den yukari kirar. -> ciddi kirilma."
     },
     "ETH": {
-      "analyst": "SHORT adayi: 1d down -> trend-uyumlu. Entry 1582.2, stop 1656.6 (+1 ATR), target 1470.5 (-1.5 ATR), confidence low. ANCAK 4h/1h/15m hepsi range, MACDh ~0.",
-      "challenger": "Uc kirilma: (1) whipsaw - 3 ufuk range, yon yalniz 1d-down, (2) oversold bounce RSI 20.4 + MACDh ~0 momentum teyidi yok, (3) crowded short (funding short-agirlikli) + dar 1 ATR stop range nefesini yer -> squeeze bounce riski."
+      "analyst": "1d down; with-trend short adayi entry 1624.3, stop 1701 (+1 ATR), target 1508 (-1.5 ATR), confidence low. 15m+1h UP + MACDh +2.53 momentum short'a karsi, zayif kurulum kabul edildi.",
+      "challenger": "Entry LTF momentuma (15m/1h UP) karsi = donusun ortasina short. Stop 1 ATR momentum-karsi giriste en yuksek stop-out yerinde. 4h range gecikmis-olcek bahsi. funding ~0/short-agirlikli -> squeeze tetigi. -> somut gecersizlik, 'low confidence' otesi."
     },
     "XRP": {
-      "analyst": "SHORT adayi: 4h+1d down -> trend-uyumlu. Entry 1.0493, stop 1.0937 (+1 ATR), target 0.9827 (-1.5 ATR), confidence low. ANCAK RSI 11.07 kapitulasyon.",
-      "challenger": "Uc kirilma: (1) RSI 11 zamanlama korlugu - en olgun noktada giris, +1 ATR stop genisleyen volatilitede dar, (2) MACDh ~0 momentum tukenmis - giris ufku 15m/1h range yonsuz, entry edge yok, (3) funding short-crowding + bear -> squeeze yakiti, R:R asimetrisi bozuk. on-chain available:False -> squeeze seviyeleri kor."
+      "analyst": "1d down, long yasak. RSI 16.23 ekstrem oversold, short R:R cok zayif -> tez uretilmedi, WAIT onerildi.",
+      "challenger": "n/a — analyst zaten WAIT (ekstrem oversold short acilmaz)."
     },
     "HYPE": {
-      "analyst": "Zayif LONG adayi / muhtemelen WAIT: 1d/1h/15m up ama trigger=false, RSI 46 notr, MACDh negatif, genel rejim bear.",
-      "challenger": "Dort 'edge yok' isareti (trigger=false, RSI notr, MACDh negatif+crossdown, 4h range) long'u tasiyan tek ayagi (1d-up) zayiflatiyor; o ayak momentumla celisiyor. Bear rejimde 1d-up yalniz, long-squeeze riski, on-chain kor. WAIT lensi tutarli."
+      "analyst": "Trigger yok, RSI notr, 1d up. Short counter-trend, long edge yok -> WAIT.",
+      "challenger": "n/a — trigger yok, kurulum yok."
     }
   },
-  "_meta": {
-    "llm": "ok"
-  }
+  "_meta": {"llm": "ok"}
 }

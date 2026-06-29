@@ -1,8 +1,14 @@
 {
-  "decision": null,
-  "wait_reason": "Eszamanli poz tavani DOLU (maks 2): BTC buy @60453 + XRP buy @1.0473 acik. Mevcut snapshot'ta (BTC 59827, XRP 1.0493) ikisi de stop/target'a degmedi -> kapanmadi, yeni slot yok. Istah var ama kod tavani geregi bu tur yeni poz acilamaz. Aday: HYPE 15m/1h up momentum-long ya da BTC/ETH/XRP oversold-bounce long; ama slot olmadigi icin pas.",
-  "_meta": {
-    "llm": "ok",
-    "snapshot_ts": "2026-06-29T16:55:54.209529+00:00"
-  }
+  "decision": {
+    "coin": "ETH",
+    "side": "buy",
+    "entry": 1624.3,
+    "stop": 1591.8,
+    "target": 1713.6,
+    "leverage": 15,
+    "thesis": "ETH oversold-bounce momentum long: RSI 28.73 dipte + MACD histogram pozitif (+2.53) + 15m VE 1h trend UP = taze yukari ivme teyidi. 1d down counter-trend ama psikomanyak momentum kovalar; LTF iki ufukta yukari kirilim var.",
+    "detailed_rationale": "Snapshot 2026-06-29T18:01 UTC. ETH price 1624.3, ATR 77.3, funding ~0 short-agirlikli (kalabalik short = squeeze yakiti long lehine). Stop 1591.8 (~%2, ~0.42 ATR alti), target 1713.6 (~%5.5, ~1.15 ATR ustu), R:R ~2.75:1. Lev 15x. 4 varlik icinde en temiz momentum donusu: BTC MACDh daha guclu (+9.97) ama 15m/1h/4h hepsi range (LTF teyit yok); ETH'de 15m+1h fiilen UP. XRP zaten acik. HYPE momentum yok. NOT: psikomanyak halihazirda 2 acik poz (BTC+XRP long) tutuyor; kod eszamanli 2-slot tavanini uygular -> bu oneri slot bosalmadigi icin muhtemelen reddedilir."
+  },
+  "wait_reason": "",
+  "_meta": {"llm": "ok"}
 }

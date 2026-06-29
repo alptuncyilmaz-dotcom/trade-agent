@@ -16,3 +16,4 @@
 {"timestamp": "2026-06-28T21:08:48.709628+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "HYPE", "action": "skip_max", "reason": "maks 2 poz dolu"}]}
 {"timestamp": "2026-06-28T21:09:55.465899+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "HYPE", "action": "skip_max", "reason": "maks 2 poz dolu"}]}
 {"timestamp": "2026-06-29T16:59:34.005129+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": []}
+{"timestamp": "2026-06-29T18:06:17.397458+00:00", "agent": "psikomanyak", "balance": 4000, "regime": "bear", "log": [{"coin": "ETH", "action": "skip_max", "reason": "maks 2 poz dolu"}]}
