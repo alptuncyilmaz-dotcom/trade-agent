@@ -77,3 +77,11 @@ Kaynaklar: [coinpedia](https://coinpedia.org/price-analysis/bitcoin-ethereum-and
 API Error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
 === ROUTINE (Claude) BİTTİ — 2026-06-28T21:59:04Z (exit 0) ===
 === ROUTINE (Claude) BAŞLADI — 2026-06-29T16:55:34Z ===
+Tur tamam — 8 adım sırayla yürütüldü.
+
+**Özet:** Snapshot `2026-06-29T16:55Z` (rejim **bear**; BTC $59.8k RSI 22.6 / ETH $1.58k RSI 20.4 / XRP $1.05 RSI 11.1 — üçü 1d-down; HYPE $64.7 RSI 46 1d-up trigger yok). **A (deterministic)**: 4 varlık WAIT (BTC/ETH/XRP counter-trend long yasak, HYPE RSI ekstrem değil) → **eq $4000, 0 açık poz**. **B (deep-thinker)**: analist 3 short + 1 zayıf-long tezi üretti, 4 bağımsız challenger çağrıldı; hepsi ciddi kırdı (oversold dibe-short kovalama + işlem ufku range whipsaw + crowded-short squeeze riski; HYPE'ta edge yok) → 4 varlık WAIT → **eq $4000, 0 açık poz**. **C (aggressive)**: A ile aynı, 4 WAIT → **eq $4000, 0 açık poz**. **D (psikomanyak)**: eşzamanlı poz tavanı (maks 2) dolu — BTC buy @60453 (K/Z −1.04%) + XRP buy @1.0473 (+0.19%) açık, ikisi de stop/target'a değmedi → yeni poz açılmadı (decision=null) → **balance $4000 / eq $3966, 2 açık poz**. Haber/makro (WebSearch): şahin Fed (Warsh, dot-plot %3.4→%3.8, indirim yok), ETF çıkışları, güçlü dolar → bear teyit; en yeni journal'a kaynaklı dolduruldu (karara girmez). Commit `103cda4` push edildi, dashboard sync OK.
+
+Demir kurallar korundu: A/B/C aynı sizing; D ayrı/izole (aşırı risk, yalnız gözlem); deep-thinker + psikomanyak otonom ve turlar arası öğrenmez; tüm emirler testnet/paper — **gerçek para YOK**.
+
+Kaynaklar: [Yahoo Finance — 29 Haz 2026](https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-monday-june-29-2026-prices-continue-to-move-lower-132348850.html), [Fortune BTC fiyatı](https://fortune.com/article/price-of-bitcoin-06-29-2026/), [FOMC Haziran 2026 etki](https://intellectia.ai/blog/fomc-june-2026-crypto-impact), [KuCoin Fed/likidite](https://www.kucoin.com/blog/en-fomc-interest-rate-decisions-and-cryptocurrency-how-fed-policy-is-shaping-crypto-banks-and-global-liquidity-in-2026).
+=== ROUTINE (Claude) BİTTİ — 2026-06-29T17:00:58Z (exit 0) ===

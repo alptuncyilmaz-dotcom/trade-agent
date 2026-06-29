@@ -34,12 +34,13 @@ def reference_levels(price, atr, side):
     return None, None
 
 
-def opportunity_gate(asset):
+def opportunity_gate(asset, allow_counter_trend=False):
     """Ön-eleme: bu varlıkta meşru bir giriş fırsatı OLABİLİR mi?
     Döner: (passes: bool, side: str|None, reason: str).
     Geçerse LLM derin analiz yapar; geçmezse doğrudan WAIT (LLM harcanmaz).
+    allow_counter_trend=True yalnız C (aggressive) kolu için — counter-trend dip-alımı açar.
     Not: Gate KARAR vermez — sadece 'bakmaya değer mi' kapısıdır."""
-    tr = rules.evaluate(asset)
+    tr = rules.evaluate(asset, allow_counter_trend)
     if tr.blockers:
         return False, None, "; ".join(tr.blockers)
     if not tr.fired:
@@ -50,10 +51,10 @@ def opportunity_gate(asset):
     return True, tr.side, reason
 
 
-def wait_diagnosis(asset):
+def wait_diagnosis(asset, allow_counter_trend=False):
     """Trade açılmayan varlık için kısa, yapısal WAIT gerekçesi üretir.
     state/deepthinker_decision.json'daki 'waits' metinleriyle aynı dille tutarlı."""
-    tr = rules.evaluate(asset)
+    tr = rules.evaluate(asset, allow_counter_trend)
     trend_1d = asset["trends"]["1d"]
     parts = []
     if tr.blockers:

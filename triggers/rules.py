@@ -83,8 +83,10 @@ def rsi_extreme(rsi):
     return None
 
 
-def evaluate(asset):
+def evaluate(asset, allow_counter_trend=False):
     """Bir varlığı değerlendirip TriggerResult döndürür.
+    allow_counter_trend=True (yalnız C/aggressive kolu): counter-trend'i YASAK'lamaz,
+    aksine dip-alımı/tepe-satışı olarak AÇAR (A/B saf kalır, default False).
 
     Tetik tanımı (capture_snapshot.compute_trigger ile aynı çekirdek):
       fired = (RSI ekstrem) AND (MACD cross teyitli)
@@ -121,25 +123,37 @@ def evaluate(asset):
         return res
 
     if trend_1d == "down":
-        # ayı: short pro-trend, long counter-trend (yasak)
+        # ayı: short pro-trend, long counter-trend
         if cross == "up" or ext == "oversold":
-            res.blockers.append("counter-trend long (1d down) → YASAK")
-            _annotate_context(res, asset, trend_1d)
-            return res
-        res.fired = True
-        res.side = "sell"
-        if rsi < RSI_LATE_SHORT:
-            res.warnings.append(f"H-03 simetrik: RSI {rsi} < {RSI_LATE_SHORT}, geç short riski")
+            if allow_counter_trend:
+                res.fired = True
+                res.side = "buy"
+                res.reasons.append("counter-trend long (1d down) — agresif dip-alımı (C)")
+            else:
+                res.blockers.append("counter-trend long (1d down) → YASAK")
+                _annotate_context(res, asset, trend_1d)
+                return res
+        else:
+            res.fired = True
+            res.side = "sell"
+            if rsi < RSI_LATE_SHORT:
+                res.warnings.append(f"H-03 simetrik: RSI {rsi} < {RSI_LATE_SHORT}, geç short riski")
 
     elif trend_1d == "up":
         if cross == "down" or ext == "overbought":
-            res.blockers.append("counter-trend short (1d up) → YASAK")
-            _annotate_context(res, asset, trend_1d)
-            return res
-        res.fired = True
-        res.side = "buy"
-        if rsi > RSI_LATE_LONG:
-            res.warnings.append(f"H-03: RSI {rsi} > {RSI_LATE_LONG}, geç-giriş (aşırı-uzamış) riski")
+            if allow_counter_trend:
+                res.fired = True
+                res.side = "sell"
+                res.reasons.append("counter-trend short (1d up) — agresif tepe-satışı (C)")
+            else:
+                res.blockers.append("counter-trend short (1d up) → YASAK")
+                _annotate_context(res, asset, trend_1d)
+                return res
+        else:
+            res.fired = True
+            res.side = "buy"
+            if rsi > RSI_LATE_LONG:
+                res.warnings.append(f"H-03: RSI {rsi} > {RSI_LATE_LONG}, geç-giriş (aşırı-uzamış) riski")
 
     _annotate_context(res, asset, trend_1d)
     return res

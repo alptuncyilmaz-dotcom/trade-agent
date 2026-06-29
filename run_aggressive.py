@@ -37,10 +37,11 @@ def append_jsonl(path, record):
 
 
 def decide(asset):
-    """Kural-bazlı karar — deterministic ile AYNI (tek kaynak triggers/rules)."""
-    passes, side, reason = autonomous.opportunity_gate(asset)
+    """Kural-bazlı karar — C AGRESİF: counter-trend dip-alımı AÇIK (A'dan tek farkı bu + sizing).
+    A (deterministic) counter-trend YASAK kalır; C oversold-downtrend'de long, overbought-uptrend'de short açar."""
+    passes, side, reason = autonomous.opportunity_gate(asset, allow_counter_trend=True)
     if not passes:
-        return "wait", None, autonomous.wait_diagnosis(asset)
+        return "wait", None, autonomous.wait_diagnosis(asset, allow_counter_trend=True)
     stop, target = autonomous.reference_levels(asset["price"], asset["atr"], side)
     return "open", {"side": side, "entry": asset["price"], "stop": stop, "target": target}, reason
 

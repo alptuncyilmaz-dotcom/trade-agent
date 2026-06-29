@@ -1,5 +1,33 @@
 {
   "phase": "faz1",
   "balance": 4000,
-  "positions": {}
+  "positions": {
+    "BTC": {
+      "side": "buy",
+      "entry": 60368.0,
+      "stop": 57122.3215,
+      "target": 66859.3571,
+      "notional": 3719.9,
+      "leverage": 12.47,
+      "decided_at": "2026-06-29T17:27:11.343470+00:00"
+    },
+    "ETH": {
+      "side": "buy",
+      "entry": 1623.3,
+      "stop": 1507.8214,
+      "target": 1854.2571,
+      "notional": 2811.43,
+      "leverage": 6.97,
+      "decided_at": "2026-06-29T17:27:11.343470+00:00"
+    },
+    "XRP": {
+      "side": "buy",
+      "entry": 1.0624,
+      "stop": 0.9957,
+      "target": 1.1959,
+      "notional": 3185.61,
+      "leverage": 9.6,
+      "decided_at": "2026-06-29T17:27:11.343470+00:00"
+    }
+  }
 }
